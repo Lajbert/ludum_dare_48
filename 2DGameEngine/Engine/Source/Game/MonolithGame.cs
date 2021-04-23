@@ -208,7 +208,7 @@ namespace MonolithEngine.Engine.Source.MyGame
             }
 
             spriteBatch.Begin();
-            spriteBatch.DrawString(font, fps, new Vector2(1, 100), Color.Red);
+            spriteBatch.DrawString(font, fps, new Vector2(1, 1), Color.Red);
             spriteBatch.End();
 
 

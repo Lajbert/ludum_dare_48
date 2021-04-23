@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace MonolithEngine.Engine.Source.Util
 {
-    internal class AssetUtil
+    public class AssetUtil
     {
 
         public static GraphicsDeviceManager GraphicsDeviceManager;

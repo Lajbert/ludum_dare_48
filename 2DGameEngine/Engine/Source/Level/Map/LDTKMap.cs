@@ -110,6 +110,11 @@ namespace MonolithEngine.Source.Level
                             int y = (int)Math.Floor((decimal)grid.CoordId / layerInstance.CWid);
                             int x = (int)(grid.CoordId - y * layerInstance.CWid);
                             StaticCollider e = new StaticCollider(scene, (new Vector2(x, y)));
+
+                            Entity visual = new Entity(scene.LayerManager.EntityLayer, null, new Vector2(x, y) * Config.GRID);
+                            visual.AddComponent(new Sprite(visual, AssetUtil.CreateRectangle(Config.GRID, Color.Black)));
+                            visual.Visible = true;
+                            visual.Active = true;
                             switch (grid.V)
                             {
                                 case 0:

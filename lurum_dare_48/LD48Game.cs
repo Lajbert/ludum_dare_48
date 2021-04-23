@@ -54,7 +54,7 @@ namespace lurum_dare_48
         {
             base.Update(gameTime);
 
-            KeyboardState state = Keyboard.GetState();
+            /*KeyboardState state = Keyboard.GetState();
 
             if (prevKeyboardState != state && state.IsKeyDown(Keys.R))
             {
@@ -76,7 +76,7 @@ namespace lurum_dare_48
             //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             //    Exit();
 
-            prevKeyboardState = state;
+            prevKeyboardState = state;*/
         }
     }
 }

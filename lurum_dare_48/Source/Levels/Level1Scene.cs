@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using lurum_dare_48.Source.Entities;
+using Microsoft.Xna.Framework.Graphics;
 using MonolithEngine.Engine.Source.Scene;
 using MonolithEngine.Engine.Source.Scene.Transition;
 using MonolithEngine.Source.Level;
@@ -12,6 +13,7 @@ namespace lurum_dare_48.Source.Levels
     {
         private SpriteFont font;
         private LDTKMap world;
+        private Hero hero;
 
         public Level1Scene(LDTKMap world, SpriteFont font) : base ("Level_1")
         {
@@ -36,7 +38,13 @@ namespace lurum_dare_48.Source.Levels
 
         public override void Load()
         {
-            
+            Camera.Zoom += 0.5f;
+
+            EntityParser parser = new EntityParser(world);
+
+            parser.LoadEntities(this, sceneName);
+
+            hero = parser.GetHero();
         }
 
         public override void OnEnd()
@@ -51,7 +59,7 @@ namespace lurum_dare_48.Source.Levels
 
         public override void OnStart()
         {
-            
+            Camera.TrackTarget(hero, true);
         }
     }
 }
