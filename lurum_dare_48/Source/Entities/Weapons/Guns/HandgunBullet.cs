@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using lurum_dare_48.Source.Entities.Enemies;
+using Microsoft.Xna.Framework;
 using MonolithEngine;
 using MonolithEngine.Engine.Source.Entities;
 using MonolithEngine.Engine.Source.Entities.Abstract;
@@ -13,9 +14,11 @@ using System.Text;
 
 namespace lurum_dare_48.Source.Entities.Weapons.Guns
 {
-    class HandgunBullet : PhysicalEntity
+    class HandgunBullet : PhysicalEntity, IBullet
     {
         private Vector2 drawOffset = new Vector2(-4, -4);
+
+        protected Vector2 ImpactForce = new Vector2(0.3f, 0);
 
         public HandgunBullet(AbstractScene scene, Vector2 position, Direction direction) : base(scene.LayerManager.EntityLayer, null, position)
         {
@@ -25,6 +28,7 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
             if (direction == Direction.WEST)
             {
                 Velocity *= -1;
+                ImpactForce.X *= -1;
             }
 
             AddCollisionAgainst("Enemy");
@@ -52,12 +56,18 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
             }
         }
 
+        public Vector2 GetImpactForce()
+        {
+            return ImpactForce;
+        }
+
         public override void OnCollisionStart(IGameObject otherCollider)
         {
             if (otherCollider.HasTag("Enemy"))
             {
                 Destroy();
-                otherCollider.Destroy();
+                (otherCollider as AbstractEnemy).Hit(this);
+                //otherCollider.Destroy();
             }
 
             base.OnCollisionStart(otherCollider);

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using lurum_dare_48.Source.Entities.Weapons.Guns;
+using Microsoft.Xna.Framework;
 using MonolithEngine;
 using MonolithEngine.Engine.Source.Entities;
 using MonolithEngine.Engine.Source.Graphics;
@@ -36,6 +37,11 @@ namespace lurum_dare_48.Source.Entities.Enemies
                 Velocity += speed;
             }
             base.FixedUpdate();
+        }
+
+        public void Hit(IBullet bullet)
+        {
+            Velocity += bullet.GetImpactForce();
         }
     }
 }

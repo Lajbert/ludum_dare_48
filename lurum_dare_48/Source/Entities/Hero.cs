@@ -176,21 +176,21 @@ namespace lurum_dare_48.Source.Entities
 
             });
 
-            UserInput.RegisterKeyPressAction(Keys.NumPad1, (Vector2 thumbStickPosition) =>
+            UserInput.RegisterKeyPressAction(Keys.D1, (Vector2 thumbStickPosition) =>
             {
                 CurrentWeapon?.Destroy();
                 CurrentWeapon = new Handgun(Scene, this);
 
             }, true);
 
-            UserInput.RegisterKeyPressAction(Keys.NumPad2, (Vector2 thumbStickPosition) =>
+            UserInput.RegisterKeyPressAction(Keys.D2, (Vector2 thumbStickPosition) =>
             {
                 CurrentWeapon?.Destroy();
                 CurrentWeapon = new Machinegun(Scene, this);
 
             }, true);
 
-            UserInput.RegisterKeyPressAction(Keys.NumPad3, (Vector2 thumbStickPosition) =>
+            UserInput.RegisterKeyPressAction(Keys.D3, (Vector2 thumbStickPosition) =>
             {
                 CurrentWeapon?.Destroy();
                 CurrentWeapon = new Shotgun(Scene, this);

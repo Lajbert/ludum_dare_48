@@ -13,12 +13,15 @@ namespace lurum_dare_48.Source.Entities.Triggers
 {
     class EnemyPatrolTrigger : Entity
     {
+        private float width;
+
         public EnemyPatrolTrigger(AbstractScene scene, int width, int height, Vector2 position) : base (scene.LayerManager.EntityLayer, null, position)
         {
             AddComponent(new BoxTrigger(this, width, height, Vector2.Zero, tag: ""));
             Visible = true;
             Active = true;
             DEBUG_SHOW_COLLIDER = true;
+            this.width = width;
         }
 
         public override void OnLeaveTrigger(string triggerTag, IGameObject otherEntity)
@@ -26,13 +29,13 @@ namespace lurum_dare_48.Source.Entities.Triggers
             if (otherEntity is AbstractEnemy)
             {
                 AbstractEnemy enemy = (otherEntity as AbstractEnemy);
-                if (enemy.CurrentFaceDirection == Direction.WEST)
+                if (enemy.Transform.Position.X > Transform.Position.X + (width/2))
                 {
-                    enemy.CurrentFaceDirection = Direction.EAST;
+                    enemy.CurrentFaceDirection = Direction.WEST;
                 }
                 else
                 {
-                    enemy.CurrentFaceDirection = Direction.WEST;
+                    enemy.CurrentFaceDirection = Direction.EAST;
                 }
             }
             base.OnLeaveTrigger(triggerTag, otherEntity);
