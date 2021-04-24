@@ -43,6 +43,7 @@ namespace lurum_dare_48
             Assets.LoadTexture("HeroIdle", "Hero/Sprites/left_idle");
             Assets.LoadTexture("HeroRun", "Hero/Sprites/run_left");
             Assets.LoadTexture("HeroRunBackwards", "Hero/Sprites/run_backwards_left");
+            Assets.LoadTexture("Jetpacking", "Hero/Sprites/jatpack_on");
 
             Assets.LoadTexture("Gun", "Hero/Sprites/handgun_left");
 

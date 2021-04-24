@@ -116,10 +116,10 @@ namespace lurum_dare_48.Source.Entities
                     (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(3, -17));
                 }
             };
-            animations.RegisterAnimation("IdleLeft", idleLeft, () => Velocity.X <= 0.1f && Velocity.X >= -0.1f && CurrentFaceDirection == Direction.WEST);
+            animations.RegisterAnimation("IdleLeft", idleLeft, () => Velocity.X == 0 && CurrentFaceDirection == Direction.WEST);
 
             SpriteSheetAnimation idleRight = idleLeft.CopyFlipped();
-            animations.RegisterAnimation("IdleRight", idleRight, () => Velocity.X <= 0.1f && Velocity.X >= -0.1f && CurrentFaceDirection == Direction.EAST);
+            animations.RegisterAnimation("IdleRight", idleRight, () => Velocity.X == 0 && CurrentFaceDirection == Direction.EAST);
 
             SpriteSheetAnimation runLeft = new SpriteSheetAnimation(this, Assets.GetTexture("HeroRun"), 40);
             runLeft.StartedCallback = () =>
@@ -144,10 +144,10 @@ namespace lurum_dare_48.Source.Entities
                     (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(-1, -17));
                 }
             };
-            animations.RegisterAnimation("RunLeft", runLeft, () => Velocity.X < -0.1 && CurrentFaceDirection == Direction.WEST);
+            animations.RegisterAnimation("RunLeft", runLeft, () => Velocity.X < 0 && CurrentFaceDirection == Direction.WEST);
 
             SpriteSheetAnimation runRight = runLeft.CopyFlipped();
-            animations.RegisterAnimation("RunRight", runRight, () => Velocity.X > 0.1 && CurrentFaceDirection == Direction.EAST);
+            animations.RegisterAnimation("RunRight", runRight, () => Velocity.X > 0 && CurrentFaceDirection == Direction.EAST);
 
             SpriteSheetAnimation runBackwardsLeft = new SpriteSheetAnimation(this, Assets.GetTexture("HeroRunBackwards"), 40);
             runBackwardsLeft.StartedCallback = () =>
@@ -184,6 +184,12 @@ namespace lurum_dare_48.Source.Entities
 
             SpriteSheetAnimation jumpRight = jumpLeft.CopyFlipped();
             animations.RegisterAnimation("JumpRight", jumpRight, () => !IsOnGround && CurrentFaceDirection == Direction.EAST, 1);
+
+            SpriteSheetAnimation jetpackLeft = new SpriteSheetAnimation(this, Assets.GetTexture("Jetpacking"), 40);
+            animations.RegisterAnimation("JetpackLeft", jetpackLeft, () => flying && CurrentFaceDirection == Direction.WEST, 2);
+
+            SpriteSheetAnimation jetpackRight = jetpackLeft.CopyFlipped();
+            animations.RegisterAnimation("JetpackRight", jetpackRight, () => flying && CurrentFaceDirection == Direction.EAST, 2);
 
             animations.AddFrameTransition("RunLeft", "RunBackwardsLeft");
             animations.AddFrameTransition("RunRight", "RunBackwardsRight");
