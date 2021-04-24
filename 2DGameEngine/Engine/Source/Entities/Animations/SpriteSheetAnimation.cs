@@ -81,7 +81,7 @@ namespace MonolithEngine.Source.Entities
         public SpriteSheetAnimation CopyFlipped()
         {
             SpriteSheetAnimation newAnim = Copy();
-            newAnim.Flip();
+            newAnim.FlipHorizontal();
             return newAnim;
         }
 

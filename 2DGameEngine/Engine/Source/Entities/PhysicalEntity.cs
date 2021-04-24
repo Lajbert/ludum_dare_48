@@ -168,7 +168,7 @@ namespace MonolithEngine
 
             if (previousRotation != Transform.Rotation)
             {
-                DrawRotation = MathUtil.LerpRotationDegrees(previousRotation, Transform.Rotation, Globals.FixedUpdateAlpha);
+                AnimationRotation = MathUtil.LerpRotationDegrees(previousRotation, Transform.Rotation, Globals.FixedUpdateAlpha);
             }
 
             base.Update();

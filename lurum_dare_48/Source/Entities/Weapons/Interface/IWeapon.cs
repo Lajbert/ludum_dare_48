@@ -23,5 +23,7 @@ namespace lurum_dare_48.Source.Entities.Weapons
         public void Destroy();
 
         public void FollowMouse(Vector2 mouseWorldPosition);
+
+        public void SetAnimationBreathingOffset(Vector2 breathOffset);
     }
 }

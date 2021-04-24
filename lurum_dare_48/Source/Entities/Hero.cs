@@ -57,6 +57,8 @@ namespace lurum_dare_48.Source.Entities
 
             CanFireTriggers = true;
 
+            DrawPriority = 10;
+
             AddCollisionAgainst("Pickup");
             AddCollisionAgainst("Door", false);
             AddCollisionAgainst("Key");
@@ -75,19 +77,101 @@ namespace lurum_dare_48.Source.Entities
             animations.Offset = offset;
             AddComponent(animations);
 
-            SpriteSheetAnimation idleLeft = new SpriteSheetAnimation(this, Assets.GetTexture("HeroIdle"), 40);
+            SpriteSheetAnimation idleLeft = new SpriteSheetAnimation(this, Assets.GetTexture("HeroIdle"), 24);
+            /*idleLeft.AnimationSwitchCallback = () => { if (CurrentWeapon != null) CurrentWeapon.SetAnimationBreathingOffset(Vector2.Zero); };
+            idleLeft.EveryFrameAction = (frame) =>
+                {
+                    if (CurrentWeapon == null) return;
+                    float unit = 0.5f;
+                    float offsetY = 0;
+                    if (frame == 2 || frame == 3 || frame == 4)
+                    {
+                        offsetY += unit;
+                    }
+                    else if (frame == 6 || frame == 7)
+                    {
+                        offsetY -= unit;
+                    }
+                    CurrentWeapon.SetAnimationBreathingOffset(new Vector2(0, offsetY));
+                };*/
+            idleLeft.StartedCallback = () =>
+            {
+                if (CurrentWeapon == null)
+                {
+                    return;
+                }
+                if (CurrentWeapon is Shotgun)
+                {
+                    (CurrentWeapon as Handgun).SetLeftFacingOffset(new Vector2(-3, -17));
+                    (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(3, -17));
+                }
+                else if (CurrentWeapon is Machinegun)
+                {
+                    (CurrentWeapon as Handgun).SetLeftFacingOffset(new Vector2(-3, -17));
+                    (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(3, -17));
+                }
+                else if (CurrentWeapon is Handgun)
+                {
+                    (CurrentWeapon as Handgun).SetLeftFacingOffset(new Vector2(-3, -17));
+                    (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(3, -17));
+                }
+            };
             animations.RegisterAnimation("IdleLeft", idleLeft, () => Velocity.X <= 0.1f && Velocity.X >= -0.1f && CurrentFaceDirection == Direction.WEST);
 
             SpriteSheetAnimation idleRight = idleLeft.CopyFlipped();
             animations.RegisterAnimation("IdleRight", idleRight, () => Velocity.X <= 0.1f && Velocity.X >= -0.1f && CurrentFaceDirection == Direction.EAST);
 
             SpriteSheetAnimation runLeft = new SpriteSheetAnimation(this, Assets.GetTexture("HeroRun"), 40);
+            runLeft.StartedCallback = () =>
+            {
+                if (CurrentWeapon == null)
+                {
+                    return;
+                }
+                if (CurrentWeapon is Shotgun)
+                {
+                    (CurrentWeapon as Handgun).SetLeftFacingOffset(new Vector2(-3, -17));
+                    (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(3, -17));
+                }
+                else if (CurrentWeapon is Machinegun)
+                {
+                    (CurrentWeapon as Handgun).SetLeftFacingOffset(new Vector2(-3, -17));
+                    (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(3, -17));
+                }
+                else if (CurrentWeapon is Handgun)
+                {
+                    (CurrentWeapon as Handgun).SetLeftFacingOffset(new Vector2(1, -17));
+                    (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(-1, -17));
+                }
+            };
             animations.RegisterAnimation("RunLeft", runLeft, () => Velocity.X < -0.1 && CurrentFaceDirection == Direction.WEST);
 
             SpriteSheetAnimation runRight = runLeft.CopyFlipped();
             animations.RegisterAnimation("RunRight", runRight, () => Velocity.X > 0.1 && CurrentFaceDirection == Direction.EAST);
 
             SpriteSheetAnimation runBackwardsLeft = new SpriteSheetAnimation(this, Assets.GetTexture("HeroRunBackwards"), 40);
+            runBackwardsLeft.StartedCallback = () =>
+            {
+                if (CurrentWeapon == null)
+                {
+                    return;
+                }
+                if (CurrentWeapon is Shotgun)
+                {
+                    (CurrentWeapon as Handgun).SetLeftFacingOffset(new Vector2(-3, -17));
+                    (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(3, -17));
+                }
+                else if (CurrentWeapon is Machinegun)
+                {
+                    (CurrentWeapon as Handgun).SetLeftFacingOffset(new Vector2(-3, -17));
+                    (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(3, -17));
+                }
+                else if (CurrentWeapon is Handgun)
+                {
+                    (CurrentWeapon as Handgun).SetLeftFacingOffset(new Vector2(1, -17));
+                    (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(-1, -17));
+                }
+            };
             animations.RegisterAnimation("RunBackwardsLeft", runBackwardsLeft, () => Velocity.X > 0 && CurrentFaceDirection == Direction.WEST);
 
             SpriteSheetAnimation runRighrunBackwardsRight = runBackwardsLeft.CopyFlipped();
@@ -115,8 +199,6 @@ namespace lurum_dare_48.Source.Entities
             };
 
             AddComponent(new BoxCollisionComponent(this, 18, 30, new Vector2(-8, -30)));
-            //DEBUG_SHOW_COLLIDER = true;
-            //DEBUG_SHOW_PIVOT = true;
             CurrentWeapon = new Handgun(scene, this);
         }
 

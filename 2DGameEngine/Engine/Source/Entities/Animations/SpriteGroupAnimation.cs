@@ -33,7 +33,7 @@ namespace MonolithEngine.Source.Entities.Animation
         public SpriteGroupAnimation CopyFlipped()
         {
             SpriteGroupAnimation newAnim = Copy();
-            newAnim.Flip();
+            newAnim.FlipHorizontal();
             return newAnim;
         }
 

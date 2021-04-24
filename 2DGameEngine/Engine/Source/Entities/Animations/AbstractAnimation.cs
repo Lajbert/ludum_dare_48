@@ -87,7 +87,7 @@ namespace MonolithEngine.Source.Entities.Animation
 
         public virtual void Play(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(GetTexture(), (Parent.DrawPosition + Offset), SourceRectangle, Color.White, Parent.DrawRotation, Pivot, Scale, SpriteEffect, 0f);
+            spriteBatch.Draw(GetTexture(), (Parent.DrawPosition + Offset), SourceRectangle, Color.White, Parent.AnimationRotation, Pivot, Scale, SpriteEffect, 0f);
         }
 
         protected abstract Texture2D GetTexture();
@@ -184,15 +184,14 @@ namespace MonolithEngine.Source.Entities.Animation
             Running = false;
         }
 
-        public void Flip()
+        public void FlipHorizontal()
         {
-            if (this.SpriteEffect == SpriteEffects.None)
-            {
-                SpriteEffect = SpriteEffects.FlipHorizontally;
-            } else
-            {
-                SpriteEffect = SpriteEffects.None;
-            }
+            SpriteEffect |= SpriteEffects.FlipHorizontally;
+        }
+
+        public void FlipVertical()
+        {
+            SpriteEffect |= SpriteEffects.FlipVertically;
         }
 
         public void AddFrameAction(int frame, Action<int> action)

@@ -42,7 +42,9 @@ namespace lurum_dare_48
 
             Assets.LoadTexture("HeroIdle", "Hero/Sprites/left_idle");
             Assets.LoadTexture("HeroRun", "Hero/Sprites/run_left");
-            Assets.LoadTexture("HeroRunBackwards", "Hero/Sprites/run_backwards_left"); 
+            Assets.LoadTexture("HeroRunBackwards", "Hero/Sprites/run_backwards_left");
+
+            Assets.LoadTexture("Gun", "Hero/Sprites/handgun_left");
 
             MapSerializer mapSerializer = new LDTKJsonMapParser();
             world = mapSerializer.Load("D:/GameDev/MonoGame/lurum_dare_48/lurum_dare_48/lurum_dare_48/Maps/ld_48_world.json");

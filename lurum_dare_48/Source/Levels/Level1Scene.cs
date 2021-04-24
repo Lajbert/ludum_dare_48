@@ -20,7 +20,7 @@ namespace lurum_dare_48.Source.Levels
         {
             this.font = font;
             this.world = world;
-            BackgroundColor = Color.Black;
+            BackgroundColor = Color.CornflowerBlue;
         }
 
         public override ICollection<object> ExportData()
