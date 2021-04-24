@@ -50,6 +50,8 @@ namespace lurum_dare_48.Source.Entities
 
         public List<IGameObject> CarriedItems = new List<IGameObject>();
 
+        public bool IsKicking = false;
+
         public Hero(AbstractScene scene, Vector2 position) : base(scene.LayerManager.EntityLayer, null, position)
         {
 
@@ -191,6 +193,82 @@ namespace lurum_dare_48.Source.Entities
             SpriteSheetAnimation jetpackRight = jetpackLeft.CopyFlipped();
             animations.RegisterAnimation("JetpackRight", jetpackRight, () => flying && CurrentFaceDirection == Direction.EAST, 2);
 
+            SpriteSheetAnimation kickLeft = new SpriteSheetAnimation(this, Assets.GetTexture("Kick"), 40);
+            kickLeft.Looping = false;
+            kickLeft.StartedCallback = () =>
+            {
+                IsKicking = true;
+                if (IsOnGround)
+                {
+                    MovementSpeed = 0;
+                }
+
+                if (CurrentWeapon == null)
+                {
+                    return;
+                }
+                if (CurrentWeapon is Shotgun)
+                {
+                    (CurrentWeapon as Handgun).SetLeftFacingOffset(new Vector2(-3, -17));
+                    (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(3, -17));
+                }
+                else if (CurrentWeapon is Machinegun)
+                {
+                    (CurrentWeapon as Handgun).SetLeftFacingOffset(new Vector2(-3, -17));
+                    (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(3, -17));
+                }
+                else if (CurrentWeapon is Handgun)
+                {
+                    (CurrentWeapon as Handgun).SetLeftFacingOffset(new Vector2(1, -17));
+                    (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(-1, -17));
+                }
+            };
+
+            kickLeft.StoppedCallback = () =>
+            {
+                IsKicking = false;
+                MovementSpeed = Config.CHARACTER_SPEED;
+            };
+            animations.RegisterAnimation("KickLeft", kickLeft, () => false);
+
+            SpriteSheetAnimation kickRight = kickLeft.CopyFlipped();
+            animations.RegisterAnimation("KickRight", kickRight, () => false);
+
+            SpriteSheetAnimation kickJetpackLeft = new SpriteSheetAnimation(this, Assets.GetTexture("KickJetpacking"), 40);
+            kickJetpackLeft.Looping = false;
+            kickJetpackLeft.StartedCallback = () =>
+            {
+                IsKicking = true;
+
+                if (CurrentWeapon == null)
+                {
+                    return;
+                }
+                if (CurrentWeapon is Shotgun)
+                {
+                    (CurrentWeapon as Handgun).SetLeftFacingOffset(new Vector2(-3, -17));
+                    (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(3, -17));
+                }
+                else if (CurrentWeapon is Machinegun)
+                {
+                    (CurrentWeapon as Handgun).SetLeftFacingOffset(new Vector2(-3, -17));
+                    (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(3, -17));
+                }
+                else if (CurrentWeapon is Handgun)
+                {
+                    (CurrentWeapon as Handgun).SetLeftFacingOffset(new Vector2(1, -17));
+                    (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(-1, -17));
+                }
+            };
+            kickJetpackLeft.StoppedCallback = () =>
+            {
+                IsKicking = false;
+            };
+            animations.RegisterAnimation("KickJetpackLeft", kickJetpackLeft, () => false);
+
+            SpriteSheetAnimation kickJetpackRight = kickJetpackLeft.CopyFlipped();
+            animations.RegisterAnimation("KickJetpackRight", kickJetpackRight, () => false);
+
             animations.AddFrameTransition("RunLeft", "RunBackwardsLeft");
             animations.AddFrameTransition("RunRight", "RunBackwardsRight");
             animations.AddFrameTransition("RunLeft", "RunRight");
@@ -250,7 +328,7 @@ namespace lurum_dare_48.Source.Entities
 
             UserInput.LeftClickPressedAction = (mousePosition) =>
             {
-                if (CurrentWeapon != null && !CurrentWeapon.IsEmpty())
+                if (CurrentWeapon != null && !CurrentWeapon.IsEmpty() && !IsKicking)
                 {
                     CurrentWeapon.TriggerPulled(Scene.Camera.ScreenToWorldSpace(mousePosition));
                 }
@@ -258,12 +336,39 @@ namespace lurum_dare_48.Source.Entities
 
             UserInput.LeftClickUpAction = (mousePosition) =>
             {
-                if (CurrentWeapon != null && !CurrentWeapon.IsEmpty())
+                if (CurrentWeapon != null && !CurrentWeapon.IsEmpty() && !IsKicking)
                 {
                     CurrentWeapon.TriggerReleased(Scene.Camera.ScreenToWorldSpace(mousePosition));
                 }
             };
 
+
+            UserInput.RightClickDownAction = (mousePosition) =>
+            {
+                if (CurrentFaceDirection == Direction.WEST)
+                {
+                    if (flying)
+                    {
+                        GetComponent<AnimationStateMachine>().PlayAnimation("KickJetpackLeft");
+                    }
+                    else
+                    {
+                        GetComponent<AnimationStateMachine>().PlayAnimation("KickLeft");
+                    }
+                }
+                else
+                {
+                    if (flying)
+                    {
+                        GetComponent<AnimationStateMachine>().PlayAnimation("KickJetpackRight");
+                    }
+                    else
+                    {
+                        GetComponent<AnimationStateMachine>().PlayAnimation("KickRight");
+                    }
+                }
+                
+            };
 
 
             /*UserInput.RegisterKeyPressAction(Keys.Down, Buttons.LeftThumbstickLeft, (Vector2 thumbStickPosition) =>
@@ -354,11 +459,17 @@ namespace lurum_dare_48.Source.Entities
                 Vector2 worldPos = Scene.Camera.ScreenToWorldSpace(currentMousePos);
                 if (Transform.Position.X < worldPos.X)
                 {
-                    CurrentFaceDirection = Direction.EAST;
+                    if (!IsKicking)
+                    {
+                        CurrentFaceDirection = Direction.EAST;
+                    }
                 }
                 else
                 {
-                    CurrentFaceDirection = Direction.WEST;
+                    if (!IsKicking)
+                    {
+                        CurrentFaceDirection = Direction.WEST;
+                    }
                 }
                 CurrentWeapon?.SetDirection(CurrentFaceDirection);
                 CurrentWeapon?.FollowMouse(worldPos);
@@ -429,6 +540,11 @@ namespace lurum_dare_48.Source.Entities
             base.OnLand(velocity);
             jumpCount = 0;
             currentJump = 0;
+
+            if (IsKicking && MovementSpeed > 0)
+            {
+                MovementSpeed = 0;
+            }
         }
 
         public void AddFuel(float amount)

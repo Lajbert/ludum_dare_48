@@ -33,6 +33,10 @@ namespace MonolithEngine.Engine.Source.Entities.Controller
         public Action<Vector2> LeftClickUpAction;
         public Action<Vector2> LeftClickPressedAction;
 
+        public Action<Vector2> RightClickDownAction;
+        public Action<Vector2> RightClickUpAction;
+        public Action<Vector2> RightClickPressedAction;
+
         public Action<Vector2, Vector2> MouseMovedAction;
 
         private Vector2 leftThumbstick = Vector2.Zero;
@@ -239,10 +243,26 @@ namespace MonolithEngine.Engine.Source.Entities.Controller
                 LeftClickPressedAction?.Invoke(mouseState.Position.ToVector2());
             }
 
+            if (prevMouseState?.RightButton != ButtonState.Pressed && mouseState.RightButton == ButtonState.Pressed)
+            {
+                RightClickDownAction?.Invoke(mouseState.Position.ToVector2());
+            }
+            else if (prevMouseState?.RightButton == ButtonState.Pressed && mouseState.RightButton != ButtonState.Pressed)
+            {
+                RightClickUpAction?.Invoke(mouseState.Position.ToVector2());
+            }
+
+            if (mouseState.RightButton == ButtonState.Pressed)
+            {
+                RightClickPressedAction?.Invoke(mouseState.Position.ToVector2());
+            }
+
             if (prevMouseState != null && prevMouseState?.Position != mouseState.Position)
             {
                 MouseMovedAction?.Invoke(prevMouseState.Value.Position.ToVector2(), mouseState.Position.ToVector2());
             }
+
+
 
             prevKeyboardState = currentKeyboardState;
             prevGamepadState = currentGamepadState;

@@ -94,7 +94,10 @@ namespace lurum_dare_48.Source.Entities.Weapons
 
         void IWeapon.FollowMouse(Vector2 mouseWorldPosition)
         {
-            AnimationRotation = (float)Math.Atan2((double)mouseWorldPosition.Y - Transform.Y, (double)mouseWorldPosition.X - Transform.X);
+            if (!hero.IsKicking)
+            {
+                AnimationRotation = (float)Math.Atan2((double)mouseWorldPosition.Y - Transform.Y, (double)mouseWorldPosition.X - Transform.X);
+            }
         }
 
         public void SetLeftFacingOffset(Vector2 offset)

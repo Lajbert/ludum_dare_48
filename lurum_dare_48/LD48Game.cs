@@ -33,7 +33,7 @@ namespace lurum_dare_48
             VideoConfiguration.RESOLUTION_WIDTH = 2560;
             VideoConfiguration.RESOLUTION_HEIGHT = 1440;
             VideoConfiguration.FULLSCREEN = false;
-            VideoConfiguration.FRAME_LIMIT = 500;
+            VideoConfiguration.FRAME_LIMIT = 200;
             VideoConfiguration.VSYNC = false;
         }
 
@@ -44,6 +44,8 @@ namespace lurum_dare_48
             Assets.LoadTexture("HeroRun", "Hero/Sprites/run_left");
             Assets.LoadTexture("HeroRunBackwards", "Hero/Sprites/run_backwards_left");
             Assets.LoadTexture("Jetpacking", "Hero/Sprites/jatpack_on");
+            Assets.LoadTexture("Kick", "Hero/Sprites/kick_jetpack_off");
+            Assets.LoadTexture("KickJetpacking", "Hero/Sprites/kick_jetpack_on");
 
             Assets.LoadTexture("Gun", "Hero/Sprites/handgun_left");
 
