@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 12,
+	"nextUid": 14,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -256,6 +256,56 @@
 					"textLanguageMode": null
 				}
 			]
+		},
+		{
+			"identifier": "EnemyPatrolTrigger",
+			"uid": 12,
+			"tags": [],
+			"width": 16,
+			"height": 16,
+			"resizableX": true,
+			"resizableY": true,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": true,
+			"color": "#FF0000",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "FitInside",
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": []
+		},
+		{
+			"identifier": "Enemy",
+			"uid": 13,
+			"tags": [],
+			"width": 16,
+			"height": 16,
+			"resizableX": false,
+			"resizableY": false,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#FF0000",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "FitInside",
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": []
 		}
 	], "tilesets": [], "enums": [{ "identifier": "Direction", "uid": 8, "values": [
 		{ "id": "NORTH", "tileId": null, "color": 0, "__tileSrcRect": null },
@@ -631,13 +681,13 @@
 					"entityInstances": [
 						{
 							"__identifier": "Hero",
-							"__grid": [33,6],
+							"__grid": [25,30],
 							"__pivot": [0,0],
 							"__tile": null,
 							"width": 16,
 							"height": 16,
 							"defUid": 2,
-							"px": [528,96],
+							"px": [400,480],
 							"fieldInstances": []
 						},
 						{
@@ -687,6 +737,28 @@
 								"defUid": 7,
 								"realEditorValues": [{ "id": "V_Float", "params": [10] }]
 							}]
+						},
+						{
+							"__identifier": "EnemyPatrolTrigger",
+							"__grid": [28,30],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 432,
+							"height": 16,
+							"defUid": 12,
+							"px": [448,480],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Enemy",
+							"__grid": [34,30],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 16,
+							"height": 16,
+							"defUid": 13,
+							"px": [544,480],
+							"fieldInstances": []
 						}
 					]
 				}

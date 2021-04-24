@@ -46,6 +46,14 @@ namespace MonolithEngine.Engine.Source.Entities.Controller
             buttonReleaseActions.Add(controllerButton, action);
         }
 
+        public void RegisterKeyReleaseAction(ICollection<Keys> keys, Action action)
+        {
+            foreach (Keys key in keys)
+            {
+                keyReleaseActions.Add(key, action);
+            }
+        }
+
         public void RegisterKeyReleaseAction(Keys key, Action action)
         {
             keyReleaseActions.Add(key, action);

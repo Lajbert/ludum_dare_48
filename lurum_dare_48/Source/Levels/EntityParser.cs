@@ -1,6 +1,8 @@
 ﻿using lurum_dare_48.Source.Entities;
+using lurum_dare_48.Source.Entities.Enemies;
 using lurum_dare_48.Source.Entities.Pickups;
 using lurum_dare_48.Source.Entities.Traps;
+using lurum_dare_48.Source.Entities.Triggers;
 using Microsoft.Xna.Framework;
 using MonolithEngine.Engine.Source.Entities;
 using MonolithEngine.Engine.Source.Level;
@@ -60,6 +62,22 @@ namespace lurum_dare_48.Source.Levels
                         }
                     }
                     new Fuel(scene, position, amount);
+                }
+                else if (entity.Identifier.Equals("EnemyPatrolTrigger"))
+                {
+                    new EnemyPatrolTrigger(scene, (int)entity.Width, (int)entity.Height, position);
+                }
+                else if (entity.Identifier.Equals("Enemy"))
+                {
+                    Direction dir = Direction.WEST;
+                    foreach (FieldInstance field in entity.FieldInstances)
+                    {
+                        if (field.Identifier == "Direction")
+                        {
+                            dir = Enum.Parse(typeof(Direction), field.Value);
+                        }
+                    }
+                    new EnemyTest(scene, position, dir);
                 }
             }
         }

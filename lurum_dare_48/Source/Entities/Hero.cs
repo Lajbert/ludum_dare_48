@@ -1,4 +1,6 @@
 ﻿using lurum_dare_48.Source.Entities.Pickups;
+using lurum_dare_48.Source.Entities.Weapons;
+using lurum_dare_48.Source.Entities.Weapons.Guns;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonolithEngine;
@@ -25,15 +27,17 @@ namespace lurum_dare_48.Source.Entities
         private readonly float MAX_JETPACK_SPEED = 0;
 
         private readonly float MAX_JUMP = 0.6f;
-        private static float TankCapacity = 10;
+        private static float TankCapacity = 1000;
         private float currentJump = 0;
-        private float fuel = 0;
+        private float fuel = TankCapacity;
 
         private int jumpCount = 0;
 
         private bool flying = false;
 
         private Vector2 offset = new Vector2(-8, -16);
+
+        public IWeapon CurrentWeapon;
 
         public Hero(AbstractScene scene, Vector2 position) : base(scene.LayerManager.EntityLayer, null, position)
         {
@@ -49,6 +53,8 @@ namespace lurum_dare_48.Source.Entities
             CollisionOffsetRight = 0.5f;
             CollisionOffsetTop = 1;
 
+            CurrentFaceDirection = Direction.EAST;
+
             AddComponent(new Sprite(this, AssetUtil.CreateRectangle(Config.GRID, Color.Red), drawOffset: offset));
 
             Visible = true;
@@ -60,25 +66,29 @@ namespace lurum_dare_48.Source.Entities
             };
 
             AddComponent(new BoxCollisionComponent(this, Config.GRID, Config.GRID, offset));
+
+            CurrentWeapon = new Handgun(scene, this);
         }
 
         private void SetupController()
         {
             UserInput = new UserInputController();
 
-            UserInput.RegisterKeyPressAction(Keys.D, (Vector2 thumbStickPosition) =>
+            UserInput.RegisterKeyPressAction(Keys.Right, (Vector2 thumbStickPosition) =>
             {
                 VelocityX += MovementSpeed * Globals.FixedUpdateMultiplier * Config.TIME_OFFSET;
                 CurrentFaceDirection = Direction.EAST;
+                CurrentWeapon?.SetDirection(CurrentFaceDirection);
             });
 
-            UserInput.RegisterKeyPressAction(Keys.A, Buttons.LeftThumbstickLeft, (Vector2 thumbStickPosition) =>
+            UserInput.RegisterKeyPressAction(Keys.Left, Buttons.LeftThumbstickLeft, (Vector2 thumbStickPosition) =>
             {
                 VelocityX -= MovementSpeed * Globals.FixedUpdateMultiplier * Config.TIME_OFFSET;
                 CurrentFaceDirection = Direction.WEST;
+                CurrentWeapon?.SetDirection(CurrentFaceDirection);
             });
 
-            UserInput.RegisterKeyPressAction(Keys.W, (Vector2 thumbStickPosition) =>
+            UserInput.RegisterKeyPressAction(Keys.Up, (Vector2 thumbStickPosition) =>
             {
                 if (jumpCount < 2 && currentJump < MAX_JUMP)
                 {
@@ -90,7 +100,7 @@ namespace lurum_dare_48.Source.Entities
                 }
             });
 
-            UserInput.RegisterKeyReleaseAction(Keys.W, () =>
+            UserInput.RegisterKeyReleaseAction(Keys.Up, () =>
             {
                 //if (jumpCount < 2)
                 {
@@ -108,7 +118,7 @@ namespace lurum_dare_48.Source.Entities
                 VelocityY += MovementSpeed * Globals.FixedUpdateMultiplier * Config.TIME_OFFSET;
             });*/
 
-            UserInput.RegisterKeyPressAction(Keys.Space, (Vector2 thumbStickPosition) =>
+            UserInput.RegisterKeyPressAction(new List<Keys> { Keys.LeftShift, Keys.RightShift }, (Vector2 thumbStickPosition) =>
             {
                 if (fuel > 0)
                 {
@@ -126,7 +136,7 @@ namespace lurum_dare_48.Source.Entities
                 
             });
 
-            UserInput.RegisterKeyReleaseAction(Keys.Space, () =>
+            UserInput.RegisterKeyReleaseAction(new List<Keys> { Keys.LeftShift, Keys.RightShift }, () =>
             {
                 flying = false;
             });
@@ -147,6 +157,45 @@ namespace lurum_dare_48.Source.Entities
                     });
                 }
             , 100);
+
+            UserInput.RegisterKeyPressAction(Keys.Space, (Vector2 thumbStickPosition) =>
+            {
+                if (CurrentWeapon != null && !CurrentWeapon.IsEmpty())
+                {
+                    CurrentWeapon.TriggerPulled();
+                }
+
+            });
+
+            UserInput.RegisterKeyReleaseAction(Keys.Space, () =>
+            {
+                if (CurrentWeapon != null && !CurrentWeapon.IsEmpty())
+                {
+                    CurrentWeapon.TriggerReleased();
+                }
+
+            });
+
+            UserInput.RegisterKeyPressAction(Keys.NumPad1, (Vector2 thumbStickPosition) =>
+            {
+                CurrentWeapon?.Destroy();
+                CurrentWeapon = new Handgun(Scene, this);
+
+            }, true);
+
+            UserInput.RegisterKeyPressAction(Keys.NumPad2, (Vector2 thumbStickPosition) =>
+            {
+                CurrentWeapon?.Destroy();
+                CurrentWeapon = new Machinegun(Scene, this);
+
+            }, true);
+
+            UserInput.RegisterKeyPressAction(Keys.NumPad3, (Vector2 thumbStickPosition) =>
+            {
+                CurrentWeapon?.Destroy();
+                CurrentWeapon = new Shotgun(Scene, this);
+
+            }, true);
         }
 
         public override void OnCollisionStart(IGameObject otherCollider)
@@ -180,6 +229,22 @@ namespace lurum_dare_48.Source.Entities
         public void AddFuel(float amount)
         {
             fuel = Math.Max(TankCapacity, fuel + amount);
+        }
+
+        public void WeaponKickback(float forceX)
+        {
+            if (IsOnGround)
+            {
+                return;
+            }
+            if (CurrentFaceDirection == Direction.EAST)
+            {
+                VelocityX -= forceX;
+            }
+            else
+            {
+                VelocityX += forceX;
+            }
         }
     }
 }
