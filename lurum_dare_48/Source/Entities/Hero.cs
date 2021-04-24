@@ -195,6 +195,7 @@ namespace lurum_dare_48.Source.Entities
             animations.AddFrameTransition("RunRight", "RunBackwardsRight");
             animations.AddFrameTransition("RunLeft", "RunRight");
             animations.AddFrameTransition("RunBackwardsLeft", "RunBackwardsRight");
+            animations.AddFrameTransition("JetpackLeft", "JetpackRight");
 
             Visible = true;
             Active = true;

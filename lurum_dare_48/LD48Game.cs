@@ -30,8 +30,8 @@ namespace lurum_dare_48
 
             //graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             //graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            VideoConfiguration.RESOLUTION_WIDTH = 1280;
-            VideoConfiguration.RESOLUTION_HEIGHT = 720;
+            VideoConfiguration.RESOLUTION_WIDTH = 2560;
+            VideoConfiguration.RESOLUTION_HEIGHT = 1440;
             VideoConfiguration.FULLSCREEN = false;
             VideoConfiguration.FRAME_LIMIT = 500;
             VideoConfiguration.VSYNC = false;
