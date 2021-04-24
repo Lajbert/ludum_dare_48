@@ -227,14 +227,19 @@ namespace lurum_dare_48.Source.Entities
                 if (Transform.Position.X < worldPos.X)
                 {
                     CurrentFaceDirection = Direction.EAST;
-                    CurrentWeapon?.SetDirection(CurrentFaceDirection);
                 }
                 else
                 {
                     CurrentFaceDirection = Direction.WEST;
-                    CurrentWeapon?.SetDirection(CurrentFaceDirection);
                 }
+                CurrentWeapon?.SetDirection(CurrentFaceDirection);
+                CurrentWeapon?.FollowMouse(worldPos);
             };
+
+            UserInput.RegisterKeyPressAction(Keys.Escape, (Vector2 thumbstickPosition) =>
+            {
+                Config.ExitAction.Invoke();
+            });
         }
 
         public override void OnCollisionStart(IGameObject otherCollider)
@@ -305,14 +310,6 @@ namespace lurum_dare_48.Source.Entities
             {
                 return;
             }
-            /*float degrees = MathUtil.DegreeFromVectors(target, Transform.Position);
-            Logger.Info(degrees);
-            degrees += 180;
-            Vector2 movement = MathUtil.RadToVector(MathUtil.DegreesToRad(degrees)) - Transform.Position;
-            if (movement != Vector2.Zero)
-            {
-                movement.Normalize();
-            }*/
 
             Vector2 movement = Transform.Position - target;
             if (movement != Vector2.Zero)

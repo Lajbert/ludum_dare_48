@@ -21,5 +21,7 @@ namespace lurum_dare_48.Source.Entities.Weapons
         public void SetDirection(Direction direction);
 
         public void Destroy();
+
+        public void FollowMouse(Vector2 mouseWorldPosition);
     }
 }

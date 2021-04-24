@@ -4,6 +4,8 @@ using MonolithEngine.Engine.Source.Graphics;
 using MonolithEngine.Engine.Source.Scene;
 using MonolithEngine.Entities;
 using MonolithEngine.Global;
+using MonolithEngine.Source.Util;
+using MonolithEngine.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -57,11 +59,11 @@ namespace lurum_dare_48.Source.Entities.Weapons
             {
                 if (direction == Direction.WEST)
                 {
-                    Offset.X -= Config.GRID * 2;
+                    Offset.X -= Config.GRID;
                 }
                 else
                 {
-                    Offset.X += Config.GRID * 2;
+                    Offset.X += Config.GRID;
                 }
                 CurrentFaceDirection = direction;
                 Texture.DrawOffset = Offset;
@@ -71,5 +73,10 @@ namespace lurum_dare_48.Source.Entities.Weapons
         public abstract void TriggerPulled(Vector2 worldPosition);
 
         public abstract void TriggerReleased(Vector2 worldPosition);
+
+        void IWeapon.FollowMouse(Vector2 mouseWorldPosition)
+        {
+            Texture.Rotation = (float)Math.Atan2((double)mouseWorldPosition.Y - Transform.Y, (double)mouseWorldPosition.X - Transform.X);
+        }
     }
 }

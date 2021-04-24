@@ -48,8 +48,8 @@ namespace MonolithEngine.Engine.Source.MyGame
             Config.JUMP_FORCE = 1f;
             Config.INCREASING_GRAVITY = true;
 
-            Config.FIXED_UPDATE_FPS = 30;
-            Globals.FixedUpdateMultiplier = 1;
+            Config.FIXED_UPDATE_FPS = 60;
+            Globals.FixedUpdateMultiplier = 0.5f;
 
             fixedUpdateRate = (int)(Config.FIXED_UPDATE_FPS == 0 ? 0 : (1000 / (float)Config.FIXED_UPDATE_FPS));
             Globals.FixedUpdateRate = TimeSpan.FromTicks((long)(TimeSpan.TicksPerSecond / Config.FIXED_UPDATE_FPS));
@@ -143,6 +143,31 @@ namespace MonolithEngine.Engine.Source.MyGame
             //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             //    Exit();
 
+            if (Mouse.GetState().Position.X < 0)
+            {
+                Mouse.SetPosition(0, Mouse.GetState().Position.Y);
+            }
+
+            if (Mouse.GetState().Position.Y < 0)
+            {
+                Mouse.SetPosition(Mouse.GetState().Position.X, 0);
+            }
+
+            if (Mouse.GetState().Position.X > VideoConfiguration.RESOLUTION_WIDTH)
+            {
+                Mouse.SetPosition(VideoConfiguration.RESOLUTION_WIDTH, Mouse.GetState().Position.Y);
+            }
+
+            if (Mouse.GetState().Position.Y > VideoConfiguration.RESOLUTION_HEIGHT)
+            {
+                Mouse.SetPosition(Mouse.GetState().Position.X, VideoConfiguration.RESOLUTION_HEIGHT);
+            }
+
+            if (Mouse.GetState().Position.Y < 0)
+            {
+                Mouse.SetPosition(Mouse.GetState().Position.X, 0);
+            }
+
             if (gameTime.ElapsedGameTime.TotalSeconds > 0.1)
             {
                 accumulator = 0;
@@ -183,6 +208,11 @@ namespace MonolithEngine.Engine.Source.MyGame
             SceneManager.Update();
 
             base.Update(gameTime);
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                Exit();
+            }
         }
 
         protected void FixedUpdate()
