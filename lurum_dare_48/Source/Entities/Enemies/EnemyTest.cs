@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using lurum_dare_48.Source.Entities.Items;
+using lurum_dare_48.Source.Entities.Weapons.Guns;
+using Microsoft.Xna.Framework;
 using MonolithEngine.Engine.Source.Entities;
 using MonolithEngine.Engine.Source.Graphics;
 using MonolithEngine.Engine.Source.Physics.Collision;
@@ -22,6 +24,13 @@ namespace lurum_dare_48.Source.Entities.Enemies
             AddComponent(new BoxCollisionComponent(this, Config.GRID * 2, Config.GRID * 2, offset));
 
             DEBUG_SHOW_COLLIDER = true;
+        }
+
+        public override void Destroy()
+        {
+            DoorKey key = new DoorKey(Scene, Transform.Position - new Vector2(0, 10));
+            key.VelocityY -= 2;
+            base.Destroy();
         }
     }
 }

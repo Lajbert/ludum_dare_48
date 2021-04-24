@@ -1,5 +1,6 @@
 ﻿using lurum_dare_48.Source.Entities;
 using lurum_dare_48.Source.Entities.Enemies;
+using lurum_dare_48.Source.Entities.Environment;
 using lurum_dare_48.Source.Entities.Pickups;
 using lurum_dare_48.Source.Entities.Traps;
 using lurum_dare_48.Source.Entities.Triggers;
@@ -78,6 +79,19 @@ namespace lurum_dare_48.Source.Levels
                         }
                     }
                     new EnemyTest(scene, position, dir);
+                }
+
+                else if (entity.Identifier.Equals("Door"))
+                {
+                    bool locked = false;
+                    foreach (FieldInstance field in entity.FieldInstances)
+                    {
+                        if (field.Identifier == "Locked")
+                        {
+                            locked = field.Value;
+                        }
+                    }
+                    new Door(scene, position, (int)entity.Height, locked);
                 }
             }
         }

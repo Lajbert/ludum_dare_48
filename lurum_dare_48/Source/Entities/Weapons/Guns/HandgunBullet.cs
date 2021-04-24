@@ -25,13 +25,17 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
         {
 
             Vector2 movement = direction - position;
-            movement *= 0.01f;
             if (movement != Vector2.Zero )
             {
                 movement.Normalize();
             }
 
-            Velocity = movement;
+            Velocity = movement * 2;
+
+            CollisionOffsetBottom = 1;
+            CollisionOffsetLeft = 0;
+            CollisionOffsetRight = 0;
+            CollisionOffsetTop = 0;
 
             AddCollisionAgainst("Enemy");
 
@@ -73,6 +77,11 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
             }
 
             base.OnCollisionStart(otherCollider);
+        }
+
+        public Vector2 GetPosition()
+        {
+            return Transform.Position;
         }
     }
 }

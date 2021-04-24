@@ -8,5 +8,7 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
     interface IBullet
     {
         public Vector2 GetImpactForce();
+
+        public Vector2 GetPosition();
     }
 }

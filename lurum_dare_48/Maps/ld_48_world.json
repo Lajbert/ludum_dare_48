@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 16,
+	"nextUid": 18,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -100,7 +100,7 @@
 			"tags": [],
 			"width": 16,
 			"height": 16,
-			"resizableX": true,
+			"resizableX": false,
 			"resizableY": true,
 			"keepAspectRatio": false,
 			"fillOpacity": 1,
@@ -326,6 +326,52 @@
 			"pivotX": 0,
 			"pivotY": 0,
 			"fieldDefs": []
+		},
+		{
+			"identifier": "Door",
+			"uid": 16,
+			"tags": [],
+			"width": 16,
+			"height": 16,
+			"resizableX": true,
+			"resizableY": true,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#94A7D9",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "FitInside",
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": [
+				{
+					"identifier": "Locked",
+					"__type": "Bool",
+					"uid": 17,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null
+				}
+			]
 		}
 	], "tilesets": [], "enums": [
 		{ "identifier": "Direction", "uid": 8, "values": [
@@ -708,13 +754,13 @@
 					"entityInstances": [
 						{
 							"__identifier": "Hero",
-							"__grid": [25,30],
+							"__grid": [27,30],
 							"__pivot": [0,0],
 							"__tile": null,
 							"width": 16,
 							"height": 16,
 							"defUid": 2,
-							"px": [400,480],
+							"px": [432,480],
 							"fieldInstances": []
 						},
 						{
@@ -786,6 +832,37 @@
 							"defUid": 13,
 							"px": [544,480],
 							"fieldInstances": []
+						},
+						{
+							"__identifier": "Spikes",
+							"__grid": [56,30],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 96,
+							"height": 16,
+							"defUid": 4,
+							"px": [896,480],
+							"fieldInstances": [{
+								"__identifier": "Direction",
+								"__value": "NORTH",
+								"__type": "LocalEnum.Direction",
+								"defUid": 9,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["NORTH"]
+								}]
+							}]
+						},
+						{
+							"__identifier": "Door",
+							"__grid": [20,21],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 16,
+							"height": 160,
+							"defUid": 16,
+							"px": [320,336],
+							"fieldInstances": [{ "__identifier": "Locked", "__value": false, "__type": "Bool", "defUid": 17, "realEditorValues": [] }]
 						}
 					]
 				}

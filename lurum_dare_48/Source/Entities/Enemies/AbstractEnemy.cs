@@ -19,6 +19,8 @@ namespace lurum_dare_48.Source.Entities.Enemies
 
         public Vector2 speed = new Vector2(0.05f, 0);
 
+        public float Health = 10;
+
         public AbstractEnemy(AbstractScene scene, Vector2 position, Direction direction) : base(scene.LayerManager.EntityLayer, null, position)
         {
             AddTag("Enemy");
@@ -39,9 +41,35 @@ namespace lurum_dare_48.Source.Entities.Enemies
             base.FixedUpdate();
         }
 
-        public void Hit(IBullet bullet)
+        public virtual void Hit(IBullet bullet)
         {
-            Velocity += bullet.GetImpactForce();
+            if (Health == 0)
+            {
+                Destroy();
+                return;
+            }
+
+            if (bullet is HandgunBullet)
+            {
+                Health -= 2;
+            }
+            else if (bullet is MachineGunBullet)
+            {
+                Health = -1;
+            }
+            else if (bullet is ShotgunBullet)
+            {
+                Health -= 1;
+            }
+
+            if (bullet.GetPosition().X < Transform.X)
+            {
+                Velocity += bullet.GetImpactForce();
+            }
+            else
+            {
+                Velocity -= bullet.GetImpactForce();
+            }
         }
     }
 }

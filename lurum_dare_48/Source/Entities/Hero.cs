@@ -1,4 +1,6 @@
-﻿using lurum_dare_48.Source.Entities.Pickups;
+﻿using lurum_dare_48.Source.Entities.Environment;
+using lurum_dare_48.Source.Entities.Items;
+using lurum_dare_48.Source.Entities.Pickups;
 using lurum_dare_48.Source.Entities.Weapons;
 using lurum_dare_48.Source.Entities.Weapons.Guns;
 using Microsoft.Xna.Framework;
@@ -40,12 +42,16 @@ namespace lurum_dare_48.Source.Entities
 
         public IWeapon CurrentWeapon;
 
+        public List<IGameObject> CarriedItems = new List<IGameObject>();
+
         public Hero(AbstractScene scene, Vector2 position) : base(scene.LayerManager.EntityLayer, null, position)
         {
 
             //DEBUG_SHOW_PIVOT = true;
 
             AddCollisionAgainst("Pickup");
+            AddCollisionAgainst("Door", false);
+            AddCollisionAgainst("Key");
 
             SetupController();
 
@@ -234,8 +240,28 @@ namespace lurum_dare_48.Source.Entities
                 AddFuel((otherCollider as Fuel).Amount);
                 otherCollider.Destroy();
             }
+            else if (otherCollider is Door && IsCarryingItem("Key"))
+            {
+                (otherCollider as Door).Open();
+            }
+            else if (otherCollider is DoorKey)
+            {
+                DoorKey key = (otherCollider as DoorKey);
+                CarriedItems.Add(key);
+                key.Visible = false;
+                key.Active = false;
+            }
 
             base.OnCollisionStart(otherCollider);
+        }
+
+        private bool IsCarryingItem(string tag)
+        {
+            foreach (IGameObject carriedItem in CarriedItems)
+            {
+                if (carriedItem.HasTag(tag)) return true;
+            }
+            return false;
         }
 
         public override void FixedUpdate()

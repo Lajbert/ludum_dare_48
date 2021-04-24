@@ -33,7 +33,7 @@ namespace lurum_dare_48
             VideoConfiguration.RESOLUTION_WIDTH = 1280;
             VideoConfiguration.RESOLUTION_HEIGHT = 720;
             VideoConfiguration.FULLSCREEN = false;
-            VideoConfiguration.FRAME_LIMIT = 60;
+            VideoConfiguration.FRAME_LIMIT = 500;
             VideoConfiguration.VSYNC = false;
         }
 
