@@ -1,5 +1,8 @@
 ﻿using lurum_dare_48.Source.Entities;
+using lurum_dare_48.Source.Entities.Pickups;
+using lurum_dare_48.Source.Entities.Traps;
 using Microsoft.Xna.Framework;
+using MonolithEngine.Engine.Source.Entities;
 using MonolithEngine.Engine.Source.Level;
 using MonolithEngine.Engine.Source.Scene;
 using MonolithEngine.Source.Level;
@@ -28,6 +31,35 @@ namespace lurum_dare_48.Source.Levels
                 if (entity.Identifier.Equals("Hero"))
                 {
                     hero = new Hero(scene, position);
+                }
+                else if (entity.Identifier.Equals("Lava"))
+                {
+                    new Lava(scene, (int)entity.Width, (int)entity.Height, position);
+                }
+                else if (entity.Identifier.Equals("Spikes"))
+                {
+                    Direction dir = default;
+                    foreach (FieldInstance field in entity.FieldInstances)
+                    {
+                        if (field.Identifier == "Direction")
+                        {
+                            dir = Enum.Parse(typeof(Direction), field.Value);
+                        }
+                    }
+                    float size = entity.Width > entity.Height ? entity.Width : entity.Height;
+                    new Spikes(scene, position, (int)size, dir);
+                }
+                else if (entity.Identifier.Equals("Fuel"))
+                {
+                    float amount = 0;
+                    foreach (FieldInstance field in entity.FieldInstances)
+                    {
+                        if (field.Identifier == "Amount")
+                        {
+                            amount = (float) field.Value;
+                        }
+                    }
+                    new Fuel(scene, position, amount);
                 }
             }
         }

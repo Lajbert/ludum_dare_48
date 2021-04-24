@@ -46,6 +46,11 @@ namespace MonolithEngine.Engine.Source.Entities.Controller
             buttonReleaseActions.Add(controllerButton, action);
         }
 
+        public void RegisterKeyReleaseAction(Keys key, Action action)
+        {
+            keyReleaseActions.Add(key, action);
+        }
+
         public void RegisterKeyPressAction(Buttons controllerButton, Action<Vector2> action, bool singlePressOnly = false, int pressCooldown = 0)
         {
             keyPressActions.Add(new KeyMapping(null, controllerButton, singlePressOnly, pressCooldown), action);
@@ -55,6 +60,15 @@ namespace MonolithEngine.Engine.Source.Entities.Controller
         public void RegisterKeyPressAction(Keys key, Action<Vector2> action, bool singlePressOnly = false, int pressCooldown = 0) {
             keyPressActions.Add(new KeyMapping(key, null, singlePressOnly), action);
             pressedKeys[key] = false;
+        }
+
+        public void RegisterKeyPressAction(ICollection<Keys> keys, Action<Vector2> action, bool singlePressOnly = false, int pressCooldown = 0)
+        {
+            foreach (Keys key in keys)
+            {
+                keyPressActions.Add(new KeyMapping(key, null, singlePressOnly), action);
+                pressedKeys[key] = false;
+            }
         }
 
         public void RegisterMouseActions(Action wheelUpAction, Action wheelDownAction, float scrollThreshold = 0)

@@ -1,4 +1,5 @@
 ﻿using lurum_dare_48.Source.Entities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonolithEngine.Engine.Source.Scene;
 using MonolithEngine.Engine.Source.Scene.Transition;
@@ -19,6 +20,7 @@ namespace lurum_dare_48.Source.Levels
         {
             this.font = font;
             this.world = world;
+            BackgroundColor = Color.Black;
         }
 
         public override ICollection<object> ExportData()

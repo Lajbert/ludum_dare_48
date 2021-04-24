@@ -112,7 +112,7 @@ namespace MonolithEngine.Source.Level
                             StaticCollider e = new StaticCollider(scene, (new Vector2(x, y)));
 
                             Entity visual = new Entity(scene.LayerManager.EntityLayer, null, new Vector2(x, y) * Config.GRID);
-                            visual.AddComponent(new Sprite(visual, AssetUtil.CreateRectangle(Config.GRID, Color.Black)));
+                            visual.AddComponent(new Sprite(visual, AssetUtil.CreateRectangle(Config.GRID, Color.White)));
                             visual.Visible = true;
                             visual.Active = true;
                             switch (grid.V)

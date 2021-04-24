@@ -246,7 +246,7 @@ namespace MonolithEngine.Entities
             }
             if (DebugFunction != null)
             {
-                spriteBatch.DrawString(DebugFont, DebugFunction.Invoke(), DrawPosition, Color.Black);
+                spriteBatch.DrawString(DebugFont, DebugFunction.Invoke(), DrawPosition - new Vector2(0, 40), Color.Red);
             }
 #endif
             /*if (font != null)
