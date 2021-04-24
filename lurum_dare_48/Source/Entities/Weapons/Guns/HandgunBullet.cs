@@ -8,6 +8,7 @@ using MonolithEngine.Engine.Source.Physics.Collision;
 using MonolithEngine.Engine.Source.Scene;
 using MonolithEngine.Engine.Source.Util;
 using MonolithEngine.Global;
+using MonolithEngine.Source.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,16 +21,17 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
 
         protected Vector2 ImpactForce = new Vector2(0.3f, 0);
 
-        public HandgunBullet(AbstractScene scene, Vector2 position, Direction direction) : base(scene.LayerManager.EntityLayer, null, position)
+        public HandgunBullet(AbstractScene scene, Vector2 position, Vector2 direction) : base(scene.LayerManager.EntityLayer, null, position)
         {
 
-            Velocity = new Vector2(5f, 0);
-
-            if (direction == Direction.WEST)
+            Vector2 movement = direction - position;
+            movement *= 0.01f;
+            if (movement != Vector2.Zero )
             {
-                Velocity *= -1;
-                ImpactForce.X *= -1;
+                movement.Normalize();
             }
+
+            Velocity = movement;
 
             AddCollisionAgainst("Enemy");
 

@@ -21,12 +21,19 @@ namespace MonolithEngine.Engine.Source.Entities.Controller
         private KeyboardState? prevKeyboardState;
         private GamePadState? prevGamepadState;
         private MouseState mouseState;
+        private MouseState? prevMouseState;
         private GamePadState currentGamepadState;
 
         private int? prevMouseScrollWheelValue = 0;
         private Action mouseWheelUpAction;
         private Action mouseWheelDownAction;
         private float scrollThreshold = 0f;
+
+        public Action<Vector2> LeftClickDownAction;
+        public Action<Vector2> LeftClickUpAction;
+        public Action<Vector2> LeftClickPressedAction;
+
+        public Action<Vector2, Vector2> MouseMovedAction;
 
         private Vector2 leftThumbstick = Vector2.Zero;
         private Vector2 rightThumbStick = Vector2.Zero;
@@ -201,9 +208,6 @@ namespace MonolithEngine.Engine.Source.Entities.Controller
                 
             }
 
-            prevKeyboardState = currentKeyboardState;
-            prevGamepadState = currentGamepadState;
-
             if (mouseState.ScrollWheelValue > prevMouseScrollWheelValue)
             {
                 if (mouseWheelUpAction != null && (mouseState.ScrollWheelValue - prevMouseScrollWheelValue) >= scrollThreshold)
@@ -211,7 +215,8 @@ namespace MonolithEngine.Engine.Source.Entities.Controller
                     mouseWheelUpAction.Invoke();
                     prevMouseScrollWheelValue = mouseState.ScrollWheelValue;
                 }
-            } else if (mouseState.ScrollWheelValue < prevMouseScrollWheelValue)
+            } 
+            else if (mouseState.ScrollWheelValue < prevMouseScrollWheelValue)
             {
                 if (mouseWheelDownAction != null && (prevMouseScrollWheelValue - mouseState.ScrollWheelValue) >= scrollThreshold)
                 {
@@ -219,6 +224,29 @@ namespace MonolithEngine.Engine.Source.Entities.Controller
                     prevMouseScrollWheelValue = mouseState.ScrollWheelValue;
                 }
             }
+
+            if (prevMouseState?.LeftButton != ButtonState.Pressed && mouseState.LeftButton == ButtonState.Pressed)
+            {
+                LeftClickDownAction?.Invoke(mouseState.Position.ToVector2());
+            }
+            else if (prevMouseState?.LeftButton == ButtonState.Pressed && mouseState.LeftButton != ButtonState.Pressed)
+            {
+                LeftClickUpAction?.Invoke(mouseState.Position.ToVector2());
+            }
+
+            if (mouseState.LeftButton == ButtonState.Pressed)
+            {
+                LeftClickPressedAction?.Invoke(mouseState.Position.ToVector2());
+            }
+
+            if (prevMouseState != null && prevMouseState?.Position != mouseState.Position)
+            {
+                MouseMovedAction?.Invoke(prevMouseState.Value.Position.ToVector2(), mouseState.Position.ToVector2());
+            }
+
+            prevKeyboardState = currentKeyboardState;
+            prevGamepadState = currentGamepadState;
+            prevMouseState = mouseState;
         }
 
         private class KeyMapping

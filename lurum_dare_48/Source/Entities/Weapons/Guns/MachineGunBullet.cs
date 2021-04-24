@@ -9,7 +9,7 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
 {
     class MachineGunBullet : HandgunBullet
     {
-        public MachineGunBullet(AbstractScene scene, Vector2 position, Direction direction) : base(scene, position, direction)
+        public MachineGunBullet(AbstractScene scene, Vector2 position, Vector2 direction) : base(scene, position, direction)
         {
 
         }

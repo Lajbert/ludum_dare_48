@@ -227,5 +227,11 @@ namespace MonolithEngine.Engine.Source.Camera2D
             this.scrollSpeedModifier = scrollSpeedModifier;
             return ViewMatrix;
         }
+
+        public Vector2 ScreenToWorldSpace(in Vector2 point)
+        {
+            Matrix invertedMatrix = Matrix.Invert(ViewMatrix);
+            return Vector2.Transform(point, invertedMatrix);
+        }
     }
 }

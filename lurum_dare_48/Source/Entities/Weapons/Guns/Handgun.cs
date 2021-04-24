@@ -35,26 +35,26 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
             
         }
 
-        public override void TriggerPulled()
+        public override void TriggerPulled(Vector2 worldPosition)
         {
             if (shotFired)
             {
                 return;
             }
             shotFired = true;
-            SpawnBullet();
+            SpawnBullet(worldPosition);
 
             hero.WeaponKickback(1);
         }
 
-        public override void TriggerReleased()
+        public override void TriggerReleased(Vector2 worldPosition)
         {
             shotFired = false;
         }
 
-        private void SpawnBullet()
+        private void SpawnBullet(Vector2 worldPosition)
         {
-            new HandgunBullet(Scene, Transform.Position + Offset, CurrentFaceDirection);
+            new HandgunBullet(Scene, Transform.Position + Offset, worldPosition);
         }
     }
 }

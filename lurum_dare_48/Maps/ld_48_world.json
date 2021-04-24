@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 14,
+	"nextUid": 16,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -212,7 +212,7 @@
 			]
 		},
 		{
-			"identifier": "HandgunAmmo",
+			"identifier": "Ammo",
 			"uid": 10,
 			"tags": [],
 			"width": 16,
@@ -240,6 +240,26 @@
 					"__type": "Int",
 					"uid": 11,
 					"type": "F_Int",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null
+				},
+				{
+					"identifier": "Weapon",
+					"__type": "LocalEnum.Weapon",
+					"uid": 15,
+					"type": { "id": "F_Enum", "params": [14] },
 					"isArray": false,
 					"canBeNull": false,
 					"arrayMinLength": null,
@@ -307,12 +327,19 @@
 			"pivotY": 0,
 			"fieldDefs": []
 		}
-	], "tilesets": [], "enums": [{ "identifier": "Direction", "uid": 8, "values": [
-		{ "id": "NORTH", "tileId": null, "color": 0, "__tileSrcRect": null },
-		{ "id": "WEST", "tileId": null, "color": 0, "__tileSrcRect": null },
-		{ "id": "EAST", "tileId": null, "color": 0, "__tileSrcRect": null },
-		{ "id": "SOUTH", "tileId": null, "color": 0, "__tileSrcRect": null }
-	], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null }], "externalEnums": [], "levelFields": [] },
+	], "tilesets": [], "enums": [
+		{ "identifier": "Direction", "uid": 8, "values": [
+			{ "id": "NORTH", "tileId": null, "color": 0, "__tileSrcRect": null },
+			{ "id": "WEST", "tileId": null, "color": 0, "__tileSrcRect": null },
+			{ "id": "EAST", "tileId": null, "color": 0, "__tileSrcRect": null },
+			{ "id": "SOUTH", "tileId": null, "color": 0, "__tileSrcRect": null }
+		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null },
+		{ "identifier": "Weapon", "uid": 14, "values": [
+			{ "id": "Handgun", "tileId": null, "color": 0, "__tileSrcRect": null },
+			{ "id": "Machinegun", "tileId": null, "color": 0, "__tileSrcRect": null },
+			{ "id": "Shothun", "tileId": null, "color": 0, "__tileSrcRect": null }
+		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null }
+	], "externalEnums": [], "levelFields": [] },
 	"levels": [
 		{
 			"identifier": "Level_1",

@@ -13,42 +13,33 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
 
         private bool shotsFired = false;
 
-        private int startAngle = 0;
-
         public Shotgun(AbstractScene scene, Hero hero) : base (scene, hero)
         {
             CurrentFaceDirection = hero.CurrentFaceDirection;
         }
 
-        public override void TriggerPulled()
+        public override void TriggerPulled(Vector2 worldPosition)
         {
             if (shotsFired)
             {
                 return;
             }
             shotsFired = true;
-            SpawnBullets();
+            SpawnBullets(worldPosition);
             hero.WeaponKickback(3);
         }
 
-        public override void TriggerReleased()
+        public override void TriggerReleased(Vector2 worldPosition)
         {
             shotsFired = false;
         }
 
-        private void SpawnBullets()
+        private void SpawnBullets(Vector2 worldPosition)
         {
-            if (CurrentFaceDirection == Direction.EAST)
+            float degree = MathUtil.DegreeFromVectors(Transform.Position + Offset, worldPosition);
+            for (float i = degree - 6; i <= degree + 6; i += 3)
             {
-                startAngle = 0;
-            }
-            else
-            {
-                startAngle = 180;
-            }
-            for (int i = startAngle - 6; i <= startAngle + 6; i += 3)
-            {
-                ShotgunBullet bullet = new ShotgunBullet(Scene, Transform.Position + Offset, CurrentFaceDirection);
+                ShotgunBullet bullet = new ShotgunBullet(Scene, Transform.Position + Offset, MathUtil.RadToVector(MathUtil.DegreesToRad(degree)));
                 bullet.Velocity = MathUtil.RadToVector(MathUtil.DegreesToRad(i));
             }
         }

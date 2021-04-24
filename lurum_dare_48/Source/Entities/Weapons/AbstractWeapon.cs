@@ -68,8 +68,8 @@ namespace lurum_dare_48.Source.Entities.Weapons
             }
         }
 
-        public abstract void TriggerPulled();
+        public abstract void TriggerPulled(Vector2 worldPosition);
 
-        public abstract void TriggerReleased();
+        public abstract void TriggerReleased(Vector2 worldPosition);
     }
 }
