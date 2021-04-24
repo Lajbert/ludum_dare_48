@@ -12,7 +12,7 @@ namespace lurum_dare_48.Source.Entities.Enemies
         public MountedGunBullet(AbstractScene scene, Vector2 position, Vector2 direction) : base(scene, position, direction, 1)
         {
             ClearCollisionAgainst();
-            AddCollisionAgainst("Hero");
+            AddTag("MountedGunBullet");
         }
     }
 }

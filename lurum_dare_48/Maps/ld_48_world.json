@@ -1043,13 +1043,13 @@
 					"entityInstances": [
 						{
 							"__identifier": "Hero",
-							"__grid": [18,42],
+							"__grid": [3,52],
 							"__pivot": [0,0],
 							"__tile": null,
 							"width": 16,
 							"height": 16,
 							"defUid": 2,
-							"px": [288,672],
+							"px": [48,832],
 							"fieldInstances": []
 						},
 						{
@@ -1337,12 +1337,23 @@
 								},
 								{
 									"__identifier": "Integer",
-									"__value": [256,256,0,-128],
+									"__value": [256,350,0,-128],
 									"__type": "Array<Int>",
 									"defUid": 21,
-									"realEditorValues": [ { "id": "V_Int", "params": [256] }, { "id": "V_Int", "params": [256] }, { "id": "V_Int", "params": [0] }, { "id": "V_Int", "params": [-128] } ]
+									"realEditorValues": [ { "id": "V_Int", "params": [256] }, { "id": "V_Int", "params": [350] }, { "id": "V_Int", "params": [0] }, { "id": "V_Int", "params": [-128] } ]
 								}
 							]
+						},
+						{
+							"__identifier": "Enemy",
+							"__grid": [33,42],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 16,
+							"height": 16,
+							"defUid": 13,
+							"px": [528,672],
+							"fieldInstances": []
 						}
 					]
 				}

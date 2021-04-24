@@ -1,4 +1,5 @@
-﻿using lurum_dare_48.Source.Entities.Environment;
+﻿using lurum_dare_48.Source.Entities.Enemies;
+using lurum_dare_48.Source.Entities.Environment;
 using lurum_dare_48.Source.Entities.Items;
 using lurum_dare_48.Source.Entities.Pickups;
 using lurum_dare_48.Source.Entities.Weapons;
@@ -6,8 +7,10 @@ using lurum_dare_48.Source.Entities.Weapons.Guns;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonolithEngine;
+using MonolithEngine.Engine.Source.Asset;
 using MonolithEngine.Engine.Source.Entities;
 using MonolithEngine.Engine.Source.Entities.Abstract;
+using MonolithEngine.Engine.Source.Entities.Animations;
 using MonolithEngine.Engine.Source.Entities.Controller;
 using MonolithEngine.Engine.Source.Global;
 using MonolithEngine.Engine.Source.Graphics;
@@ -15,6 +18,7 @@ using MonolithEngine.Engine.Source.Physics.Collision;
 using MonolithEngine.Engine.Source.Scene;
 using MonolithEngine.Engine.Source.Util;
 using MonolithEngine.Global;
+using MonolithEngine.Source.Entities;
 using MonolithEngine.Source.Util;
 using MonolithEngine.Util;
 using System;
@@ -40,7 +44,7 @@ namespace lurum_dare_48.Source.Entities
 
         private bool flying = false;
 
-        private Vector2 offset = new Vector2(-8, -16);
+        private Vector2 offset = new Vector2(0, -16);
 
         public IWeapon CurrentWeapon;
 
@@ -56,6 +60,7 @@ namespace lurum_dare_48.Source.Entities
             AddCollisionAgainst("Pickup");
             AddCollisionAgainst("Door", false);
             AddCollisionAgainst("Key");
+            AddCollisionAgainst("MountedGunBullet");
 
             SetupController();
 
@@ -66,7 +71,40 @@ namespace lurum_dare_48.Source.Entities
 
             CurrentFaceDirection = Direction.EAST;
 
-            AddComponent(new Sprite(this, AssetUtil.CreateRectangle(Config.GRID, Color.Red), drawOffset: offset));
+            AnimationStateMachine animations = new AnimationStateMachine();
+            animations.Offset = offset;
+            AddComponent(animations);
+
+            SpriteSheetAnimation idleLeft = new SpriteSheetAnimation(this, Assets.GetTexture("HeroIdle"), 40);
+            animations.RegisterAnimation("IdleLeft", idleLeft, () => Velocity.X <= 0.1f && Velocity.X >= -0.1f && CurrentFaceDirection == Direction.WEST);
+
+            SpriteSheetAnimation idleRight = idleLeft.CopyFlipped();
+            animations.RegisterAnimation("IdleRight", idleRight, () => Velocity.X <= 0.1f && Velocity.X >= -0.1f && CurrentFaceDirection == Direction.EAST);
+
+            SpriteSheetAnimation runLeft = new SpriteSheetAnimation(this, Assets.GetTexture("HeroRun"), 40);
+            animations.RegisterAnimation("RunLeft", runLeft, () => Velocity.X < -0.1 && CurrentFaceDirection == Direction.WEST);
+
+            SpriteSheetAnimation runRight = runLeft.CopyFlipped();
+            animations.RegisterAnimation("RunRight", runRight, () => Velocity.X > 0.1 && CurrentFaceDirection == Direction.EAST);
+
+            SpriteSheetAnimation runBackwardsLeft = new SpriteSheetAnimation(this, Assets.GetTexture("HeroRunBackwards"), 40);
+            animations.RegisterAnimation("RunBackwardsLeft", runBackwardsLeft, () => Velocity.X > 0 && CurrentFaceDirection == Direction.WEST);
+
+            SpriteSheetAnimation runRighrunBackwardsRight = runBackwardsLeft.CopyFlipped();
+            animations.RegisterAnimation("RunBackwardsRight", runRighrunBackwardsRight, () => Velocity.X < 0 && CurrentFaceDirection == Direction.EAST);
+
+            SpriteSheetAnimation jumpLeft = new SpriteSheetAnimation(this, Assets.GetTexture("HeroRun"), 1);
+            jumpLeft.StartFrame = 6;
+            jumpLeft.EndFrame = 7;
+            animations.RegisterAnimation("JumpLeft", jumpLeft, () => !IsOnGround && CurrentFaceDirection == Direction.WEST, 1);
+
+            SpriteSheetAnimation jumpRight = jumpLeft.CopyFlipped();
+            animations.RegisterAnimation("JumpRight", jumpRight, () => !IsOnGround && CurrentFaceDirection == Direction.EAST, 1);
+
+            animations.AddFrameTransition("RunLeft", "RunBackwardsLeft");
+            animations.AddFrameTransition("RunRight", "RunBackwardsRight");
+            animations.AddFrameTransition("RunLeft", "RunRight");
+            animations.AddFrameTransition("RunBackwardsLeft", "RunBackwardsRight");
 
             Visible = true;
             Active = true;
@@ -76,8 +114,9 @@ namespace lurum_dare_48.Source.Entities
                 return "Fuel: " + (int)(((float)(fuel / TankCapacity)) * 100) + " %";
             };
 
-            AddComponent(new BoxCollisionComponent(this, Config.GRID, Config.GRID, offset));
-
+            AddComponent(new BoxCollisionComponent(this, 18, 30, new Vector2(-8, -30)));
+            //DEBUG_SHOW_COLLIDER = true;
+            //DEBUG_SHOW_PIVOT = true;
             CurrentWeapon = new Handgun(scene, this);
         }
 
@@ -260,6 +299,10 @@ namespace lurum_dare_48.Source.Entities
                 CarriedItems.Add(key);
                 key.Visible = false;
                 key.Active = false;
+            }
+            else if (otherCollider is MountedGunBullet)
+            {
+                otherCollider.Destroy();
             }
 
             base.OnCollisionStart(otherCollider);
