@@ -1,4 +1,5 @@
-﻿using lurum_dare_48.Source.Entities.Items;
+﻿using ForestPlatformerExample.Source.Entities.Enemies;
+using lurum_dare_48.Source.Entities.Items;
 using lurum_dare_48.Source.Entities.Weapons.Guns;
 using Microsoft.Xna.Framework;
 using MonolithEngine.Engine.Source.Entities;
@@ -31,6 +32,12 @@ namespace lurum_dare_48.Source.Entities.Enemies
             DoorKey key = new DoorKey(Scene, Transform.Position - new Vector2(0, 10));
             key.VelocityY -= 2;
             base.Destroy();
+        }
+
+        public override void FixedUpdate()
+        {
+            AIUtil.Patrol(true, this);
+            base.FixedUpdate();
         }
     }
 }

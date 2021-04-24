@@ -26,7 +26,7 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
             }
             shotsFired = true;
             SpawnBullets(worldPosition);
-            hero.WeaponKickback(3);
+            hero.WeaponKickback(worldPosition, 3);
         }
 
         public override void TriggerReleased(Vector2 worldPosition)

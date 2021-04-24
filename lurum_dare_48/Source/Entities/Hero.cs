@@ -15,9 +15,11 @@ using MonolithEngine.Engine.Source.Physics.Collision;
 using MonolithEngine.Engine.Source.Scene;
 using MonolithEngine.Engine.Source.Util;
 using MonolithEngine.Global;
+using MonolithEngine.Source.Util;
 using MonolithEngine.Util;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace lurum_dare_48.Source.Entities
@@ -48,6 +50,8 @@ namespace lurum_dare_48.Source.Entities
         {
 
             //DEBUG_SHOW_PIVOT = true;
+
+            CanFireTriggers = true;
 
             AddCollisionAgainst("Pickup");
             AddCollisionAgainst("Door", false);
@@ -243,6 +247,7 @@ namespace lurum_dare_48.Source.Entities
             else if (otherCollider is Door && IsCarryingItem("Key"))
             {
                 (otherCollider as Door).Open();
+                RemoveItemWithTag("Key");
             }
             else if (otherCollider is DoorKey)
             {
@@ -262,6 +267,14 @@ namespace lurum_dare_48.Source.Entities
                 if (carriedItem.HasTag(tag)) return true;
             }
             return false;
+        }
+
+        private void RemoveItemWithTag(string tag)
+        {
+            foreach (IGameObject carriedItem in CarriedItems.ToList())
+            {
+                if (carriedItem.HasTag(tag)) CarriedItems.Remove(carriedItem);
+            }
         }
 
         public override void FixedUpdate()
@@ -286,20 +299,28 @@ namespace lurum_dare_48.Source.Entities
             fuel = Math.Max(TankCapacity, fuel + amount);
         }
 
-        public void WeaponKickback(float forceX)
+        public void WeaponKickback(Vector2 target, float force)
         {
             if (IsOnGround)
             {
                 return;
             }
-            if (CurrentFaceDirection == Direction.EAST)
+            /*float degrees = MathUtil.DegreeFromVectors(target, Transform.Position);
+            Logger.Info(degrees);
+            degrees += 180;
+            Vector2 movement = MathUtil.RadToVector(MathUtil.DegreesToRad(degrees)) - Transform.Position;
+            if (movement != Vector2.Zero)
             {
-                VelocityX -= forceX;
-            }
-            else
+                movement.Normalize();
+            }*/
+
+            Vector2 movement = Transform.Position - target;
+            if (movement != Vector2.Zero)
             {
-                VelocityX += forceX;
+                movement.Normalize();
             }
+
+            Velocity = movement * force;
         }
     }
 }

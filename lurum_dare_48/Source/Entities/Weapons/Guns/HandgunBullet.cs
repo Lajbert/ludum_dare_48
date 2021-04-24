@@ -21,7 +21,7 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
 
         protected Vector2 ImpactForce = new Vector2(0.3f, 0);
 
-        public HandgunBullet(AbstractScene scene, Vector2 position, Vector2 direction) : base(scene.LayerManager.EntityLayer, null, position)
+        public HandgunBullet(AbstractScene scene, Vector2 position, Vector2 direction, float speedMultiplier = 2) : base(scene.LayerManager.EntityLayer, null, position)
         {
 
             Vector2 movement = direction - position;
@@ -30,7 +30,7 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
                 movement.Normalize();
             }
 
-            Velocity = movement * 2;
+            Velocity = movement * speedMultiplier;
 
             CollisionOffsetBottom = 1;
             CollisionOffsetLeft = 0;
@@ -38,6 +38,7 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
             CollisionOffsetTop = 0;
 
             AddCollisionAgainst("Enemy");
+            AddCollisionAgainst("Door");
 
             HorizontalFriction = 0f;
             VerticalFriction = 0f;
@@ -71,11 +72,11 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
         {
             if (otherCollider.HasTag("Enemy"))
             {
-                Destroy();
                 (otherCollider as AbstractEnemy).Hit(this);
                 //otherCollider.Destroy();
             }
 
+            Destroy();
             base.OnCollisionStart(otherCollider);
         }
 

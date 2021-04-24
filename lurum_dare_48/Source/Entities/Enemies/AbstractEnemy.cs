@@ -21,6 +21,12 @@ namespace lurum_dare_48.Source.Entities.Enemies
 
         public float Health = 10;
 
+        public int MoveDirection = 1;
+
+        public float DefaultSpeed = 0.05f;
+
+        public float CurrentSpeed = 0.05f;
+
         public AbstractEnemy(AbstractScene scene, Vector2 position, Direction direction) : base(scene.LayerManager.EntityLayer, null, position)
         {
             AddTag("Enemy");

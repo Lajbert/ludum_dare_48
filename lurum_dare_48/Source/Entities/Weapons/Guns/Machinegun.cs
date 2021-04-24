@@ -32,7 +32,7 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
             }
             Timer.SetTimer("Firing", FIRE_RATE);
             SpawnBullet(worldPosition);
-            hero.WeaponKickback(0.5f);
+            hero.WeaponKickback(worldPosition, 0.5f);
         }
 
         public override void TriggerReleased(Vector2 worldPosition)

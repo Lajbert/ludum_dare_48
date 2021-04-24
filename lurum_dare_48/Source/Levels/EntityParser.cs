@@ -80,7 +80,6 @@ namespace lurum_dare_48.Source.Levels
                     }
                     new EnemyTest(scene, position, dir);
                 }
-
                 else if (entity.Identifier.Equals("Door"))
                 {
                     bool locked = false;
@@ -92,6 +91,24 @@ namespace lurum_dare_48.Source.Levels
                         }
                     }
                     new Door(scene, position, (int)entity.Height, locked);
+                }
+                else if (entity.Identifier.Equals("MountedGun"))
+                {
+                    Direction dir = default;
+                    Newtonsoft.Json.Linq.JArray array = null;
+                    foreach (FieldInstance field in entity.FieldInstances)
+                    {
+                        if (field.Identifier == "Direction")
+                        {
+                            dir = Enum.Parse(typeof(Direction), field.Value);
+                        }
+                        else if(field.Identifier == "Integer")
+                        {
+                            array = field.Value;
+                        }
+                    }
+                    List<int> param = array.ToObject<List<int>>();
+                    new MountedGun(scene, position, dir, param[0], param[1], param[2], param[3]);
                 }
             }
         }

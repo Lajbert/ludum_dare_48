@@ -19,6 +19,8 @@ namespace lurum_dare_48.Source.Entities.Environment
         public Door(AbstractScene scene, Vector2 position, int height, bool locked) : base (scene.LayerManager.EntityLayer, null, position)
         {
             AddTag("Door");
+            CheckGridCollisions = false;
+
             TileGroup tg = new TileGroup();
             Texture2D tileSet = AssetUtil.CreateRectangle(Config.GRID, Color.Bisque);
             Color[] data = new Color[Config.GRID * Config.GRID];

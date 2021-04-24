@@ -502,6 +502,12 @@ namespace MonolithEngine.Entities
             Scene.CollisionEngine.OnCollisionProfileChanged(this);
         }
 
+        public void ClearCollisionAgainst()
+        {
+            CollidesAgainst.Clear();
+            Scene.CollisionEngine.OnCollisionProfileChanged(this);
+        }
+
         public ICollection<ITrigger> GetTriggers()
         {
             return componentList.GetComponents<ITrigger>();
