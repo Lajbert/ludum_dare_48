@@ -22,7 +22,7 @@ namespace ForestPlatformerExample.Source.Scenes
     {
         public MainMenuScene() : base("MainMenu")
         {
-
+            BackgroundColor = Color.DimGray;
         }
 
         public override ICollection<object> ExportData()

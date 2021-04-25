@@ -119,7 +119,7 @@ namespace MonolithEngine.Engine.Source.MyGame
 
             Camera = new Camera(graphics)
             {
-                Limits = new Rectangle(0, 0, 1100, 10000)
+                Limits = new Rectangle(0, 0, 1100, 1700)
             };
 
             SceneManager = new SceneManager(Camera, graphics.GraphicsDevice);

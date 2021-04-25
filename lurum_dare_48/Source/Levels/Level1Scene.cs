@@ -120,7 +120,7 @@ namespace lurum_dare_48.Source.Levels
 
         public override void OnFinished()
         {
-            
+            SceneManager.LoadScene("EndGame");
         }
 
         public override void OnStart()

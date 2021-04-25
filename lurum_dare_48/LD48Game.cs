@@ -84,6 +84,8 @@ namespace lurum_dare_48
             Assets.LoadTexture("HUDArrowLeftBase", "UI/arrow_right_base", flipHorizontal: true);
             Assets.LoadTexture("HUDArrowLeftSelected", "UI/arrow_right_selected", flipHorizontal: true);
             Assets.LoadTexture("HUDLoading", "UI/loading");
+            Assets.LoadTexture("HUDWinningBase", "UI/winning");
+            Assets.LoadTexture("HUDWinningSelected", "UI/winning_selected");
 
             Assets.LoadTexture("HeroIdle", "Hero/Sprites/left_idle");
             Assets.LoadTexture("HeroRun", "Hero/Sprites/run_left");
@@ -135,6 +137,7 @@ namespace lurum_dare_48
             SettingsScene settings = new SettingsScene();
             VideoSettingsScene videoSettings = new VideoSettingsScene();
             LoadingScreenScene loadingScreen = new LoadingScreenScene();
+            EndGameScene endGameScene = new EndGameScene();
 
             SceneManager.AddScene(mainMenuScene);
             SceneManager.AddScene(settings);
@@ -142,6 +145,7 @@ namespace lurum_dare_48
             SceneManager.AddScene(level1);
             SceneManager.AddScene(videoSettings);
             SceneManager.AddScene(loadingScreen);
+            SceneManager.AddScene(endGameScene);
 
             SceneManager.LoadScene(mainMenuScene);
             SceneManager.SetLoadingScene(loadingScreen);

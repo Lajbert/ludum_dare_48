@@ -14,7 +14,7 @@ namespace ForestPlatformerExample.Source.Scenes
     {
         public SettingsScene() : base("Settings", preload: true)
         {
-
+            BackgroundColor = Color.DimGray;
         }
 
         public override ICollection<object> ExportData()
@@ -64,7 +64,7 @@ namespace ForestPlatformerExample.Source.Scenes
             };
 
             UI.AddUIElement(videoSettings);
-            UI.AddUIElement(audioSettings);
+            //UI.AddUIElement(audioSettings);
             UI.AddUIElement(back);
         }
 

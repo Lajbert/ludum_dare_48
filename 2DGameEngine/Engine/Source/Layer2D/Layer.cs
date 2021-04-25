@@ -203,17 +203,17 @@ namespace MonolithEngine.Source.GridCollision
 
         public void Destroy()
         {
-            foreach (Entity entity in activeObjects)
+            foreach (Entity entity in activeObjects.ToList())
             {
                 entity.Destroy();
             }
 
-            foreach(Entity entity in visibleObjects)
+            foreach(Entity entity in visibleObjects.ToList())
             {
                 entity.Destroy();
             }
 
-            foreach (Entity entity in changedObjects)
+            foreach (Entity entity in changedObjects.ToList())
             {
                 entity.Destroy();
             }

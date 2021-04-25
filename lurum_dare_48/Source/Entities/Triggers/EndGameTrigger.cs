@@ -20,12 +20,12 @@ namespace lurum_dare_48.Source.Entities.Triggers
             //DEBUG_SHOW_PIVOT = true;
         }
 
-        public override void OnLeaveTrigger(string triggerTag, IGameObject otherEntity)
+        public override void OnEnterTrigger(string triggerTag, IGameObject otherEntity)
         {
-            base.OnLeaveTrigger(triggerTag, otherEntity);
+            base.OnEnterTrigger(triggerTag, otherEntity);
             if (otherEntity is Hero)
             {
-                
+                Scene.Finish();
             }
         }
     }

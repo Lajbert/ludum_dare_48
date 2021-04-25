@@ -20,7 +20,7 @@ namespace ForestPlatformerExample.Source.Scenes
 
         public VideoSettingsScene() : base ("VideoSettings", preload: true)
         {
-
+            BackgroundColor = Color.DimGray;
         }
 
         public override ICollection<object> ExportData()

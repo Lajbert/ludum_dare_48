@@ -200,6 +200,10 @@ namespace lurum_dare_48.Source.Levels
                 {
                     new HealthPickup(scene, position);
                 }
+                else if (entity.Identifier.Equals("EndGameTrigger"))
+                {
+                    new EndGameTrigger(scene, position, (int)entity.Width, (int)entity.Height);
+                }
             }
         }
 
