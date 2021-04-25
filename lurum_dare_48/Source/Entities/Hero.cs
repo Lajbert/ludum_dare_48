@@ -586,7 +586,7 @@ namespace lurum_dare_48.Source.Entities
             }
             else if (otherCollider is Ammo)
             {
-                CurrentWeapon.AddAmmo((otherCollider as Ammo).Amount);
+                AddAmmo(otherCollider as Ammo);
                 otherCollider.Destroy();
             }
             else if (otherCollider is Door && IsCarryingItem("Key"))
@@ -662,6 +662,21 @@ namespace lurum_dare_48.Source.Entities
 
 
             base.OnCollisionStart(otherCollider);
+        }
+
+        private void AddAmmo(Ammo ammo)
+        {
+            int weaponIdx = 0;
+            if (ammo.WeaponType.Equals(typeof(Machinegun)))
+            {
+                weaponIdx = 1;
+            }
+            else if (ammo.WeaponType.Equals(typeof(Shotgun)))
+            {
+                weaponIdx = 2;
+            }
+
+            weapons[weaponIdx].AddAmmo(ammo.Amount);
         }
 
         public override void OnCollisionEnd(IGameObject otherCollider)

@@ -34,7 +34,7 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
             }
             ClipSize = 7;
             AmmoInClip = ClipSize;
-            AllAmmo = 100;
+            AllAmmo = 0;
             Animations.Offset = Offset;
             SpriteSheetAnimation animLeft = new SpriteSheetAnimation(this, Assets.GetTexture("Gun"), 40);
             animLeft.StartFrame = 1;

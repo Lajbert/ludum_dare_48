@@ -29,7 +29,7 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
             Animations = new AnimationStateMachine();
             RemoveComponent<AnimationStateMachine>();
             AddComponent(Animations);
-
+            AllAmmo = 0;
             //LeftFacingOffset = new Vector2(50, 0);
             //RightFacingOffset = new Vector2(-50, 0);
 
