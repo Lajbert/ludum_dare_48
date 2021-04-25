@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Text;
 using MonolithEngine.Engine.Source.Scene;
 using MonolithEngine.Engine.Source.Entities.Animations;
+using System.Linq;
 
 namespace MonolithEngine.Source.GridCollision
 {
@@ -86,7 +87,7 @@ namespace MonolithEngine.Source.GridCollision
 
                 spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Scene.Camera.GetTransformMatrix(scrollSpeedModifier, lockY));
 
-                foreach (Entity entity in visibleObjects)
+                foreach (Entity entity in visibleObjects.ToList())
                 {
                     if (entity.Visible)
                     {

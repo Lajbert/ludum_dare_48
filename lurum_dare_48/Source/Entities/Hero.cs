@@ -229,6 +229,21 @@ namespace lurum_dare_48.Source.Entities
                     THIS_IS_SPARTA();
                     Globals.FixedUpdateMultiplier = 0.1f;
 
+                    Vector2 canSpawnPos = collidingWith[0].Transform.Position;
+
+                    Timer.TriggerAfter(1500, () =>
+                    {
+                        FuelCan can = new FuelCan(scene, canSpawnPos + new Vector2(0, -20), TankCapacity);
+                        can.Velocity += new Vector2(-2, -1);
+                        can.CollisionsEnabled = false;
+                        Timer.TriggerAfter(2000, () =>
+                        {
+                            can.CollisionsEnabled = true;
+                        });
+                    });
+
+
+
                     Timer.TriggerAfter(3000, () =>
                     {
                         Globals.FixedUpdateMultiplier = 0.5f;

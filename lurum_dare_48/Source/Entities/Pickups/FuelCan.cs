@@ -12,7 +12,7 @@ using System.Text;
 
 namespace lurum_dare_48.Source.Entities.Pickups
 {
-    class FuelCan : StaticPickup
+    class FuelCan : AbstractPickup
     {
         public float Amount;
 
