@@ -24,7 +24,7 @@ namespace lurum_dare_48.Source.Levels
 
         public Image CurrentlyDisplayed;
 
-        public Level1Scene(LDTKMap world, SpriteFont font) : base ("Level_1")
+        public Level1Scene(LDTKMap world, SpriteFont font) : base ("Level_1", useLoadingScreen: true)
         {
             this.font = font;
             this.world = world;
@@ -126,6 +126,8 @@ namespace lurum_dare_48.Source.Levels
         public override void OnStart()
         {
             Camera.TrackTarget(hero, true);
+            LD48Game.Paused = false;
+            LD48Game.WasGameStarted = true;
         }
     }
 }

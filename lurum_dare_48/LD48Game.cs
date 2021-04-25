@@ -1,4 +1,5 @@
-﻿using lurum_dare_48.Source.Levels;
+﻿using ForestPlatformerExample.Source.Scenes;
+using lurum_dare_48.Source.Levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -30,15 +31,59 @@ namespace lurum_dare_48
 
             //graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             //graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            VideoConfiguration.RESOLUTION_WIDTH = 2560;
-            VideoConfiguration.RESOLUTION_HEIGHT = 1440;
+            VideoConfiguration.RESOLUTION_WIDTH = 1280;
+            VideoConfiguration.RESOLUTION_HEIGHT = 720;
             VideoConfiguration.FULLSCREEN = false;
-            VideoConfiguration.FRAME_LIMIT = 200;
-            VideoConfiguration.VSYNC = false;
+            VideoConfiguration.FRAME_LIMIT = 0;
+            VideoConfiguration.VSYNC = true;
         }
 
         protected override void LoadGameContent()
         {
+
+            // UI text generated with: https://fontmeme.com/pixel-fonts/
+            // font: KA1
+            // base color: 2A2A57
+            // selected color: FF0000
+            Assets.LoadTexture("HUDNewGameBase", "UI/new_game_base");
+            Assets.LoadTexture("HUDNewGameSelected", "UI/new_game_selected");
+            Assets.LoadTexture("HUDSettingsBase", "UI/settings_base");
+            Assets.LoadTexture("HUDSettingsSelected", "UI/settings_selected");
+            Assets.LoadTexture("HUDQuitBase", "UI/quit_base");
+            Assets.LoadTexture("HUDQuitSelected", "UI/quit_selected");
+            Assets.LoadTexture("HUDContinueBase", "UI/continue_base");
+            Assets.LoadTexture("HUDContinueSelected", "UI/continue_selected");
+            Assets.LoadTexture("HUDVideoSettingsBase", "UI/video_base");
+            Assets.LoadTexture("HUDVideoSettingsSelected", "UI/video_selected");
+            Assets.LoadTexture("HUDAudioSettingsBase", "UI/audio_base");
+            Assets.LoadTexture("HUDAudioSettingsSelected", "UI/audio_selected");
+            Assets.LoadTexture("HUDBackBase", "UI/back_base");
+            Assets.LoadTexture("HUDBackSelected", "UI/back_selected");
+            Assets.LoadTexture("HUDResolutionLabel", "UI/resolution");
+            Assets.LoadTexture("HUDFPSLimitLabel", "UI/fps_limit");
+            Assets.LoadTexture("HUDVsyncLabel", "UI/vsync");
+            Assets.LoadTexture("HUDWindowModeLabel", "UI/window_mode");
+            Assets.LoadTexture("HUD30", "UI/30");
+            Assets.LoadTexture("HUD60", "UI/60");
+            Assets.LoadTexture("HUD120", "UI/120");
+            Assets.LoadTexture("HUDUnlimited", "UI/unlimited");
+            Assets.LoadTexture("HUD720p", "UI/720p");
+            Assets.LoadTexture("HUD1080p", "UI/1080p");
+            Assets.LoadTexture("HUD1440p", "UI/1440p");
+            Assets.LoadTexture("HUD4K", "UI/4k");
+            Assets.LoadTexture("HUDOn", "UI/on");
+            Assets.LoadTexture("HUDOff", "UI/off");
+            Assets.LoadTexture("HUDApplyBase", "UI/apply_base");
+            Assets.LoadTexture("HUDApplySelected", "UI/apply_selected");
+            Assets.LoadTexture("HUDCancelBase", "UI/cancel_base");
+            Assets.LoadTexture("HUDCancelSelected", "UI/cancel_selected");
+            Assets.LoadTexture("HUDWindowed", "UI/windowed");
+            Assets.LoadTexture("HUDFullscreen", "UI/fullscreen");
+            Assets.LoadTexture("HUDArrowRightBase", "UI/arrow_right_base");
+            Assets.LoadTexture("HUDArrowRightSelected", "UI/arrow_right_selected");
+            Assets.LoadTexture("HUDArrowLeftBase", "UI/arrow_right_base", flipHorizontal: true);
+            Assets.LoadTexture("HUDArrowLeftSelected", "UI/arrow_right_selected", flipHorizontal: true);
+            Assets.LoadTexture("HUDLoading", "UI/loading");
 
             Assets.LoadTexture("HeroIdle", "Hero/Sprites/left_idle");
             Assets.LoadTexture("HeroRun", "Hero/Sprites/run_left");
@@ -84,22 +129,33 @@ namespace lurum_dare_48
             MapSerializer mapSerializer = new LDTKJsonMapParser();
             world = mapSerializer.Load("D:/GameDev/MonoGame/lurum_dare_48/lurum_dare_48/lurum_dare_48/Maps/ld_48_world.json");
 
+            MainMenuScene mainMenuScene = new MainMenuScene();
+            PauseMenuScene pauseMenuScene = new PauseMenuScene();
             Level1Scene level1 = new Level1Scene(world, font);
+            SettingsScene settings = new SettingsScene();
+            VideoSettingsScene videoSettings = new VideoSettingsScene();
+            LoadingScreenScene loadingScreen = new LoadingScreenScene();
 
+            SceneManager.AddScene(mainMenuScene);
+            SceneManager.AddScene(settings);
+            SceneManager.AddScene(pauseMenuScene);
             SceneManager.AddScene(level1);
+            SceneManager.AddScene(videoSettings);
+            SceneManager.AddScene(loadingScreen);
 
-            SceneManager.LoadScene(level1);
+            SceneManager.LoadScene(mainMenuScene);
+            SceneManager.SetLoadingScene(loadingScreen);
         }
 
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            /*KeyboardState state = Keyboard.GetState();
+            KeyboardState state = Keyboard.GetState();
 
             if (prevKeyboardState != state && state.IsKeyDown(Keys.R))
             {
-                SceneManager.LoadScene("Level1");
+                SceneManager.LoadScene("Level_1");
             }
             else if (prevKeyboardState != state && state.IsKeyDown(Keys.Escape) && WasGameStarted && !Paused)
             {
@@ -107,17 +163,14 @@ namespace lurum_dare_48
             }
             else if (prevKeyboardState != state && state.IsKeyDown(Keys.Escape) && WasGameStarted && Paused)
             {
-                SceneManager.StartScene("Level1");
+                SceneManager.StartScene("Level_1");
             }
             else if (prevKeyboardState != state && state.IsKeyDown(Keys.Escape) && !WasGameStarted)
             {
                 SceneManager.StartScene("MainMenu");
             }
 
-            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            //    Exit();
-
-            prevKeyboardState = state;*/
+            prevKeyboardState = state;
         }
     }
 }

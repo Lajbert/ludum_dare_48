@@ -566,10 +566,10 @@ namespace lurum_dare_48.Source.Entities
                 CurrentWeapon?.FollowMouse(worldPos);
             };
 
-            UserInput.RegisterKeyPressAction(Keys.Escape, (Vector2 thumbstickPosition) =>
+            /*UserInput.RegisterKeyPressAction(Keys.Escape, (Vector2 thumbstickPosition) =>
             {
                 Config.ExitAction.Invoke();
-            });
+            });*/
         }
 
         public override void OnCollisionStart(IGameObject otherCollider)

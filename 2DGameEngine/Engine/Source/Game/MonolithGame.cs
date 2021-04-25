@@ -215,10 +215,10 @@ namespace MonolithEngine.Engine.Source.MyGame
 
             base.Update(gameTime);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            /*if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 Exit();
-            }
+            }*/
         }
 
         protected void FixedUpdate()
