@@ -116,7 +116,7 @@ namespace lurum_dare_48.Source.Entities.Enemies
 
             if (!Static)
             {
-                if (hero.Transform.X < Transform.X)
+                if (hero.CurrentFaceDirection == Direction.EAST)
                 {
                     Velocity += new Vector2(3, 1);
                 }

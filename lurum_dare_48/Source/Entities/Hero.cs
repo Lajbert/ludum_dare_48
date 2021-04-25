@@ -697,6 +697,7 @@ namespace lurum_dare_48.Source.Entities
             if (Health == 0)
             {
                 Logger.Info("Game over");
+                Scene.SceneManager.LoadScene("LoseGameScreen");
             }
 
             if (flying)
@@ -710,7 +711,7 @@ namespace lurum_dare_48.Source.Entities
                 {
                     if (!enemy.IsKicked)
                     {
-                        if ((CurrentFaceDirection == Direction.WEST && Transform.X > enemy.Transform.X) || (CurrentFaceDirection == Direction.EAST&& Transform.X < enemy.Transform.X))
+                        //if ((CurrentFaceDirection == Direction.WEST && Transform.X > enemy.Transform.X) || (CurrentFaceDirection == Direction.EAST&& Transform.X < enemy.Transform.X))
                         enemy.Hit(this);
                         enemy.IsKicked = true;
                     }
@@ -770,7 +771,7 @@ namespace lurum_dare_48.Source.Entities
 
         public void DisplayKickTutorial()
         {
-            new TextPopup(Scene, Assets.GetTexture("KickText"), Transform.Position + new Vector2(0, -140), 0.3f);
+            new TextPopup(Scene, Assets.GetTexture("KickText"), Transform.Position + new Vector2(-160, -140), 0.3f);
             FallSpeed = 0;
         }
 

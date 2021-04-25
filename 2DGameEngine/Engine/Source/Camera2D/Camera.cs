@@ -60,6 +60,14 @@ namespace MonolithEngine.Engine.Source.Camera2D
             {
                 TrackTarget(target, true, targetTracingOffset);
             }
+            if (graphicsDeviceManager.PreferredBackBufferWidth == 1280)
+            {
+                Zoom += 1f;
+            }
+            else
+            {
+                Zoom += 1.5f;
+            }
             uiTransofrmMatrix = Matrix.Identity * Matrix.CreateScale(Config.SCALE, Config.SCALE, 1);
         }
 

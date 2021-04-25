@@ -31,8 +31,8 @@ namespace lurum_dare_48
 
             //graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             //graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            VideoConfiguration.RESOLUTION_WIDTH = 1280;
-            VideoConfiguration.RESOLUTION_HEIGHT = 720;
+            VideoConfiguration.RESOLUTION_WIDTH = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            VideoConfiguration.RESOLUTION_HEIGHT = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             VideoConfiguration.FULLSCREEN = false;
             VideoConfiguration.FRAME_LIMIT = 0;
             VideoConfiguration.VSYNC = true;
@@ -86,6 +86,9 @@ namespace lurum_dare_48
             Assets.LoadTexture("HUDLoading", "UI/loading");
             Assets.LoadTexture("HUDWinningBase", "UI/winning");
             Assets.LoadTexture("HUDWinningSelected", "UI/winning_selected");
+            Assets.LoadTexture("HUDRestartBase", "UI/restart");
+            Assets.LoadTexture("HUDWRestartSelected", "UI/restart_selected");
+            Assets.LoadTexture("HUDLost", "UI/wasted");
 
             Assets.LoadTexture("HeroIdle", "Hero/Sprites/left_idle");
             Assets.LoadTexture("HeroRun", "Hero/Sprites/run_left");
@@ -138,6 +141,7 @@ namespace lurum_dare_48
             VideoSettingsScene videoSettings = new VideoSettingsScene();
             LoadingScreenScene loadingScreen = new LoadingScreenScene();
             EndGameScene endGameScene = new EndGameScene();
+            LoseGameScreen loseGameScreen = new LoseGameScreen();
 
             SceneManager.AddScene(mainMenuScene);
             SceneManager.AddScene(settings);
@@ -146,6 +150,7 @@ namespace lurum_dare_48
             SceneManager.AddScene(videoSettings);
             SceneManager.AddScene(loadingScreen);
             SceneManager.AddScene(endGameScene);
+            SceneManager.AddScene(loseGameScreen);
 
             SceneManager.LoadScene(mainMenuScene);
             SceneManager.SetLoadingScene(loadingScreen);

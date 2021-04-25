@@ -48,7 +48,6 @@ namespace lurum_dare_48.Source.Levels
 
         public override void Load()
         {
-            Camera.Zoom += 1.5f;
 
             EntityParser parser = new EntityParser(world);
 

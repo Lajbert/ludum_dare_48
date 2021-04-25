@@ -18,7 +18,7 @@ namespace MonolithEngine.Engine.Source.Scene
     public abstract class AbstractScene : IScene
     {
 
-        protected SceneManager SceneManager;
+        public SceneManager SceneManager;
 
         protected string sceneName;
 
