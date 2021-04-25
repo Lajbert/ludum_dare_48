@@ -53,7 +53,6 @@ namespace lurum_dare_48.Source.Entities.Traps
 
             if (Direction == Direction.SOUTH || Direction == Direction.NORTH)
             {
-
                 sprite = new Sprite(this, tg.GetTexture(), new Rectangle(0, 0, length, Config.GRID), flipVertical: direction == Direction.SOUTH);
                 AddComponent(new BoxCollisionComponent(this, length, Config.GRID));
             }
@@ -82,8 +81,8 @@ namespace lurum_dare_48.Source.Entities.Traps
             AddComponent(sprite);
 
 #if DEBUG
-            (GetCollisionComponent() as AbstractCollisionComponent).DEBUG_DISPLAY_COLLISION = true;
-            DEBUG_SHOW_PIVOT = true;
+            //(GetCollisionComponent() as AbstractCollisionComponent).DEBUG_DISPLAY_COLLISION = true;
+            //DEBUG_SHOW_PIVOT = true;
 #endif
             DrawPriority = 1;
         }

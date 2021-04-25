@@ -79,6 +79,8 @@ namespace lurum_dare_48
             Assets.LoadTexture("EnemyRun", "Enemies/enemy_run_left");
             Assets.LoadTexture("EnemyIdle", "Enemies/left_idle");
 
+            Assets.LoadTexture("UIHealth", "Hero/Sprites/UI_health");
+
             MapSerializer mapSerializer = new LDTKJsonMapParser();
             world = mapSerializer.Load("D:/GameDev/MonoGame/lurum_dare_48/lurum_dare_48/lurum_dare_48/Maps/ld_48_world.json");
 

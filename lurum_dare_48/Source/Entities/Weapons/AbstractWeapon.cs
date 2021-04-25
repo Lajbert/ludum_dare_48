@@ -123,5 +123,10 @@ namespace lurum_dare_48.Source.Entities.Weapons
                 Transform.Position = LeftFacingOffset + breathOffset;
             }
         }
+
+        public int GetAmmo()
+        {
+            return AllAmmo;
+        }
     }
 }

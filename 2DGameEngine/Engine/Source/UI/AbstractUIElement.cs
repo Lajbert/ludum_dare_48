@@ -17,6 +17,9 @@ namespace MonolithEngine.Engine.Source.UI
             Position = position;
         }
 
+        private bool visible = true;
+        public bool Visible { get => visible; set => visible = value; }
+
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             

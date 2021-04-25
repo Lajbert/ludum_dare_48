@@ -59,6 +59,10 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
 
         public override void TriggerPulled(Vector2 worldPosition)
         {
+            if (AllAmmo == 0)
+            {
+                return;
+            }
             if (Timer.IsSet("Firing"))
             {
                 return;
@@ -76,6 +80,7 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
         private void SpawnBullet(Vector2 worldPosition)
         {
             SpawnShellsAndBullet(worldPosition, 2000, 5, new Vector2(0.1f, -0.2f));
+            AllAmmo--;
         }
 
         private void SpawnShellsAndBullet(Vector2 worldPosition, int lifetime, int rotationOffset, Vector2 force)

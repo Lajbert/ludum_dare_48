@@ -5,6 +5,7 @@ using lurum_dare_48.Source.Entities.Pickups;
 using lurum_dare_48.Source.Entities.Traps;
 using lurum_dare_48.Source.Entities.Weapons;
 using lurum_dare_48.Source.Entities.Weapons.Guns;
+using lurum_dare_48.Source.Levels;
 using lurum_dare_48.Source.Tutorial;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -19,6 +20,7 @@ using MonolithEngine.Engine.Source.Graphics;
 using MonolithEngine.Engine.Source.Physics.Collision;
 using MonolithEngine.Engine.Source.Scene;
 using MonolithEngine.Engine.Source.Util;
+using MonolithEngine.Entities;
 using MonolithEngine.Global;
 using MonolithEngine.Source.Entities;
 using MonolithEngine.Source.Util;
@@ -38,9 +40,11 @@ namespace lurum_dare_48.Source.Entities
         private readonly float MAX_JETPACK_SPEED = 0;
 
         private readonly float MAX_JUMP = 0.6f;
-        private static float TankCapacity = 1000;
+        public float TankCapacity = 10;
         private float currentJump = 0;
-        private float fuel = 0;
+        public float Fuel = 0;
+
+        public int Health = 10;
 
         private int jumpCount = 0;
 
@@ -61,6 +65,8 @@ namespace lurum_dare_48.Source.Entities
         private BoxCollisionComponent collisionComponent;
 
         public bool THIS_IS_SPARTAAAAA = false;
+
+        private List<IWeapon> weapons = new List<IWeapon>();
 
         public Hero(AbstractScene scene, Vector2 position) : base(scene.LayerManager.EntityLayer, null, position)
         {
@@ -354,12 +360,19 @@ namespace lurum_dare_48.Source.Entities
             Visible = true;
             Active = true;
 
-            DebugFunction = () =>
+            /*DebugFunction = () =>
             {
-                return "Fuel: " + (int)(((float)(fuel / TankCapacity)) * 100) + " %";
-            };
+                return "Fuel: " + (int)(((float)(Fuel / TankCapacity)) * 100) + " %";
+            };*/
 
             CurrentWeapon = new Handgun(scene, this);
+            weapons.Add(CurrentWeapon);
+            Machinegun mg = new Machinegun(scene, this);
+            mg.Visible = false;
+            Shotgun sg = new Shotgun(scene, this);
+            sg.Visible = false;
+            weapons.Add(mg);
+            weapons.Add(sg);
         }
 
         private void SetupController()
@@ -453,14 +466,14 @@ namespace lurum_dare_48.Source.Entities
 
             UserInput.RegisterKeyPressAction(Keys.Space, (Vector2 thumbStickPosition) =>
             {
-                if (fuel > 0)
+                if (Fuel > 0)
                 {
                     VelocityY -= JETPACK_SPEED;
-                    fuel -= JETPACK_SPEED;
+                    Fuel -= JETPACK_SPEED;
                     flying = true;
-                    if (fuel < 0)
+                    if (Fuel < 0)
                     {
-                        fuel = 0;
+                        Fuel = 0;
                     }
                 } else
                 {
@@ -477,6 +490,7 @@ namespace lurum_dare_48.Source.Entities
             UserInput.RegisterMouseActions(
                 () =>
                 {
+                    NextWeapon();
                     /*Timer.Repeat(300, (elapsedTime) =>
                     {
                         Scene.Camera.Zoom += 0.002f * elapsedTime;
@@ -484,6 +498,7 @@ namespace lurum_dare_48.Source.Entities
                 },
                 () =>
                 {
+                    PreviousWeapon();
                     /*Timer.Repeat(300, (elapsedTime) =>
                     {
                         Scene.Camera.Zoom -= 0.002f * elapsedTime;
@@ -673,7 +688,11 @@ namespace lurum_dare_48.Source.Entities
 
         public void AddFuel(float amount)
         {
-            fuel = Math.Max(TankCapacity, fuel + amount);
+            Fuel += amount;
+            if (Fuel > TankCapacity)
+            {
+                Fuel = TankCapacity;
+            }
         }
 
         public void WeaponKickback(Vector2 target, float force)
@@ -700,16 +719,19 @@ namespace lurum_dare_48.Source.Entities
         public void DisplayIntro()
         {
             new TextPopup(Scene, Assets.GetTexture("IntroText"), Transform.Position + new Vector2(0, -140), 0.3f);
+            FallSpeed = 0;
         }
 
         public void DisplayKickTutorial()
         {
             new TextPopup(Scene, Assets.GetTexture("KickText"), Transform.Position + new Vector2(0, -140), 0.3f);
+            FallSpeed = 0;
         }
 
         public void DisplayControlsTutorial()
         {
             new TextPopup(Scene, Assets.GetTexture("ControlsText"), Transform.Position + new Vector2(0, 0), 0.3f);
+            FallSpeed = 0;
         }
 
         public void THIS_IS_SPARTA()
@@ -719,6 +741,40 @@ namespace lurum_dare_48.Source.Entities
                 Scene.Camera.Zoom += 0.002f * elapsedTime;
             });
             new TextPopup(Scene, Assets.GetTexture("SpartaText"), Transform.Position + new Vector2(0, -70), 0.3f, 2000);
+        }
+
+        private void NextWeapon()
+        {
+            int idx = weapons.IndexOf(CurrentWeapon);
+            if (idx == weapons.Count - 1)
+            {
+                idx = 0;
+            }
+            else
+            {
+                idx++;
+            }
+            (CurrentWeapon as Entity).Visible = false;
+            CurrentWeapon = weapons[idx];
+            (CurrentWeapon as Entity).Visible = true;
+            (Scene as Level1Scene).NextIcon();
+        }
+
+        private void PreviousWeapon()
+        {
+            int idx = weapons.IndexOf(CurrentWeapon);
+            if (idx == 0)
+            {
+                idx = weapons.Count - 1;
+            }
+            else
+            {
+                idx--;
+            }
+            (CurrentWeapon as Entity).Visible = false;
+            CurrentWeapon = weapons[idx];
+            (CurrentWeapon as Entity).Visible = true;
+            (Scene as Level1Scene).PrevIcon();
         }
     }
 }

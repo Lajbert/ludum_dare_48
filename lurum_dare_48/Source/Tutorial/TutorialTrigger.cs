@@ -19,7 +19,7 @@ namespace lurum_dare_48.Source.Tutorial
         {
             AddComponent(new BoxTrigger(this, width, height, Vector2.Zero, tag: ""));
             this.tutorialName = tutorialName;
-            DEBUG_SHOW_COLLIDER = true;
+            //DEBUG_SHOW_COLLIDER = true;
             Active = true;
         }
 

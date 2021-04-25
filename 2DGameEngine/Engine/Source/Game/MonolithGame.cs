@@ -91,10 +91,13 @@ namespace MonolithEngine.Engine.Source.MyGame
             AssetUtil.GraphicsDeviceManager = graphics;
             Layer.GraphicsDeviceManager = graphics;
             TileGroup.GraphicsDevice = graphics.GraphicsDevice;
+#if DEBUG
             debugFont = Content.Load<SpriteFont>("Fonts/DebugFont");
+            Entity.DebugFont = debugFont;
+#endif
             VideoConfiguration.GameInstance = this;
             Init();
-            Entity.DebugFont = debugFont;
+
             base.Initialize();
         }
 
@@ -230,6 +233,7 @@ namespace MonolithEngine.Engine.Source.MyGame
             //gameTime = new GameTime(gameTime.TotalGameTime / 5, gameTime.ElapsedGameTime / 5);
             SceneManager.Draw(spriteBatch);
 
+#if DEBUG
             var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             lastPrint += gameTime.ElapsedGameTime.Milliseconds;
             frameCounter.Update(deltaTime);
@@ -243,7 +247,7 @@ namespace MonolithEngine.Engine.Source.MyGame
             spriteBatch.Begin();
             spriteBatch.DrawString(font, fps, new Vector2(1, 1), Color.Red);
             spriteBatch.End();
-
+#endif
 
             // TODO: Add your drawing code here
 

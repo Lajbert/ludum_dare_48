@@ -1,5 +1,6 @@
 ﻿using ForestPlatformerExample.Source.Entities.Enemies;
 using lurum_dare_48.Source.Entities.Items;
+using lurum_dare_48.Source.Entities.Pickups;
 using lurum_dare_48.Source.Entities.Traps;
 using lurum_dare_48.Source.Entities.Weapons.Guns;
 using Microsoft.Xna.Framework;
@@ -64,7 +65,7 @@ namespace lurum_dare_48.Source.Entities.Enemies
                 //AddComponent(new BoxTrigger)
             }
 
-            DEBUG_SHOW_COLLIDER = true;
+            //DEBUG_SHOW_COLLIDER = true;
         }
 
         public override void Destroy()
@@ -75,6 +76,30 @@ namespace lurum_dare_48.Source.Entities.Enemies
                 {
                     DoorKey key = new DoorKey(Scene, Transform.Position - new Vector2(0, 10));
                     key.VelocityY -= 2;
+                }
+                else if (item == "Fuel")
+                {
+                    FuelCan fuel = new FuelCan(Scene, Transform.Position - new Vector2(0, 10), 10);
+                    fuel.VelocityY -= 2;
+                    fuel.VelocityX = -2;
+                }
+                else if (item == "HandgunAmmo")
+                {
+                    Ammo ammo = new Ammo(Scene, Transform.Position - new Vector2(0, 10), 10, typeof(Handgun));
+                    ammo.VelocityY -= 2;
+                    ammo.VelocityX = 2;
+                }
+                else if (item == "MachinegunAmmo")
+                {
+                    Ammo ammo = new Ammo(Scene, Transform.Position - new Vector2(0, 10), 50, typeof(Machinegun));
+                    ammo.VelocityY -= 2;
+                    ammo.VelocityX = 2;
+                }
+                else if (item == "ShotgunAmmo")
+                {
+                    Ammo ammo = new Ammo(Scene, Transform.Position - new Vector2(0, 10), 10, typeof(Shotgun));
+                    ammo.VelocityY -= 2;
+                    ammo.VelocityX = 2;
                 }
             }
             base.Destroy();

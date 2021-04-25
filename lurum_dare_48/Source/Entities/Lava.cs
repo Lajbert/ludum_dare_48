@@ -49,7 +49,7 @@ namespace lurum_dare_48.Source.Entities
             Active = true;
 
             AddComponent(new BoxCollisionComponent(this, width, height));
-            DEBUG_SHOW_COLLIDER = true;
+            //DEBUG_SHOW_COLLIDER = true;
         }
 
         public override void Update()

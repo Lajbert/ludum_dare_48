@@ -16,5 +16,7 @@ namespace MonolithEngine.Engine.Source.UI
         public IUIElement GetParent();
 
         public Vector2 GetPosition();
+
+        public bool Visible { get; set; }
     }
 }

@@ -51,7 +51,10 @@ namespace MonolithEngine.Engine.Source.UI
 
             foreach (IUIElement element in elements)
             {
-                element.Draw(spriteBatch);
+                if (element.Visible)
+                {
+                    element.Draw(spriteBatch);
+                }
             }
         }
 

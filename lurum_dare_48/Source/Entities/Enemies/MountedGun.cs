@@ -132,10 +132,10 @@ namespace lurum_dare_48.Source.Entities.Enemies
             }
         }
 
+#if DEBUG
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-#if DEBUG
             if (seesHero)
             {
                 foreach (Vector2 point in line)
@@ -151,7 +151,7 @@ namespace lurum_dare_48.Source.Entities.Enemies
                 }
             }
             //line.Clear();
-#endif
         }
+#endif
     }
 }

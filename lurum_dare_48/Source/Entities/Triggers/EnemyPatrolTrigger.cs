@@ -20,7 +20,7 @@ namespace lurum_dare_48.Source.Entities.Triggers
             AddComponent(new BoxTrigger(this, width, height, Vector2.Zero, tag: ""));
             Visible = true;
             Active = true;
-            DEBUG_SHOW_COLLIDER = true;
+            //DEBUG_SHOW_COLLIDER = true;
             this.width = width;
         }
 
