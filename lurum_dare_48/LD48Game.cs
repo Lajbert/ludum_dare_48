@@ -67,6 +67,8 @@ namespace lurum_dare_48
 
             Assets.LoadTexture("Lava", "Enivornment/Tilesheets/lava");
 
+            Assets.LoadTexture("MountedGun", "Enivornment/Traps/mounted_gun");
+
             MapSerializer mapSerializer = new LDTKJsonMapParser();
             world = mapSerializer.Load("D:/GameDev/MonoGame/lurum_dare_48/lurum_dare_48/lurum_dare_48/Maps/ld_48_world.json");
 

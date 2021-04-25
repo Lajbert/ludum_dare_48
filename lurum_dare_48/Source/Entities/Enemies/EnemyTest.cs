@@ -32,7 +32,6 @@ namespace lurum_dare_48.Source.Entities.Enemies
             DoorKey key = new DoorKey(Scene, Transform.Position - new Vector2(0, 10));
             key.VelocityY -= 2;
             base.Destroy();
-            Scene.Camera.Shake(5, 600);
         }
 
         public override void FixedUpdate()

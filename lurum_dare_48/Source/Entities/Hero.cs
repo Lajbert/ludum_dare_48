@@ -120,10 +120,10 @@ namespace lurum_dare_48.Source.Entities
                     (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(3, -17));
                 }
             };
-            animations.RegisterAnimation("IdleLeft", idleLeft, () => Velocity.X == 0 && CurrentFaceDirection == Direction.WEST);
+            animations.RegisterAnimation("IdleLeft", idleLeft, () => previousPosition == Transform.Position && CurrentFaceDirection == Direction.WEST);
 
             SpriteSheetAnimation idleRight = idleLeft.CopyFlipped();
-            animations.RegisterAnimation("IdleRight", idleRight, () => Velocity.X == 0 && CurrentFaceDirection == Direction.EAST);
+            animations.RegisterAnimation("IdleRight", idleRight, () => previousPosition == Transform.Position && CurrentFaceDirection == Direction.EAST);
 
             SpriteSheetAnimation runLeft = new SpriteSheetAnimation(this, Assets.GetTexture("HeroRun"), 40);
             runLeft.StartedCallback = () =>

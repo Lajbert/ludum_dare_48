@@ -73,7 +73,7 @@ namespace lurum_dare_48.Source.Entities.Environment
 
             RemoveComponent<Sprite>();
             AddComponent(openSprite);
-            Timer.Repeat(1300, (elapsedTime) =>
+            Timer.Repeat(1050, (elapsedTime) =>
             {
                 VelocityY -= 0.001f * elapsedTime;
             });

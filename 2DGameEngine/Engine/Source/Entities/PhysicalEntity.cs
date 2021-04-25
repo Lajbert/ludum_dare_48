@@ -98,7 +98,7 @@ namespace MonolithEngine
         private PhysicalEntity leftCollider = null;
         private PhysicalEntity rightCollider = null;
 
-        private Vector2 previousPosition = Vector2.Zero;
+        protected Vector2 previousPosition = Vector2.Zero;
 
         private float previousRotation = 0f;
 

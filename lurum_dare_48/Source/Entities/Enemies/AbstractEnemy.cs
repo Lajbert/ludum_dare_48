@@ -27,6 +27,8 @@ namespace lurum_dare_48.Source.Entities.Enemies
 
         public float CurrentSpeed = 0.05f;
 
+        public bool Static = false;
+
         public AbstractEnemy(AbstractScene scene, Vector2 position, Direction direction) : base(scene.LayerManager.EntityLayer, null, position)
         {
             AddTag("Enemy");
@@ -36,13 +38,16 @@ namespace lurum_dare_48.Source.Entities.Enemies
 
         public override void FixedUpdate()
         {
-            if (CurrentFaceDirection == Direction.WEST)
+            if (!Static)
             {
-                Velocity += speed * -1;
-            }
-            else
-            {
-                Velocity += speed;
+                if (CurrentFaceDirection == Direction.WEST)
+                {
+                    Velocity += speed * -1;
+                }
+                else
+                {
+                    Velocity += speed;
+                }
             }
             base.FixedUpdate();
         }
@@ -68,14 +73,23 @@ namespace lurum_dare_48.Source.Entities.Enemies
                 Health -= 1;
             }
 
-            if (bullet.GetPosition().X < Transform.X)
+            if (!Static)
             {
-                Velocity += bullet.GetImpactForce();
+                if (bullet.GetPosition().X < Transform.X)
+                {
+                    Velocity += bullet.GetImpactForce();
+                }
+                else
+                {
+                    Velocity -= bullet.GetImpactForce();
+                }
             }
-            else
-            {
-                Velocity -= bullet.GetImpactForce();
-            }
+        }
+
+        public override void Destroy()
+        {
+            Scene.Camera.Shake(5, 600);
+            base.Destroy();
         }
     }
 }
