@@ -23,6 +23,7 @@ namespace lurum_dare_48.Source.Entities.Traps
         public Spikes(AbstractScene scene, Vector2 position, int length, Direction direction) : base(scene.LayerManager.EntityLayer, null, position)
         {
             Direction = direction;
+            DrawPriority = 21;
             AddTag("Spikes");
             TileGroup tg = new TileGroup();
             Texture2D tileSet = Assets.GetTexture("Spikes");

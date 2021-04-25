@@ -27,6 +27,8 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
                 movement.Normalize();
             }
 
+            AddTag("MountedGunBullet");
+
             Velocity = movement * speedMultiplier;
 
             CollisionOffsetBottom = 1;
@@ -66,7 +68,7 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
             return ImpactForce;
         }
 
-        public override void OnCollisionStart(IGameObject otherCollider)
+        /*public override void OnCollisionStart(IGameObject otherCollider)
         {
             if (otherCollider.HasTag("Hero"))
             {
@@ -76,7 +78,7 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
 
             Destroy();
             base.OnCollisionStart(otherCollider);
-        }
+        }*/
 
         public Vector2 GetPosition()
         {

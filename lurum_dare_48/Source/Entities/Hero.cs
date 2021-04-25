@@ -76,6 +76,7 @@ namespace lurum_dare_48.Source.Entities
             AddTag("Hero");
             AddCollisionAgainst("Enemy");
             AddCollisionAgainst("Spikes");
+            AddCollisionAgainst("Trap");
 
             CanFireTriggers = true;
 
@@ -578,6 +579,11 @@ namespace lurum_dare_48.Source.Entities
                 AddFuel((otherCollider as FuelCan).Amount);
                 otherCollider.Destroy();
             }
+            else if (otherCollider is HealthPickup)
+            {
+                Health = 10;
+                otherCollider.Destroy();
+            }
             else if (otherCollider is Ammo)
             {
                 CurrentWeapon.AddAmmo((otherCollider as Ammo).Amount);
@@ -631,6 +637,26 @@ namespace lurum_dare_48.Source.Entities
                     repel.Y *= -1;
                 }
                 Velocity += repel;
+                Health--;
+            }
+            else if (otherCollider is Saw)
+            {
+                if (Timer.IsSet("Invincible"))
+                {
+                    return;
+                }
+                Timer.SetTimer("Invincible", 1000);
+                Vector2 repel = new Vector2(-2, -1);
+                if (otherCollider.Transform.Position.X < Transform.Position.X)
+                {
+                    repel = new Vector2(2, -1);
+                }
+                Velocity += repel;
+                Health--;
+            }
+            else if (otherCollider is MountedGunBullet)
+            {
+                otherCollider.Destroy();
                 Health--;
             }
 

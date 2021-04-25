@@ -53,7 +53,10 @@ namespace lurum_dare_48.Source.Entities.Enemies
             AddComponent(new BoxTrigger(this, triggerWidth, triggerHeight, new Vector2(triggerXoffset, triggerYoffset), tag: ""));
 
             AddComponent(new BoxCollisionComponent(this, 16, 16, new Vector2(-8, -8)));
+#if DEBUG
             //DEBUG_SHOW_COLLIDER = true;
+            (GetComponent<ITrigger>() as BoxTrigger).DEBUG_DISPLAY_TRIGGER = true;
+#endif
 
             HasGravity = false;
 

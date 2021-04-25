@@ -4,6 +4,7 @@ using lurum_dare_48.Source.Entities.Environment;
 using lurum_dare_48.Source.Entities.Pickups;
 using lurum_dare_48.Source.Entities.Traps;
 using lurum_dare_48.Source.Entities.Triggers;
+using lurum_dare_48.Source.Entities.Weapons.Guns;
 using lurum_dare_48.Source.Tutorial;
 using Microsoft.Xna.Framework;
 using MonolithEngine.Engine.Source.Entities;
@@ -57,14 +58,20 @@ namespace lurum_dare_48.Source.Levels
                 else if (entity.Identifier.Equals("Fuel"))
                 {
                     float amount = 0;
+                    bool gravity = true;
                     foreach (FieldInstance field in entity.FieldInstances)
                     {
                         if (field.Identifier == "Amount")
                         {
                             amount = (float) field.Value;
                         }
+                        else if (field.Identifier == "HasGravity")
+                        {
+                            gravity = field.Value;
+                        }
                     }
-                    new FuelCan(scene, position, amount);
+                    FuelCan can = new FuelCan(scene, position, amount);
+                    can.HasGravity = gravity;
                 }
                 else if (entity.Identifier.Equals("EnemyPatrolTrigger"))
                 {
@@ -161,6 +168,37 @@ namespace lurum_dare_48.Source.Levels
                         }
                     }
                     new TutorialTrigger(scene, position, (int)entity.Width, (int)entity.Height, tutorial);
+                }
+                else if (entity.Identifier.Equals("Ammo"))
+                {
+                    Type weaponType = null;
+                    int amount = 0;
+                    foreach (FieldInstance field in entity.FieldInstances)
+                    {
+                        if (field.Identifier == "Weapon")
+                        {
+                            if (field.Value == "Handgun")
+                            {
+                                weaponType = typeof(Handgun);
+                            }
+                            else if (field.Value == "Machinegun")
+                            {
+                                weaponType = typeof(Machinegun);
+                            }
+                            else if (field.Value == "Shotgun")
+                            {
+                                weaponType = typeof(Shotgun);
+                            }
+                        } else if (field.Identifier == "Amount")
+                        {
+                            amount = (int)field.Value;
+                        }
+                    }
+                    new Ammo(scene, position, amount, weaponType);
+                }
+                else if (entity.Identifier.Equals("HealthPickup"))
+                {
+                    new HealthPickup(scene, position);
                 }
             }
         }

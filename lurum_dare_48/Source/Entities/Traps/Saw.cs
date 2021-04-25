@@ -27,6 +27,8 @@ namespace lurum_dare_48.Source.Entities.Traps
             HorizontalFriction = 0;
             VerticalFriction = 0;
 
+            DrawPriority = 22;
+
             if (horizontal)
             {
                 Movement = new Vector2(0.1f, 0);
