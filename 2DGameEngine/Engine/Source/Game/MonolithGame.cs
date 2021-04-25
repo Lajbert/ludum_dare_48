@@ -143,6 +143,8 @@ namespace MonolithEngine.Engine.Source.MyGame
             //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             //    Exit();
 
+#if !DEBUG
+
             if (Mouse.GetState().Position.X < 0)
             {
                 Mouse.SetPosition(0, Mouse.GetState().Position.Y);
@@ -167,6 +169,7 @@ namespace MonolithEngine.Engine.Source.MyGame
             {
                 Mouse.SetPosition(Mouse.GetState().Position.X, 0);
             }
+#endif
 
             if (gameTime.ElapsedGameTime.TotalSeconds > 0.1)
             {

@@ -17,7 +17,7 @@ namespace lurum_dare_48.Source.Entities.Enemies
     class AbstractEnemy : PhysicalEntity
     {
 
-        public Vector2 speed = new Vector2(0.05f, 0);
+        public Vector2 speed = new Vector2(0.02f, 0);
 
         public float Health = 10;
 
@@ -28,6 +28,8 @@ namespace lurum_dare_48.Source.Entities.Enemies
         public float CurrentSpeed = 0.05f;
 
         public bool Static = false;
+
+        public bool IsKicked = false;
 
         public AbstractEnemy(AbstractScene scene, Vector2 position, Direction direction) : base(scene.LayerManager.EntityLayer, null, position)
         {
@@ -82,6 +84,27 @@ namespace lurum_dare_48.Source.Entities.Enemies
                 else
                 {
                     Velocity -= bullet.GetImpactForce();
+                }
+            }
+        }
+
+        public virtual void Hit(Hero hero)
+        {
+            if (Health == 0)
+            {
+                Destroy();
+                return;
+            }
+
+            if (!Static)
+            {
+                if (hero.Transform.X < Transform.X)
+                {
+                    Velocity += new Vector2(3, 1);
+                }
+                else
+                {
+                    Velocity += new Vector2(-3, 1);
                 }
             }
         }

@@ -52,12 +52,15 @@ namespace lurum_dare_48.Source.Entities
 
         public bool IsKicking = false;
 
+        private List<AbstractEnemy> collidingWith = new List<AbstractEnemy>();
+
         public Hero(AbstractScene scene, Vector2 position) : base(scene.LayerManager.EntityLayer, null, position)
         {
 
             //DEBUG_SHOW_PIVOT = true;
 
             AddTag("Hero");
+            AddCollisionAgainst("Enemy");
 
             CanFireTriggers = true;
 
@@ -197,9 +200,17 @@ namespace lurum_dare_48.Source.Entities
 
             SpriteSheetAnimation kickLeft = new SpriteSheetAnimation(this, Assets.GetTexture("Kick"), 40);
             kickLeft.Looping = false;
-            kickLeft.StartedCallback = () =>
+            kickLeft.AddFrameAction(5, (frame) =>
             {
                 IsKicking = true;
+            });
+            kickLeft.AddFrameAction(6, (frame) =>
+            {
+                IsKicking = false;
+            });
+            kickLeft.StartedCallback = () =>
+            {
+                //IsKicking = true;
                 if (IsOnGround)
                 {
                     MovementSpeed = 0;
@@ -226,10 +237,14 @@ namespace lurum_dare_48.Source.Entities
                 }
             };
 
-            kickLeft.StoppedCallback = () =>
+            kickLeft.AnimationSwitchCallback = () =>
             {
                 IsKicking = false;
                 MovementSpeed = Config.CHARACTER_SPEED;
+                foreach (AbstractEnemy enemy in collidingWith)
+                {
+                    enemy.IsKicked = false;
+                }
             };
             animations.RegisterAnimation("KickLeft", kickLeft, () => false);
 
@@ -238,9 +253,17 @@ namespace lurum_dare_48.Source.Entities
 
             SpriteSheetAnimation kickJetpackLeft = new SpriteSheetAnimation(this, Assets.GetTexture("KickJetpacking"), 40);
             kickJetpackLeft.Looping = false;
-            kickJetpackLeft.StartedCallback = () =>
+            kickJetpackLeft.AddFrameAction(5, (frame) =>
             {
                 IsKicking = true;
+            });
+            kickJetpackLeft.AddFrameAction(6, (frame) =>
+            {
+                IsKicking = false;
+            });
+            kickJetpackLeft.StartedCallback = () =>
+            {
+                //IsKicking = true;
 
                 if (CurrentWeapon == null)
                 {
@@ -262,7 +285,7 @@ namespace lurum_dare_48.Source.Entities
                     (CurrentWeapon as Handgun).SetRightFacingOffset(new Vector2(-1, -17));
                 }
             };
-            kickJetpackLeft.StoppedCallback = () =>
+            kickJetpackLeft.AnimationSwitchCallback = () =>
             {
                 IsKicking = false;
             };
@@ -502,12 +525,23 @@ namespace lurum_dare_48.Source.Entities
                 key.Visible = false;
                 key.Active = false;
             }
-            else if (otherCollider is MountedGunBullet)
+            else if (otherCollider is AbstractEnemy)
             {
-                otherCollider.Destroy();
+                collidingWith.Add((otherCollider as AbstractEnemy));
             }
 
+
             base.OnCollisionStart(otherCollider);
+        }
+
+        public override void OnCollisionEnd(IGameObject otherCollider)
+        {
+            if (otherCollider is AbstractEnemy)
+            {
+                (otherCollider as AbstractEnemy).IsKicked = false;
+                collidingWith.Remove((otherCollider as AbstractEnemy));
+            }
+            base.OnCollisionEnd(otherCollider);
         }
 
         private bool IsCarryingItem(string tag)
@@ -533,6 +567,20 @@ namespace lurum_dare_48.Source.Entities
             {
                 FallSpeed = 0;
             }
+
+            if (IsKicking)
+            {
+                foreach (AbstractEnemy enemy in collidingWith)
+                {
+                    if (!enemy.IsKicked)
+                    {
+                        if ((CurrentFaceDirection == Direction.WEST && Transform.X > enemy.Transform.X) || (CurrentFaceDirection == Direction.EAST&& Transform.X < enemy.Transform.X))
+                        enemy.Hit(this);
+                        enemy.IsKicked = true;
+                    }
+                }
+            }
+
 
             base.FixedUpdate();
         }
