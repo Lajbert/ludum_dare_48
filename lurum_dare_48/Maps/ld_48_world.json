@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 28,
+	"nextUid": 32,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -344,7 +344,71 @@
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0,
 			"pivotY": 0,
-			"fieldDefs": []
+			"fieldDefs": [
+				{
+					"identifier": "Patrol",
+					"__type": "Bool",
+					"uid": 28,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_Bool",
+						"params": [ true ]
+					},
+					"textLanguageMode": null
+				},
+				{
+					"identifier": "CarriedItems",
+					"__type": "Array<String>",
+					"uid": 30,
+					"type": "F_String",
+					"isArray": true,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null
+				},
+				{
+					"identifier": "Tutorial",
+					"__type": "Bool",
+					"uid": 31,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null
+				}
+			]
 		},
 		{
 			"identifier": "Door",
@@ -1221,13 +1285,13 @@
 					"entityInstances": [
 						{
 							"__identifier": "Hero",
-							"__grid": [25,44],
+							"__grid": [38,8],
 							"__pivot": [0,0],
 							"__tile": null,
 							"width": 16,
 							"height": 16,
 							"defUid": 2,
-							"px": [400,704],
+							"px": [608,128],
 							"fieldInstances": []
 						},
 						{
@@ -1283,7 +1347,7 @@
 							"__grid": [45,32],
 							"__pivot": [0,0],
 							"__tile": null,
-							"width": 256,
+							"width": 240,
 							"height": 16,
 							"defUid": 12,
 							"px": [720,512],
@@ -1298,7 +1362,11 @@
 							"height": 16,
 							"defUid": 13,
 							"px": [784,512],
-							"fieldInstances": []
+							"fieldInstances": [
+								{ "__identifier": "Patrol", "__value": true, "__type": "Bool", "defUid": 28, "realEditorValues": [] },
+								{ "__identifier": "CarriedItems", "__value": [], "__type": "Array<String>", "defUid": 30, "realEditorValues": [] },
+								{ "__identifier": "Tutorial", "__value": false, "__type": "Bool", "defUid": 31, "realEditorValues": [] }
+							]
 						},
 						{
 							"__identifier": "Spikes",
@@ -1420,7 +1488,20 @@
 							"height": 16,
 							"defUid": 13,
 							"px": [240,864],
-							"fieldInstances": []
+							"fieldInstances": [
+								{ "__identifier": "Patrol", "__value": true, "__type": "Bool", "defUid": 28, "realEditorValues": [] },
+								{
+									"__identifier": "CarriedItems",
+									"__value": ["Key"],
+									"__type": "Array<String>",
+									"defUid": 30,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["Key"]
+									}]
+								},
+								{ "__identifier": "Tutorial", "__value": false, "__type": "Bool", "defUid": 31, "realEditorValues": [] }
+							]
 						},
 						{
 							"__identifier": "MountedGun",
@@ -1518,7 +1599,20 @@
 							"height": 16,
 							"defUid": 13,
 							"px": [624,704],
-							"fieldInstances": []
+							"fieldInstances": [
+								{ "__identifier": "Patrol", "__value": true, "__type": "Bool", "defUid": 28, "realEditorValues": [] },
+								{
+									"__identifier": "CarriedItems",
+									"__value": ["Key"],
+									"__type": "Array<String>",
+									"defUid": 30,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["Key"]
+									}]
+								},
+								{ "__identifier": "Tutorial", "__value": false, "__type": "Bool", "defUid": 31, "realEditorValues": [] }
+							]
 						},
 						{
 							"__identifier": "Spikes",
@@ -1643,6 +1737,50 @@
 							"defUid": 12,
 							"px": [496,704],
 							"fieldInstances": []
+						},
+						{
+							"__identifier": "EnemyPatrolTrigger",
+							"__grid": [10,54],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 128,
+							"height": 16,
+							"defUid": 12,
+							"px": [160,864],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Enemy",
+							"__grid": [43,8],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 16,
+							"height": 16,
+							"defUid": 13,
+							"px": [688,128],
+							"fieldInstances": [
+								{
+									"__identifier": "Patrol",
+									"__value": false,
+									"__type": "Bool",
+									"defUid": 28,
+									"realEditorValues": [{
+										"id": "V_Bool",
+										"params": [ false ]
+									}]
+								},
+								{ "__identifier": "CarriedItems", "__value": [], "__type": "Array<String>", "defUid": 30, "realEditorValues": [] },
+								{
+									"__identifier": "Tutorial",
+									"__value": true,
+									"__type": "Bool",
+									"defUid": 31,
+									"realEditorValues": [{
+										"id": "V_Bool",
+										"params": [ true ]
+									}]
+								}
+							]
 						}
 					]
 				},

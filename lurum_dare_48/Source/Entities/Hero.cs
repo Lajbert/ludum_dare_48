@@ -54,6 +54,10 @@ namespace lurum_dare_48.Source.Entities
 
         private List<AbstractEnemy> collidingWith = new List<AbstractEnemy>();
 
+        private int defaultBoxCollisionWidth = 18;
+
+        private BoxCollisionComponent collisionComponent;
+
         public Hero(AbstractScene scene, Vector2 position) : base(scene.LayerManager.EntityLayer, null, position)
         {
 
@@ -79,6 +83,10 @@ namespace lurum_dare_48.Source.Entities
             CollisionOffsetTop = 1;
 
             CurrentFaceDirection = Direction.EAST;
+
+            collisionComponent = new BoxCollisionComponent(this, 18, 30, new Vector2(-8, -30));
+            AddComponent(collisionComponent);
+            DEBUG_SHOW_COLLIDER = true;
 
             AnimationStateMachine animations = new AnimationStateMachine();
             animations.Offset = offset;
@@ -308,7 +316,6 @@ namespace lurum_dare_48.Source.Entities
                 return "Fuel: " + (int)(((float)(fuel / TankCapacity)) * 100) + " %";
             };
 
-            AddComponent(new BoxCollisionComponent(this, 18, 30, new Vector2(-8, -30)));
             CurrentWeapon = new Handgun(scene, this);
         }
 

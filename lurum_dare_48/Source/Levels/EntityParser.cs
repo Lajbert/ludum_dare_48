@@ -9,6 +9,7 @@ using MonolithEngine.Engine.Source.Entities;
 using MonolithEngine.Engine.Source.Level;
 using MonolithEngine.Engine.Source.Scene;
 using MonolithEngine.Source.Level;
+using MonolithEngine.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -71,14 +72,36 @@ namespace lurum_dare_48.Source.Levels
                 else if (entity.Identifier.Equals("Enemy"))
                 {
                     Direction dir = Direction.WEST;
+                    bool patrol = true;
+                    bool tutorial = false;
+                    Newtonsoft.Json.Linq.JArray array = null;
                     foreach (FieldInstance field in entity.FieldInstances)
                     {
                         if (field.Identifier == "Direction")
                         {
                             dir = Enum.Parse(typeof(Direction), field.Value);
                         }
+                        else if (field.Identifier == "Patrol")
+                        {
+                            patrol = field.Value;
+                        }
+                        else if (field.Identifier == "Tutorial")
+                        {
+                            tutorial = field.Value;
+                        }
+                        else if (field.Identifier == "CarriedItems")
+                        {
+                            array = field.Value;
+                        }
                     }
-                    new EnemyTest(scene, position, dir);
+                    List<string> carriedItems = array.ToObject<List<string>>();
+                    EnemyTest enemy = new EnemyTest(scene, position, dir);
+                    enemy.Patrol = patrol;
+                    enemy.Tutorial = tutorial;
+                    if (carriedItems != null && carriedItems.Count > 0)
+                    {
+                        enemy.CarriedItems = carriedItems;
+                    }
                 }
                 else if (entity.Identifier.Equals("Door"))
                 {

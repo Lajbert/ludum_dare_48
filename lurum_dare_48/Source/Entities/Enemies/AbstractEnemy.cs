@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using MonolithEngine;
 using MonolithEngine.Engine.Source.Entities;
+using MonolithEngine.Engine.Source.Entities.Abstract;
 using MonolithEngine.Engine.Source.Graphics;
 using MonolithEngine.Engine.Source.Physics.Collision;
 using MonolithEngine.Engine.Source.Physics.Trigger;
@@ -31,6 +32,10 @@ namespace lurum_dare_48.Source.Entities.Enemies
 
         public bool IsKicked = false;
 
+        public bool Patrol = true;
+
+        public bool Tutorial = false;
+
         public AbstractEnemy(AbstractScene scene, Vector2 position, Direction direction) : base(scene.LayerManager.EntityLayer, null, position)
         {
             AddTag("Enemy");
@@ -40,16 +45,16 @@ namespace lurum_dare_48.Source.Entities.Enemies
 
         public override void FixedUpdate()
         {
-            if (!Static)
+            if (!Static && Patrol)
             {
-                if (CurrentFaceDirection == Direction.WEST)
+                /*if (CurrentFaceDirection == Direction.WEST)
                 {
                     Velocity += speed * -1;
                 }
                 else
                 {
                     Velocity += speed;
-                }
+                }*/
             }
             base.FixedUpdate();
         }
