@@ -20,6 +20,8 @@ namespace lurum_dare_48.Source.Entities.Pickups
         {
             DrawPriority = 8;
 
+            Amount = amount;
+
             AddComponent(new Sprite(this, Assets.GetTexture("FuelCan")));
 
             AddComponent(new BoxCollisionComponent(this, Config.GRID, Config.GRID));

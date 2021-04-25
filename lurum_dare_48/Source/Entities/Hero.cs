@@ -234,11 +234,18 @@ namespace lurum_dare_48.Source.Entities
                     Timer.TriggerAfter(1500, () =>
                     {
                         FuelCan can = new FuelCan(scene, canSpawnPos + new Vector2(0, -20), TankCapacity);
-                        can.Velocity += new Vector2(-2, -1);
+                        can.Velocity += new Vector2(-3, -1);
                         can.CollisionsEnabled = false;
+
+                        Ammo ammo = new Ammo(scene, canSpawnPos + new Vector2(0, -20), 20, typeof(Handgun));
+                        ammo.Velocity += new Vector2(-4f, -1.5f);
+                        ammo.CollisionsEnabled = false;
                         Timer.TriggerAfter(2000, () =>
                         {
                             can.CollisionsEnabled = true;
+                            ammo.CollisionsEnabled = true;
+
+                            new TextPopup(Scene, Assets.GetTexture("FuelAmmoText"), Transform.Position + new Vector2(-20, -80), 0.3f, 3000);
                         });
                     });
 
@@ -554,6 +561,11 @@ namespace lurum_dare_48.Source.Entities
             if (otherCollider is FuelCan)
             {
                 AddFuel((otherCollider as FuelCan).Amount);
+                otherCollider.Destroy();
+            }
+            else if (otherCollider is Ammo)
+            {
+                CurrentWeapon.AddAmmo((otherCollider as Ammo).Amount);
                 otherCollider.Destroy();
             }
             else if (otherCollider is Door && IsCarryingItem("Key"))

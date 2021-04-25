@@ -74,6 +74,8 @@ namespace lurum_dare_48
             Assets.LoadTexture("ControlsText", "Text/controls_tutorial");
             Assets.LoadTexture("SpartaText", "Text/sparta");
 
+            Assets.LoadTexture("FuelAmmoText", "Text/fuel_ammo_pickup");
+
             Assets.LoadTexture("EnemyRun", "Enemies/enemy_run_left");
             Assets.LoadTexture("EnemyIdle", "Enemies/left_idle");
 

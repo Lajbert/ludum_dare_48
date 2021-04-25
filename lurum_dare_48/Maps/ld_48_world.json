@@ -1361,23 +1361,6 @@
 							}]
 						},
 						{
-							"__identifier": "Fuel",
-							"__grid": [43,8],
-							"__pivot": [0,0],
-							"__tile": null,
-							"width": 16,
-							"height": 16,
-							"defUid": 6,
-							"px": [688,128],
-							"fieldInstances": [{
-								"__identifier": "Amount",
-								"__value": 10,
-								"__type": "Float",
-								"defUid": 7,
-								"realEditorValues": [{ "id": "V_Float", "params": [10] }]
-							}]
-						},
-						{
 							"__identifier": "EnemyPatrolTrigger",
 							"__grid": [45,32],
 							"__pivot": [0,0],
