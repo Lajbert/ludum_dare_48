@@ -598,6 +598,21 @@ namespace lurum_dare_48.Source.Entities
             else if (otherCollider is AbstractEnemy)
             {
                 collidingWith.Add((otherCollider as AbstractEnemy));
+                if(!(otherCollider as AbstractEnemy).Tutorial && !IsKicking)
+                {
+                    if (Timer.IsSet("Invincible"))
+                    {
+                        return;
+                    }
+                    Timer.SetTimer("Invincible", 1000);
+                    Vector2 repel = new Vector2(-2, -1);
+                    if (otherCollider.Transform.Position.X < Transform.Position.X)
+                    {
+                        repel = new Vector2(2, -1);
+                    }
+                    Velocity += repel;
+                    Health--;
+                }
             }
             else if (otherCollider is Spikes)
             {
@@ -616,6 +631,7 @@ namespace lurum_dare_48.Source.Entities
                     repel.Y *= -1;
                 }
                 Velocity += repel;
+                Health--;
             }
 
 
@@ -652,6 +668,11 @@ namespace lurum_dare_48.Source.Entities
         public override void FixedUpdate()
         {
 
+            if (Health == 0)
+            {
+                Logger.Info("Game over");
+            }
+
             if (flying)
             {
                 FallSpeed = 0;
@@ -669,7 +690,6 @@ namespace lurum_dare_48.Source.Entities
                     }
                 }
             }
-
 
             base.FixedUpdate();
         }

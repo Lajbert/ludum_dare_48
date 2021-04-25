@@ -35,10 +35,10 @@ namespace lurum_dare_48.Source.Entities.Enemies
             animations.Offset = offset;
             AddComponent(animations);
             SpriteSheetAnimation runLeft = new SpriteSheetAnimation(this, Assets.GetTexture("EnemyRun"), 32, 32, 40);
-            animations.RegisterAnimation("RunLeft", runLeft, () => Velocity.X < 0 && CurrentFaceDirection == Direction.WEST);
+            animations.RegisterAnimation("RunLeft", runLeft, () => Velocity.X != 0 && CurrentFaceDirection == Direction.WEST);
 
             SpriteSheetAnimation runRight = runLeft.CopyFlipped();
-            animations.RegisterAnimation("RunRight", runRight, () => Velocity.X > 0 && CurrentFaceDirection == Direction.EAST);
+            animations.RegisterAnimation("RunRight", runRight, () => Velocity.X != 0 && CurrentFaceDirection == Direction.EAST);
 
             animations.AddFrameTransition("RunLeft", "RunRight");
 
