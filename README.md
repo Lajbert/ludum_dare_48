@@ -9,3 +9,5 @@ Controls:
 * Aim: Mouse
 * Fire: Left Mouse Click
 * Kick: Right Mouse Click
+
+Premise: you are in a deep underground cavern full of traps and enemies. To make things worse, deadly lava is flowing down and the escape route goes downwards. Will the perils of the cavern best you, or do you have what it takes to survive?
