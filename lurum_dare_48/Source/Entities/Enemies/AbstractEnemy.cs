@@ -36,6 +36,8 @@ namespace lurum_dare_48.Source.Entities.Enemies
 
         public bool Tutorial = false;
 
+        public bool DamageEffect = false;
+
         public AbstractEnemy(AbstractScene scene, Vector2 position, Direction direction) : base(scene.LayerManager.EntityLayer, null, position)
         {
             AddTag("Enemy");
@@ -80,6 +82,15 @@ namespace lurum_dare_48.Source.Entities.Enemies
             else if (bullet is ShotgunBullet)
             {
                 Health -= 1;
+            }
+
+            if (DamageEffect)
+            {
+                Visible = false;
+                Timer.TriggerAfter(50, () =>
+                {
+                    Visible = true;
+                });
             }
 
             if (!Static)

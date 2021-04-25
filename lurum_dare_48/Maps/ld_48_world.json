@@ -1801,17 +1801,6 @@
 							]
 						},
 						{
-							"__identifier": "Hero",
-							"__grid": [36,8],
-							"__pivot": [0,0],
-							"__tile": null,
-							"width": 16,
-							"height": 16,
-							"defUid": 2,
-							"px": [576,128],
-							"fieldInstances": []
-						},
-						{
 							"__identifier": "TutorialTrigger",
 							"__grid": [38,2],
 							"__pivot": [0,0],
@@ -1870,6 +1859,17 @@
 									"params": ["Controls"]
 								}]
 							}]
+						},
+						{
+							"__identifier": "Hero",
+							"__grid": [21,47],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 16,
+							"height": 16,
+							"defUid": 2,
+							"px": [336,752],
+							"fieldInstances": []
 						}
 					]
 				},

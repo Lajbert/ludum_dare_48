@@ -36,6 +36,9 @@ namespace lurum_dare_48.Source.Entities.Enemies
             AddTag("Enemy");
             Static = true;
             sprite = new Sprite(this, Assets.GetTexture("MountedGun"));
+
+            DamageEffect = true;
+
             sprite.Origin = new Vector2(4, 8);
             if (direction == Direction.WEST)
             {
