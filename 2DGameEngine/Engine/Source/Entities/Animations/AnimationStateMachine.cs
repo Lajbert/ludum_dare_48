@@ -213,5 +213,13 @@ namespace MonolithEngine.Engine.Source.Entities.Animations
             }
             return currentAnimation.state;
         }
+
+        public void Clear()
+        {
+            currentAnimation = null;
+            animations.Clear();
+            transitions.Clear();
+            animationOverride = null;
+        }
     }
 }

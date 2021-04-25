@@ -183,6 +183,17 @@ namespace MonolithEngine.Engine.Source.Camera2D
             }
         }
 
+        private float cameraLimitY;
+        public float CameraLimitY
+        {
+            set
+            {
+                cameraLimitY = value;
+                ValidateZoom();
+                ValidatePosition();
+            }
+        }
+
         public Matrix ViewMatrix
         {
             get
@@ -200,7 +211,7 @@ namespace MonolithEngine.Engine.Source.Camera2D
             {
                 Vector2 cameraWorldMin = Vector2.Transform(Vector2.Zero, Matrix.Invert(ViewMatrix));
                 Vector2 cameraSize = new Vector2(_viewport.Width, _viewport.Height) / _zoom;
-                Vector2 limitWorldMin = new Vector2(_limits.Value.Left, _limits.Value.Top);
+                Vector2 limitWorldMin = new Vector2(_limits.Value.Left, cameraLimitY);
                 Vector2 limitWorldMax = new Vector2(_limits.Value.Right, _limits.Value.Bottom);
                 Vector2 positionOffset = _position - cameraWorldMin;
                 _position = Vector2.Clamp(cameraWorldMin, limitWorldMin, limitWorldMax - cameraSize) + positionOffset;

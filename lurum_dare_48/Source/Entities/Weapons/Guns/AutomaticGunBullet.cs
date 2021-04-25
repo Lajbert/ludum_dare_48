@@ -2,30 +2,27 @@
 using Microsoft.Xna.Framework;
 using MonolithEngine;
 using MonolithEngine.Engine.Source.Asset;
-using MonolithEngine.Engine.Source.Entities;
 using MonolithEngine.Engine.Source.Entities.Abstract;
 using MonolithEngine.Engine.Source.Graphics;
 using MonolithEngine.Engine.Source.Physics.Collision;
 using MonolithEngine.Engine.Source.Scene;
-using MonolithEngine.Engine.Source.Util;
-using MonolithEngine.Global;
-using MonolithEngine.Source.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace lurum_dare_48.Source.Entities.Weapons.Guns
 {
-    class HandgunBullet : PhysicalEntity, IBullet
+    class AutomaticGunBullet : PhysicalEntity, IBullet
     {
         private Vector2 drawOffset = new Vector2(0, 1);
 
         protected Vector2 ImpactForce = new Vector2(0.3f, 0);
 
-        public HandgunBullet(AbstractScene scene, Vector2 position, Vector2 direction, float speedMultiplier = 2) : base(scene.LayerManager.EntityLayer, null, position)
+        public AutomaticGunBullet(AbstractScene scene, Vector2 position, Vector2 direction, float speedMultiplier = 2) : base(scene.LayerManager.EntityLayer, null, position)
         {
+
             Vector2 movement = direction - position;
-            if (movement != Vector2.Zero )
+            if (movement != Vector2.Zero)
             {
                 movement.Normalize();
             }
@@ -70,9 +67,9 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
 
         public override void OnCollisionStart(IGameObject otherCollider)
         {
-            if (otherCollider.HasTag("Enemy"))
+            if (otherCollider.HasTag("Hero"))
             {
-                (otherCollider as AbstractEnemy).Hit(this);
+                (otherCollider as Hero).Hit(this);
                 //otherCollider.Destroy();
             }
 

@@ -47,7 +47,13 @@ namespace lurum_dare_48
             Assets.LoadTexture("Kick", "Hero/Sprites/kick_jetpack_off");
             Assets.LoadTexture("KickJetpacking", "Hero/Sprites/kick_jetpack_on");
 
+            Assets.LoadTexture("HandgunBulletPoint", "Hero/Sprites/handgun_bullet_point");
+            Assets.LoadTexture("HandgunBulletShell", "Hero/Sprites/handgun_bullet_shell");
+            Assets.LoadTexture("ShotgunShell", "Hero/Sprites/shotgun_shelll");
+
             Assets.LoadTexture("Gun", "Hero/Sprites/handgun_left");
+            Assets.LoadTexture("Machinegun", "Hero/Sprites/machine_gun_left");
+            Assets.LoadTexture("Shotgun", "Hero/Sprites/shotgun");
 
             Assets.LoadTexture("Spikes", "Enivornment/Traps/spikes");
             Assets.LoadTexture("Saw", "Enivornment/Traps/saw");
@@ -58,6 +64,8 @@ namespace lurum_dare_48
             Assets.LoadTexture("MachineGunAmmo", "Enivornment/Items/machine_gun_ammo");
             Assets.LoadTexture("ShotgunAmmo", "Enivornment/Items/shotgun_ammo");
             Assets.LoadTexture("FuelCan", "Enivornment/Items/fuel_can");
+
+            Assets.LoadTexture("Lava", "Enivornment/Tilesheets/lava");
 
             MapSerializer mapSerializer = new LDTKJsonMapParser();
             world = mapSerializer.Load("D:/GameDev/MonoGame/lurum_dare_48/lurum_dare_48/lurum_dare_48/Maps/ld_48_world.json");

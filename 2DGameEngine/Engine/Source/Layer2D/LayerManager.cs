@@ -19,6 +19,8 @@ namespace MonolithEngine.Entities
 
         public Layer EntityLayer;
 
+        public Layer LavaLayer;
+
         private List<Layer> foregroundLayers = new List<Layer>();
 
         private List<Layer> backgroundLayers = new List<Layer>();
@@ -40,6 +42,8 @@ namespace MonolithEngine.Entities
                 throw new Exception("Root already initialized!");
             }
             EntityLayer = new Layer(scene, 10);
+
+            LavaLayer = new Layer(scene, 0);
 
             allLayers.Add(parallaxLayers);
             allLayers.Add(backgroundLayers);
@@ -75,6 +79,7 @@ namespace MonolithEngine.Entities
                     l.DrawAll(spriteBatch);
                 }
             }
+            LavaLayer.DrawAll(spriteBatch);
             //spriteBatch.End();
         }
 
@@ -87,6 +92,7 @@ namespace MonolithEngine.Entities
                     l.UpdateAll();
                 }
             }
+            LavaLayer.UpdateAll();
         }
 
         public void FixedUpdateAll()
@@ -98,6 +104,7 @@ namespace MonolithEngine.Entities
                     l.FixedUpdateAll();
                 }
             }
+            LavaLayer.FixedUpdateAll();
         }
 
         public Layer CreateForegroundLayer(int priority = 0)

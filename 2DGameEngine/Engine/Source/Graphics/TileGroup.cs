@@ -19,8 +19,18 @@ namespace MonolithEngine.Engine.Source.Graphics
 
         private Texture2D texture;
 
-        public TileGroup()
+        private int tileSize;
+
+        public TileGroup(int tileSize = 0)
         {
+            if (tileSize == 0)
+            {
+                this.tileSize = Config.GRID;
+            }
+            else
+            {
+                this.tileSize = tileSize;
+            }
         }
 
         public void AddTile(Texture2D texture, Vector2 position)
@@ -28,15 +38,15 @@ namespace MonolithEngine.Engine.Source.Graphics
             Color[] data = new Color[texture.Width * texture.Height];
             texture.GetData(data);
             tiles.Add(position, data);
-            width = Math.Max(width, (int)position.X + Config.GRID);
-            height = Math.Max(height, (int)position.Y + Config.GRID);
+            width = Math.Max(width, (int)position.X + tileSize);
+            height = Math.Max(height, (int)position.Y + tileSize);
         }
 
         public void AddColorData(Color[] data, Vector2 position)
         {
             tiles.Add(position, data);
-            width = Math.Max(width, (int)position.X + Config.GRID);
-            height = Math.Max(height, (int)position.Y + Config.GRID);
+            width = Math.Max(width, (int)position.X + tileSize);
+            height = Math.Max(height, (int)position.Y + tileSize);
         }
 
         public Texture2D GetTexture()
@@ -60,7 +70,7 @@ namespace MonolithEngine.Engine.Source.Graphics
             
             foreach(KeyValuePair<Vector2, Color[]> tile in tiles)
             {
-                texture.SetData(0, new Rectangle((int)tile.Key.X, (int)tile.Key.Y, Config.GRID, Config.GRID), tile.Value, 0, tile.Value.Length);
+                texture.SetData(0, new Rectangle((int)tile.Key.X, (int)tile.Key.Y, tileSize, tileSize), tile.Value, 0, tile.Value.Length);
             }
         }
     }

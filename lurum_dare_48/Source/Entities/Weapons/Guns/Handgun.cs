@@ -42,15 +42,10 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
             SpriteSheetAnimation animRight = animLeft.CopyFlipped();
             animLeft = animLeft.CopyFlipped();
             animLeft.FlipVertical();
-            //animLeft.FlipHorizontal();
-            //animLeft.FlipHorizontal();
             Animations.RegisterAnimation("GunLeft", animLeft, () => CurrentFaceDirection == Direction.WEST);
 
-            //SpriteSheetAnimation animRight = animLeft.CopyFlipped();
             Animations.RegisterAnimation("GunRight", animRight, () => CurrentFaceDirection == Direction.EAST);
 
-            //Texture = new Sprite(this, AssetUtil.CreateRectangle(Config.GRID / 2, Color.Aquamarine), new Rectangle(0, 0, Config.GRID, Config.GRID / 2));
-            //Texture.DrawOffset = Offset;
             //AddComponent(Texture);
 
             //DEBUG_SHOW_PIVOT = true;
@@ -76,7 +71,19 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
 
         private void SpawnBullet(Vector2 worldPosition)
         {
-            new HandgunBullet(Scene, Transform.Position + Offset, worldPosition);
+            SpawnShellsAndBullet(worldPosition, 5000, 8, new Vector2(0.1f, -0.2f));
+        }
+
+        private void SpawnShellsAndBullet(Vector2 worldPosition, int lifetime, int rotationOffset, Vector2 force)
+        {
+            Vector2 shellPos = MathUtil.RadToVector(AnimationRotation);
+            shellPos.Normalize();
+            if (CurrentFaceDirection == Direction.EAST)
+            {
+                force.X *= -1;
+            }
+            new BulletShell(Scene, Transform.Position + shellPos * rotationOffset, lifetime, force);
+            new HandgunBullet(Scene, Transform.Position + shellPos * rotationOffset, worldPosition);
         }
     }
 }

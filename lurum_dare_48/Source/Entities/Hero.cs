@@ -57,6 +57,8 @@ namespace lurum_dare_48.Source.Entities
 
             //DEBUG_SHOW_PIVOT = true;
 
+            AddTag("Hero");
+
             CanFireTriggers = true;
 
             DrawPriority = 10;
@@ -567,5 +569,10 @@ namespace lurum_dare_48.Source.Entities
 
             Velocity = movement * force;
         }
+
+        public void Hit(IBullet bullet)
+        {
+
+        } 
     }
 }
