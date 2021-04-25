@@ -3,6 +3,7 @@ using lurum_dare_48.Source.Entities.Items;
 using lurum_dare_48.Source.Entities.Traps;
 using lurum_dare_48.Source.Entities.Weapons.Guns;
 using Microsoft.Xna.Framework;
+using MonolithEngine.Engine.Source.Asset;
 using MonolithEngine.Engine.Source.Entities;
 using MonolithEngine.Engine.Source.Entities.Abstract;
 using MonolithEngine.Engine.Source.Graphics;
@@ -28,7 +29,7 @@ namespace lurum_dare_48.Source.Entities.Enemies
 
             AddCollisionAgainst("Spikes");
             CurrentFaceDirection = Direction.EAST;
-            AddComponent(new Sprite(this, AssetUtil.CreateRectangle(Config.GRID * 2, Color.Brown), new Rectangle(0, 0, Config.GRID * 2, Config.GRID * 2), offset));
+            AddComponent(new Sprite(this, Assets.CreateRectangle(Config.GRID * 2, Color.Brown), new Rectangle(0, 0, Config.GRID * 2, Config.GRID * 2), offset));
             AddComponent(new BoxCollisionComponent(this, Config.GRID * 2, Config.GRID * 2, offset));
 
             DEBUG_SHOW_COLLIDER = true;

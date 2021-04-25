@@ -71,6 +71,15 @@ namespace MonolithEngine.Engine.Source.Camera2D
             easedStop = easeOut;
         }
 
+        public bool IsOnTarget()
+        {
+            Vector2 targetPosition = target.Transform.Position + targetTracingOffset - new Vector2(_viewport.Width / 2.0f, _viewport.Height / 2.0f);
+            float zoomMultiplier = Math.Max(1, Zoom / 2);
+            float deadzone = Config.CAMERA_DEADZONE / zoomMultiplier;
+            float targetCameraDistance = Vector2.Distance(Position, targetPosition);
+            return targetCameraDistance <= deadzone;
+        }
+
         public void Update()
         {
             if (!SCROLL)

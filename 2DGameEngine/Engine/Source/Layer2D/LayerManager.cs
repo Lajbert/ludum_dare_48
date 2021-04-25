@@ -21,6 +21,8 @@ namespace MonolithEngine.Entities
 
         public Layer LavaLayer;
 
+        public Layer TutorialLayer;
+
         private List<Layer> foregroundLayers = new List<Layer>();
 
         private List<Layer> backgroundLayers = new List<Layer>();
@@ -45,6 +47,8 @@ namespace MonolithEngine.Entities
 
             LavaLayer = new Layer(scene, 0);
 
+            TutorialLayer = new Layer(scene, 0);
+
             allLayers.Add(parallaxLayers);
             allLayers.Add(backgroundLayers);
             allLayers.Add(
@@ -66,6 +70,8 @@ namespace MonolithEngine.Entities
                 }
                 layers.Clear();
             }
+            LavaLayer.Destroy();
+            TutorialLayer.Destroy();
             allLayers.Clear();
         }
 
@@ -80,6 +86,7 @@ namespace MonolithEngine.Entities
                 }
             }
             LavaLayer.DrawAll(spriteBatch);
+            TutorialLayer.DrawAll(spriteBatch);
             //spriteBatch.End();
         }
 
@@ -93,6 +100,7 @@ namespace MonolithEngine.Entities
                 }
             }
             LavaLayer.UpdateAll();
+            TutorialLayer.UpdateAll();
         }
 
         public void FixedUpdateAll()
@@ -105,6 +113,7 @@ namespace MonolithEngine.Entities
                 }
             }
             LavaLayer.FixedUpdateAll();
+            TutorialLayer.FixedUpdateAll();
         }
 
         public Layer CreateForegroundLayer(int priority = 0)
@@ -138,6 +147,30 @@ namespace MonolithEngine.Entities
         {
             layer.Remove(toRemove);
             layer.Sort((a, b) => a.Priority.CompareTo(b.Priority));
+        }
+
+        public void PauseForUserInput()
+        {
+            foreach (List<Layer> layers in allLayers)
+            {
+                foreach (Layer l in layers)
+                {
+                    l.Active = false;
+                }
+            }
+            LavaLayer.Active = false;
+        }
+
+        public void Continue()
+        {
+            foreach (List<Layer> layers in allLayers)
+            {
+                foreach (Layer l in layers)
+                {
+                    l.Active = true;
+                }
+            }
+            LavaLayer.Active = true;
         }
     }
 }

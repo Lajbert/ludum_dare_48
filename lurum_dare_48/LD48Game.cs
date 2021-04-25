@@ -69,6 +69,11 @@ namespace lurum_dare_48
 
             Assets.LoadTexture("MountedGun", "Enivornment/Traps/mounted_gun");
 
+            Assets.LoadTexture("IntroText", "Text/intro");
+            Assets.LoadTexture("KickText", "Text/kick_tutorial");
+            Assets.LoadTexture("ControlsText", "Text/controls_tutorial");
+            Assets.LoadTexture("SpartaText", "Text/sparta");
+
             MapSerializer mapSerializer = new LDTKJsonMapParser();
             world = mapSerializer.Load("D:/GameDev/MonoGame/lurum_dare_48/lurum_dare_48/lurum_dare_48/Maps/ld_48_world.json");
 

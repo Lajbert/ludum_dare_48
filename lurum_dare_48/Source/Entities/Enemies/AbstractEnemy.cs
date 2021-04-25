@@ -41,6 +41,8 @@ namespace lurum_dare_48.Source.Entities.Enemies
             AddTag("Enemy");
             CanFireTriggers = true;
             CurrentFaceDirection = direction;
+
+            DrawPriority = 5;
         }
 
         public override void FixedUpdate()

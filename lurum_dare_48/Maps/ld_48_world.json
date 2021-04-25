@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 32,
+	"nextUid": 34,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -106,7 +106,7 @@
 			"tilesetId": null,
 			"tileId": null,
 			"tileRenderMode": "FitInside",
-			"maxCount": 0,
+			"maxCount": 1,
 			"limitScope": "PerLevel",
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0,
@@ -592,6 +592,52 @@
 						"id": "V_Bool",
 						"params": [ true ]
 					},
+					"textLanguageMode": null
+				}
+			]
+		},
+		{
+			"identifier": "TutorialTrigger",
+			"uid": 32,
+			"tags": [],
+			"width": 16,
+			"height": 16,
+			"resizableX": true,
+			"resizableY": true,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": true,
+			"color": "#0DC05D",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "FitInside",
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": [
+				{
+					"identifier": "Tutorial",
+					"__type": "String",
+					"uid": 33,
+					"type": "F_String",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
 					"textLanguageMode": null
 				}
 			]
@@ -1284,17 +1330,6 @@
 					"gridTiles": [],
 					"entityInstances": [
 						{
-							"__identifier": "Hero",
-							"__grid": [38,8],
-							"__pivot": [0,0],
-							"__tile": null,
-							"width": 16,
-							"height": 16,
-							"defUid": 2,
-							"px": [608,128],
-							"fieldInstances": []
-						},
-						{
 							"__identifier": "Lava",
 							"__grid": [0,0],
 							"__pivot": [0,0],
@@ -1781,6 +1816,77 @@
 									}]
 								}
 							]
+						},
+						{
+							"__identifier": "Hero",
+							"__grid": [36,8],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 16,
+							"height": 16,
+							"defUid": 2,
+							"px": [576,128],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "TutorialTrigger",
+							"__grid": [38,2],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 96,
+							"height": 128,
+							"defUid": 32,
+							"px": [608,32],
+							"fieldInstances": [{
+								"__identifier": "Tutorial",
+								"__value": "Kick",
+								"__type": "String",
+								"defUid": 33,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Kick"]
+								}]
+							}]
+						},
+						{
+							"__identifier": "TutorialTrigger",
+							"__grid": [8,11],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 48,
+							"height": 32,
+							"defUid": 32,
+							"px": [128,176],
+							"fieldInstances": [{
+								"__identifier": "Tutorial",
+								"__value": "Intro",
+								"__type": "String",
+								"defUid": 33,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Intro"]
+								}]
+							}]
+						},
+						{
+							"__identifier": "TutorialTrigger",
+							"__grid": [12,6],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 64,
+							"height": 144,
+							"defUid": 32,
+							"px": [192,96],
+							"fieldInstances": [{
+								"__identifier": "Tutorial",
+								"__value": "Controls",
+								"__type": "String",
+								"defUid": 33,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Controls"]
+								}]
+							}]
 						}
 					]
 				},

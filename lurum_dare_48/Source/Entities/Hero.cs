@@ -4,6 +4,7 @@ using lurum_dare_48.Source.Entities.Items;
 using lurum_dare_48.Source.Entities.Pickups;
 using lurum_dare_48.Source.Entities.Weapons;
 using lurum_dare_48.Source.Entities.Weapons.Guns;
+using lurum_dare_48.Source.Tutorial;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonolithEngine;
@@ -38,7 +39,7 @@ namespace lurum_dare_48.Source.Entities
         private readonly float MAX_JUMP = 0.6f;
         private static float TankCapacity = 1000;
         private float currentJump = 0;
-        private float fuel = TankCapacity;
+        private float fuel = 0;
 
         private int jumpCount = 0;
 
@@ -57,6 +58,8 @@ namespace lurum_dare_48.Source.Entities
         private int defaultBoxCollisionWidth = 18;
 
         private BoxCollisionComponent collisionComponent;
+
+        public bool THIS_IS_SPARTAAAAA = false;
 
         public Hero(AbstractScene scene, Vector2 position) : base(scene.LayerManager.EntityLayer, null, position)
         {
@@ -218,6 +221,21 @@ namespace lurum_dare_48.Source.Entities
             });
             kickLeft.StartedCallback = () =>
             {
+                if (THIS_IS_SPARTAAAAA && collidingWith.Count > 0)
+                {
+                    THIS_IS_SPARTA();
+                    Globals.FixedUpdateMultiplier = 0.1f;
+
+                    Timer.TriggerAfter(3000, () =>
+                    {
+                        Globals.FixedUpdateMultiplier = 0.5f;
+
+                        Timer.Repeat(1000, (elapsedTime) =>
+                        {
+                            Scene.Camera.Zoom -= 0.002f * elapsedTime;
+                        });
+                    });
+                }
                 //IsKicking = true;
                 if (IsOnGround)
                 {
@@ -570,6 +588,7 @@ namespace lurum_dare_48.Source.Entities
 
         public override void FixedUpdate()
         {
+
             if (flying)
             {
                 FallSpeed = 0;
@@ -584,6 +603,16 @@ namespace lurum_dare_48.Source.Entities
                         if ((CurrentFaceDirection == Direction.WEST && Transform.X > enemy.Transform.X) || (CurrentFaceDirection == Direction.EAST&& Transform.X < enemy.Transform.X))
                         enemy.Hit(this);
                         enemy.IsKicked = true;
+
+                        /*if (THIS_IS_SPARTAAAAA)
+                        {
+                            THIS_IS_SPARTAAAAA = false;
+                            Globals.FixedUpdateMultiplier = 0.1f;
+                            Timer.TriggerAfter(2000, () =>
+                            {
+                                Globals.FixedUpdateMultiplier = 0.5f;
+                            });
+                        }*/
                     }
                 }
             }
@@ -629,5 +658,29 @@ namespace lurum_dare_48.Source.Entities
         {
 
         } 
+
+        public void DisplayIntro()
+        {
+            new TextPopup(Scene, Assets.GetTexture("IntroText"), Transform.Position + new Vector2(0, -140), 0.3f);
+        }
+
+        public void DisplayKickTutorial()
+        {
+            new TextPopup(Scene, Assets.GetTexture("KickText"), Transform.Position + new Vector2(0, -140), 0.3f);
+        }
+
+        public void DisplayControlsTutorial()
+        {
+            new TextPopup(Scene, Assets.GetTexture("ControlsText"), Transform.Position + new Vector2(0, 0), 0.3f);
+        }
+
+        public void THIS_IS_SPARTA()
+        {
+            Timer.Repeat(1000, (elapsedTime) =>
+            {
+                Scene.Camera.Zoom += 0.002f * elapsedTime;
+            });
+            new TextPopup(Scene, Assets.GetTexture("SpartaText"), Transform.Position + new Vector2(0, -70), 0.3f, 2000);
+        }
     }
 }

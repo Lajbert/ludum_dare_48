@@ -4,6 +4,7 @@ using lurum_dare_48.Source.Entities.Environment;
 using lurum_dare_48.Source.Entities.Pickups;
 using lurum_dare_48.Source.Entities.Traps;
 using lurum_dare_48.Source.Entities.Triggers;
+using lurum_dare_48.Source.Tutorial;
 using Microsoft.Xna.Framework;
 using MonolithEngine.Engine.Source.Entities;
 using MonolithEngine.Engine.Source.Level;
@@ -148,6 +149,18 @@ namespace lurum_dare_48.Source.Levels
                 else if (entity.Identifier.Equals("TrapTrigger"))
                 {
                     new TrapTrigger(scene, position, (int)entity.Width, (int)entity.Height);
+                }
+                else if (entity.Identifier.Equals("TutorialTrigger"))
+                {
+                    string tutorial = "";
+                    foreach (FieldInstance field in entity.FieldInstances)
+                    {
+                        if (field.Identifier == "Tutorial")
+                        {
+                            tutorial = field.Value;
+                        }
+                    }
+                    new TutorialTrigger(scene, position, (int)entity.Width, (int)entity.Height, tutorial);
                 }
             }
         }

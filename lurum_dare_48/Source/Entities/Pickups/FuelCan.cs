@@ -18,6 +18,8 @@ namespace lurum_dare_48.Source.Entities.Pickups
 
         public FuelCan(AbstractScene scene, Vector2 position, float amount) : base(scene, position)
         {
+            DrawPriority = 8;
+
             AddComponent(new Sprite(this, Assets.GetTexture("FuelCan")));
 
             AddComponent(new BoxCollisionComponent(this, Config.GRID, Config.GRID));

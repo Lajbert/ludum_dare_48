@@ -137,14 +137,14 @@ namespace lurum_dare_48.Source.Entities.Enemies
             {
                 foreach (Vector2 point in line)
                 {
-                    spriteBatch.Draw(AssetUtil.CreateRectangle(1, Color.Red), point, Color.White);
+                    spriteBatch.Draw(Assets.CreateRectangle(1, Color.Red), point, Color.White);
                 }
             }
             else
             {
                 foreach (Vector2 point in line)
                 {
-                    spriteBatch.Draw(AssetUtil.CreateRectangle(1, Color.Blue), point, Color.White);
+                    spriteBatch.Draw(Assets.CreateRectangle(1, Color.Blue), point, Color.White);
                 }
             }
             //line.Clear();
