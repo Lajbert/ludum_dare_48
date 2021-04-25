@@ -2,6 +2,8 @@
 # Theme: Deeper and Depper
 # Created in 48 hours by Lajbert, using [Monolith engine](https://github.com/Lajbert/MonolithEngine).
 
+Sprites and animations were created using Aseprite.
+
 Controls:
 * A,S,D: Move
 * W: Jump
