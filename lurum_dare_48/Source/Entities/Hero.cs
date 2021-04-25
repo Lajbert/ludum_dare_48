@@ -2,6 +2,7 @@
 using lurum_dare_48.Source.Entities.Environment;
 using lurum_dare_48.Source.Entities.Items;
 using lurum_dare_48.Source.Entities.Pickups;
+using lurum_dare_48.Source.Entities.Traps;
 using lurum_dare_48.Source.Entities.Weapons;
 using lurum_dare_48.Source.Entities.Weapons.Guns;
 using lurum_dare_48.Source.Tutorial;
@@ -68,6 +69,7 @@ namespace lurum_dare_48.Source.Entities
 
             AddTag("Hero");
             AddCollisionAgainst("Enemy");
+            AddCollisionAgainst("Spikes");
 
             CanFireTriggers = true;
 
@@ -89,7 +91,7 @@ namespace lurum_dare_48.Source.Entities
 
             collisionComponent = new BoxCollisionComponent(this, 18, 30, new Vector2(-8, -30));
             AddComponent(collisionComponent);
-            DEBUG_SHOW_COLLIDER = true;
+            //DEBUG_SHOW_COLLIDER = true;
 
             AnimationStateMachine animations = new AnimationStateMachine();
             animations.Offset = offset;
@@ -223,6 +225,7 @@ namespace lurum_dare_48.Source.Entities
             {
                 if (THIS_IS_SPARTAAAAA && collidingWith.Count > 0)
                 {
+                    THIS_IS_SPARTAAAAA = false;
                     THIS_IS_SPARTA();
                     Globals.FixedUpdateMultiplier = 0.1f;
 
@@ -452,17 +455,17 @@ namespace lurum_dare_48.Source.Entities
             UserInput.RegisterMouseActions(
                 () =>
                 {
-                    Timer.Repeat(300, (elapsedTime) =>
+                    /*Timer.Repeat(300, (elapsedTime) =>
                     {
                         Scene.Camera.Zoom += 0.002f * elapsedTime;
-                    });
+                    });*/
                 },
                 () =>
                 {
-                    Timer.Repeat(300, (elapsedTime) =>
+                    /*Timer.Repeat(300, (elapsedTime) =>
                     {
                         Scene.Camera.Zoom -= 0.002f * elapsedTime;
-                    });
+                    });*/
                 }
             , 100);
 
@@ -554,6 +557,24 @@ namespace lurum_dare_48.Source.Entities
             {
                 collidingWith.Add((otherCollider as AbstractEnemy));
             }
+            else if (otherCollider is Spikes)
+            {
+                if (Timer.IsSet("Invincible"))
+                {
+                    return;
+                }
+                Timer.SetTimer("Invincible", 1000);
+                Vector2 repel = new Vector2(-2, -1);
+                if (otherCollider.Transform.Position.X < Transform.Position.X)
+                {
+                    repel = new Vector2(2, -1);
+                }
+                if ((otherCollider as Spikes).Direction == Direction.SOUTH)
+                {
+                    repel.Y *= -1;
+                }
+                Velocity += repel;
+            }
 
 
             base.OnCollisionStart(otherCollider);
@@ -603,16 +624,6 @@ namespace lurum_dare_48.Source.Entities
                         if ((CurrentFaceDirection == Direction.WEST && Transform.X > enemy.Transform.X) || (CurrentFaceDirection == Direction.EAST&& Transform.X < enemy.Transform.X))
                         enemy.Hit(this);
                         enemy.IsKicked = true;
-
-                        /*if (THIS_IS_SPARTAAAAA)
-                        {
-                            THIS_IS_SPARTAAAAA = false;
-                            Globals.FixedUpdateMultiplier = 0.1f;
-                            Timer.TriggerAfter(2000, () =>
-                            {
-                                Globals.FixedUpdateMultiplier = 0.5f;
-                            });
-                        }*/
                     }
                 }
             }
