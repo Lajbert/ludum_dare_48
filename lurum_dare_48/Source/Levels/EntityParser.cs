@@ -62,7 +62,7 @@ namespace lurum_dare_48.Source.Levels
                             amount = (float) field.Value;
                         }
                     }
-                    new Fuel(scene, position, amount);
+                    new FuelCan(scene, position, amount);
                 }
                 else if (entity.Identifier.Equals("EnemyPatrolTrigger"))
                 {
@@ -109,6 +109,22 @@ namespace lurum_dare_48.Source.Levels
                     }
                     List<int> param = array.ToObject<List<int>>();
                     new MountedGun(scene, position, dir, param[0], param[1], param[2], param[3]);
+                }
+                else if (entity.Identifier.Equals("Saw"))
+                {
+                    bool horizontal = false;
+                    foreach (FieldInstance field in entity.FieldInstances)
+                    {
+                        if (field.Identifier == "Horizontal")
+                        {
+                            horizontal = field.Value;
+                        }
+                    }
+                    new Saw(scene, position, horizontal);
+                }
+                else if (entity.Identifier.Equals("TrapTrigger"))
+                {
+                    new TrapTrigger(scene, position, (int)entity.Width, (int)entity.Height);
                 }
             }
         }

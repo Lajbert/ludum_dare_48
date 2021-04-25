@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonolithEngine.Engine.Source.Asset;
 using MonolithEngine.Engine.Source.Entities;
 using MonolithEngine.Engine.Source.Graphics;
 using MonolithEngine.Engine.Source.Physics.Collision;
@@ -24,7 +25,7 @@ namespace lurum_dare_48.Source.Entities.Traps
             Direction = direction;
             AddTag("Spikes");
             TileGroup tg = new TileGroup();
-            Texture2D tileSet = AssetUtil.CreateRectangle(Config.GRID, Color.Orange);
+            Texture2D tileSet = Assets.GetTexture("Spikes");
             Color[] data = new Color[Config.GRID * Config.GRID];
             Sprite sprite = null;
 

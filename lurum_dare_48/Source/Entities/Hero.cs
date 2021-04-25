@@ -483,9 +483,9 @@ namespace lurum_dare_48.Source.Entities
 
         public override void OnCollisionStart(IGameObject otherCollider)
         {
-            if (otherCollider is Fuel)
+            if (otherCollider is FuelCan)
             {
-                AddFuel((otherCollider as Fuel).Amount);
+                AddFuel((otherCollider as FuelCan).Amount);
                 otherCollider.Destroy();
             }
             else if (otherCollider is Door && IsCarryingItem("Key"))

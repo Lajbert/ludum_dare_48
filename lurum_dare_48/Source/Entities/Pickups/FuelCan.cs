@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using MonolithEngine.Engine.Source.Asset;
 using MonolithEngine.Engine.Source.Graphics;
 using MonolithEngine.Engine.Source.Physics.Collision;
 using MonolithEngine.Engine.Source.Scene;
@@ -11,19 +12,19 @@ using System.Text;
 
 namespace lurum_dare_48.Source.Entities.Pickups
 {
-    class Fuel : StaticPickup
+    class FuelCan : StaticPickup
     {
         public float Amount;
 
-        public Fuel(AbstractScene scene, Vector2 position, float amount) : base(scene, position)
+        public FuelCan(AbstractScene scene, Vector2 position, float amount) : base(scene, position)
         {
-            AddComponent(new Sprite(this, AssetUtil.CreateRectangle(Config.GRID, Color.BlueViolet)));
+            AddComponent(new Sprite(this, Assets.GetTexture("FuelCan")));
 
             AddComponent(new BoxCollisionComponent(this, Config.GRID, Config.GRID));
 
 #if DEBUG
-            (GetCollisionComponent() as AbstractCollisionComponent).DEBUG_DISPLAY_COLLISION = true;
-            DEBUG_SHOW_PIVOT = true;
+            //(GetCollisionComponent() as AbstractCollisionComponent).DEBUG_DISPLAY_COLLISION = true;
+            //DEBUG_SHOW_PIVOT = true;
 #endif
         }
     }

@@ -1,6 +1,7 @@
 ﻿using lurum_dare_48.Source.Entities.Environment;
 using Microsoft.Xna.Framework;
 using MonolithEngine;
+using MonolithEngine.Engine.Source.Asset;
 using MonolithEngine.Engine.Source.Entities.Abstract;
 using MonolithEngine.Engine.Source.Graphics;
 using MonolithEngine.Engine.Source.Physics.Collision;
@@ -19,7 +20,7 @@ namespace lurum_dare_48.Source.Entities.Items
         {
             AddTag("Key");
 
-            AddComponent(new Sprite(this, AssetUtil.CreateRectangle(Config.GRID, Color.Aquamarine)));
+            AddComponent(new Sprite(this, Assets.GetTexture("Keycard")));
 
             AddComponent(new BoxCollisionComponent(this, Config.GRID, Config.GRID));
             CollisionsEnabled = false;
@@ -29,6 +30,8 @@ namespace lurum_dare_48.Source.Entities.Items
             {
                 CollisionsEnabled = true;
             });
+
+            //DEBUG_SHOW_COLLIDER = true;
         }
     }
 }

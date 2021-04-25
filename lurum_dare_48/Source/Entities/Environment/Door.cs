@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonolithEngine;
+using MonolithEngine.Engine.Source.Asset;
 using MonolithEngine.Engine.Source.Graphics;
 using MonolithEngine.Engine.Source.Physics.Collision;
 using MonolithEngine.Engine.Source.Scene;
@@ -16,12 +17,15 @@ namespace lurum_dare_48.Source.Entities.Environment
     {
         private bool isOpen = false;
 
+        private Sprite closedSprite;
+        private Sprite openSprite;
+
         public Door(AbstractScene scene, Vector2 position, int height, bool locked) : base (scene.LayerManager.EntityLayer, null, position)
         {
             AddTag("Door");
             CheckGridCollisions = false;
-
-            TileGroup tg = new TileGroup();
+            HasGravity = false;
+            /*TileGroup tg = new TileGroup();
             Texture2D tileSet = AssetUtil.CreateRectangle(Config.GRID, Color.Bisque);
             Color[] data = new Color[Config.GRID * Config.GRID];
             HasGravity = false;
@@ -48,11 +52,14 @@ namespace lurum_dare_48.Source.Entities.Environment
                 }
             }
             Sprite sprite = new Sprite(this, tg.GetTexture(), new Rectangle(0, 0, Config.GRID, height));
-            AddComponent(sprite);
+            AddComponent(sprite);*/
 
+            closedSprite = new Sprite(this, Assets.GetTexture("Door"), new Rectangle(0, 0, Config.GRID, 112));
+            openSprite = new Sprite(this, Assets.GetTexture("Door"), new Rectangle(Config.GRID, 0, Config.GRID, 112));
+            AddComponent(closedSprite);
             AddComponent(new BoxCollisionComponent(this, Config.GRID, height));
 
-            DEBUG_SHOW_COLLIDER = true;
+            //DEBUG_SHOW_COLLIDER = true;
         }
 
         public void Open()
@@ -64,7 +71,9 @@ namespace lurum_dare_48.Source.Entities.Environment
 
             isOpen = true;
 
-            Timer.Repeat(1000, (elapsedTime) =>
+            RemoveComponent<Sprite>();
+            AddComponent(openSprite);
+            Timer.Repeat(1300, (elapsedTime) =>
             {
                 VelocityY -= 0.001f * elapsedTime;
             });

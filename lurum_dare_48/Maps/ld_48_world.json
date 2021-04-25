@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 24,
+	"nextUid": 27,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -479,6 +479,55 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
+					"textLanguageMode": null
+				}
+			]
+		},
+		{
+			"identifier": "Saw",
+			"uid": 24,
+			"tags": [],
+			"width": 16,
+			"height": 16,
+			"resizableX": false,
+			"resizableY": false,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#94D9B3",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "FitInside",
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": [
+				{
+					"identifier": "Horizontal",
+					"__type": "Bool",
+					"uid": 26,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_Bool",
+						"params": [ true ]
+					},
 					"textLanguageMode": null
 				}
 			]
@@ -1103,13 +1152,13 @@
 					"entityInstances": [
 						{
 							"__identifier": "Hero",
-							"__grid": [10,10],
+							"__grid": [41,6],
 							"__pivot": [0,0],
 							"__tile": null,
 							"width": 16,
 							"height": 16,
 							"defUid": 2,
-							"px": [160,160],
+							"px": [656,96],
 							"fieldInstances": []
 						},
 						{
@@ -1244,36 +1293,14 @@
 							"px": [384,480],
 							"fieldInstances": [{
 								"__identifier": "Direction",
-								"__value": "SOUTH",
+								"__value": "NORTH",
 								"__type": "LocalEnum.Direction",
 								"defUid": 9,
 								"realEditorValues": [{
 									"id": "V_String",
-									"params": ["SOUTH"]
+									"params": ["NORTH"]
 								}]
 							}]
-						},
-						{
-							"__identifier": "TrapTrigger",
-							"__grid": [12,24],
-							"__pivot": [0,0],
-							"__tile": null,
-							"width": 192,
-							"height": 112,
-							"defUid": 18,
-							"px": [192,384],
-							"fieldInstances": []
-						},
-						{
-							"__identifier": "TrapTrigger",
-							"__grid": [8,31],
-							"__pivot": [0,0],
-							"__tile": null,
-							"width": 64,
-							"height": 256,
-							"defUid": 18,
-							"px": [128,496],
-							"fieldInstances": []
 						},
 						{
 							"__identifier": "Fuel",
@@ -1397,10 +1424,10 @@
 								},
 								{
 									"__identifier": "Integer",
-									"__value": [256,350,0,-128],
+									"__value": [256,360,0,-128],
 									"__type": "Array<Int>",
 									"defUid": 21,
-									"realEditorValues": [ { "id": "V_Int", "params": [256] }, { "id": "V_Int", "params": [350] }, { "id": "V_Int", "params": [0] }, { "id": "V_Int", "params": [-128] } ]
+									"realEditorValues": [ { "id": "V_Int", "params": [256] }, { "id": "V_Int", "params": [360] }, { "id": "V_Int", "params": [0] }, { "id": "V_Int", "params": [-128] } ]
 								}
 							]
 						},
@@ -1414,6 +1441,99 @@
 							"defUid": 13,
 							"px": [640,672],
 							"fieldInstances": []
+						},
+						{
+							"__identifier": "Spikes",
+							"__grid": [8,24],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 16,
+							"height": 112,
+							"defUid": 4,
+							"px": [128,384],
+							"fieldInstances": [{
+								"__identifier": "Direction",
+								"__value": "EAST",
+								"__type": "LocalEnum.Direction",
+								"defUid": 9,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["EAST"]
+								}]
+							}]
+						},
+						{
+							"__identifier": "Spikes",
+							"__grid": [11,35],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 16,
+							"height": 128,
+							"defUid": 4,
+							"px": [176,560],
+							"fieldInstances": [{
+								"__identifier": "Direction",
+								"__value": "WEST",
+								"__type": "LocalEnum.Direction",
+								"defUid": 9,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["WEST"]
+								}]
+							}]
+						},
+						{
+							"__identifier": "Saw",
+							"__grid": [36,5],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 16,
+							"height": 16,
+							"defUid": 24,
+							"px": [576,80],
+							"fieldInstances": [{ "__identifier": "Horizontal", "__value": true, "__type": "Bool", "defUid": 26, "realEditorValues": [] }]
+						},
+						{
+							"__identifier": "TrapTrigger",
+							"__grid": [33,5],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 112,
+							"height": 16,
+							"defUid": 18,
+							"px": [528,80],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "TrapTrigger",
+							"__grid": [30,1],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 16,
+							"height": 96,
+							"defUid": 18,
+							"px": [480,16],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Saw",
+							"__grid": [30,4],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 16,
+							"height": 16,
+							"defUid": 24,
+							"px": [480,64],
+							"fieldInstances": [{
+								"__identifier": "Horizontal",
+								"__value": false,
+								"__type": "Bool",
+								"defUid": 26,
+								"realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ false ]
+								}]
+							}]
 						}
 					]
 				},

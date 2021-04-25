@@ -49,6 +49,16 @@ namespace lurum_dare_48
 
             Assets.LoadTexture("Gun", "Hero/Sprites/handgun_left");
 
+            Assets.LoadTexture("Spikes", "Enivornment/Traps/spikes");
+            Assets.LoadTexture("Saw", "Enivornment/Traps/saw");
+            Assets.LoadTexture("Keycard", "Enivornment/Items/key");
+            Assets.LoadTexture("Door", "Enivornment/Items/door");
+
+            Assets.LoadTexture("HandgunAmmo", "Enivornment/Items/pistol_ammo");
+            Assets.LoadTexture("MachineGunAmmo", "Enivornment/Items/machine_gun_ammo");
+            Assets.LoadTexture("ShotgunAmmo", "Enivornment/Items/shotgun_ammo");
+            Assets.LoadTexture("FuelCan", "Enivornment/Items/fuel_can");
+
             MapSerializer mapSerializer = new LDTKJsonMapParser();
             world = mapSerializer.Load("D:/GameDev/MonoGame/lurum_dare_48/lurum_dare_48/lurum_dare_48/Maps/ld_48_world.json");
 
