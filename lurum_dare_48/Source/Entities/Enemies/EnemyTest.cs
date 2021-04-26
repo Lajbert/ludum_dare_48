@@ -59,11 +59,15 @@ namespace lurum_dare_48.Source.Entities.Enemies
 
             CollisionOffsetBottom = 1;
 
-            AddComponent(new BoxCollisionComponent(this, 18, 30, new Vector2(-8, -30)));
+            //AddComponent(new BoxCollisionComponent(this, 18, 30, new Vector2(-8, -30)));
 
             if (!Tutorial)
             {
-                //AddComponent(new BoxTrigger)
+                AddComponent(new BoxCollisionComponent(this, 18, 30, new Vector2(-8, -30)));
+            }
+            else
+            {
+                AddComponent(new BoxCollisionComponent(this, 22, 30, new Vector2(-8, -30)));
             }
 
             //DEBUG_SHOW_COLLIDER = true;
