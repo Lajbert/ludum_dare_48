@@ -2,7 +2,9 @@
 # Theme: Deeper and Depper
 # Created in 48 hours by Lajbert, using [Monolith engine](https://github.com/Lajbert/MonolithEngine).
 
-Sprites and animations were created using Aseprite.
+The map editor I use to create maps for my games: [LDtk](https://ldtk.io/)
+
+Sprites and animations were created by me using Aseprite.
 
 Controls:
 * A,S,D: Move
