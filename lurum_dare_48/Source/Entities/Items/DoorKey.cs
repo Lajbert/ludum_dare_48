@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using MonolithEngine;
 using MonolithEngine.Engine.Source.Asset;
+using MonolithEngine.Engine.Source.Audio;
 using MonolithEngine.Engine.Source.Entities.Abstract;
 using MonolithEngine.Engine.Source.Graphics;
 using MonolithEngine.Engine.Source.Physics.Collision;
@@ -32,6 +33,12 @@ namespace lurum_dare_48.Source.Entities.Items
             });
 
             //DEBUG_SHOW_COLLIDER = true;
+        }
+
+        public override void Destroy()
+        {
+            AudioEngine.Play("KeyPickup");
+            base.Destroy();
         }
     }
 }

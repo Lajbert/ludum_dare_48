@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using MonolithEngine;
 using MonolithEngine.Engine.Source.Asset;
+using MonolithEngine.Engine.Source.Audio;
 using MonolithEngine.Engine.Source.Entities.Abstract;
 using MonolithEngine.Engine.Source.Graphics;
 using MonolithEngine.Engine.Source.Physics.Collision;
@@ -62,6 +63,8 @@ namespace lurum_dare_48.Source.Entities
         {
             if (otherCollider is Hero)
             {
+                AudioEngine.MuteAll();
+                Scene.SceneManager.LoadScene("LoseGameScreen");
                 Logger.Info("The game should end now");
             }
             base.OnCollisionStart(otherCollider);

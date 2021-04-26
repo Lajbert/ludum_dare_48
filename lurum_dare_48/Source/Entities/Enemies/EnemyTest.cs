@@ -5,6 +5,7 @@ using lurum_dare_48.Source.Entities.Traps;
 using lurum_dare_48.Source.Entities.Weapons.Guns;
 using Microsoft.Xna.Framework;
 using MonolithEngine.Engine.Source.Asset;
+using MonolithEngine.Engine.Source.Audio;
 using MonolithEngine.Engine.Source.Entities;
 using MonolithEngine.Engine.Source.Entities.Abstract;
 using MonolithEngine.Engine.Source.Entities.Animations;
@@ -70,6 +71,7 @@ namespace lurum_dare_48.Source.Entities.Enemies
 
         public override void Destroy()
         {
+            AudioEngine.Play("EnemyDie");
             foreach (string item in CarriedItems)
             {
                 if (item == "Key")

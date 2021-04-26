@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonolithEngine.Engine.Source.Asset;
+using MonolithEngine.Engine.Source.Audio;
 using MonolithEngine.Engine.Source.Scene;
 using MonolithEngine.Engine.Source.Scene.Transition;
 using MonolithEngine.Engine.Source.UI;
@@ -114,7 +115,7 @@ namespace lurum_dare_48.Source.Levels
 
         public override void OnEnd()
         {
-            
+            AudioEngine.Pause("Music");
         }
 
         public override void OnFinished()
@@ -127,6 +128,7 @@ namespace lurum_dare_48.Source.Levels
             Camera.TrackTarget(hero, true);
             LD48Game.Paused = false;
             LD48Game.WasGameStarted = true;
+            AudioEngine.Play("Music");
         }
     }
 }

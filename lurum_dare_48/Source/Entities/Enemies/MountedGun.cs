@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonolithEngine;
 using MonolithEngine.Engine.Source.Asset;
+using MonolithEngine.Engine.Source.Audio;
 using MonolithEngine.Engine.Source.Entities;
 using MonolithEngine.Engine.Source.Entities.Abstract;
 using MonolithEngine.Engine.Source.Graphics;
@@ -115,6 +116,7 @@ namespace lurum_dare_48.Source.Entities.Enemies
             }
             Timer.SetTimer("MountedGunFiring" + GetID(), 1000);
             new MountedGunBullet(Scene, Transform.Position + middleOffset, hero.Transform.Position);
+            AudioEngine.Play("MountedGunShoot");
         }
 
         public override void OnEnterTrigger(string triggerTag, IGameObject otherEntity)
@@ -124,6 +126,12 @@ namespace lurum_dare_48.Source.Entities.Enemies
                    hero = otherEntity as Hero;
             }
 
+        }
+
+        public override void Destroy()
+        {
+            base.Destroy();
+            AudioEngine.Play("MountedGunExplode");
         }
 
         public override void OnLeaveTrigger(string triggerTag, IGameObject otherEntity)

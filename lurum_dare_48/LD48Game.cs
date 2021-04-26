@@ -131,6 +131,23 @@ namespace lurum_dare_48
 
             Assets.LoadTexture("UIHealth", "Hero/Sprites/UI_health");
 
+            AudioEngine.AddSound("AmmoPickup", "Audio/ammo_pickup");
+            AudioEngine.AddSound("FuelPickup", "Audio/fuel_pickup");
+            AudioEngine.AddSound("HandgunShot", "Audio/handgun_shot");
+            AudioEngine.AddSound("HealthPickup", "Audio/health_pickup");
+            AudioEngine.AddSound("HeroJump", "Audio/hero_jump");
+            AudioEngine.AddSound("KeyPickup", "Audio/key_pickup");
+            AudioEngine.AddSound("MachineGunShot", "Audio/machine_gun_shot");
+            AudioEngine.AddSound("MountedGunExplode", "Audio/mounted_gun_explode");
+            AudioEngine.AddSound("MountedGunShoot", "Audio/mounted_gun_shoot");
+            AudioEngine.AddSound("ShotgunShot", "Audio/shotgun_shot");
+            AudioEngine.AddSound("Kick", "Audio/kick");
+            AudioEngine.AddSound("HeroHurt", "Audio/hurt");
+            AudioEngine.AddSound("EnemyDie", "Audio/enemy_die");
+            AudioEngine.AddSound("DoorOpen", "Audio/door_open");
+            AudioEngine.AddSound("Jetpack", "Audio/jetpack", true);
+            AudioEngine.AddSound("Music", "Audio/8-bit (1)", true);
+
             MapSerializer mapSerializer = new LDTKJsonMapParser();
             world = mapSerializer.Load("D:/GameDev/MonoGame/lurum_dare_48/lurum_dare_48/lurum_dare_48/Maps/ld_48_world.json");
 

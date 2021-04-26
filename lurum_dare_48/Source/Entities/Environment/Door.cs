@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using MonolithEngine;
 using MonolithEngine.Engine.Source.Asset;
+using MonolithEngine.Engine.Source.Audio;
 using MonolithEngine.Engine.Source.Graphics;
 using MonolithEngine.Engine.Source.Physics.Collision;
 using MonolithEngine.Engine.Source.Scene;
@@ -70,7 +71,7 @@ namespace lurum_dare_48.Source.Entities.Environment
             }
 
             isOpen = true;
-
+            AudioEngine.Play("DoorOpen");
             RemoveComponent<Sprite>();
             AddComponent(openSprite);
             Timer.Repeat(1050, (elapsedTime) =>

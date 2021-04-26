@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonolithEngine;
 using MonolithEngine.Engine.Source.Asset;
+using MonolithEngine.Engine.Source.Audio;
 using MonolithEngine.Engine.Source.Entities;
 using MonolithEngine.Engine.Source.Entities.Abstract;
 using MonolithEngine.Engine.Source.Entities.Animations;
@@ -222,6 +223,7 @@ namespace lurum_dare_48.Source.Entities
             kickLeft.Looping = false;
             kickLeft.AddFrameAction(5, (frame) =>
             {
+                AudioEngine.Play("Kick");
                 IsKicking = true;
             });
             kickLeft.AddFrameAction(6, (frame) =>
@@ -313,6 +315,7 @@ namespace lurum_dare_48.Source.Entities
             kickJetpackLeft.Looping = false;
             kickJetpackLeft.AddFrameAction(5, (frame) =>
             {
+                AudioEngine.Play("Kick");
                 IsKicking = true;
             });
             kickJetpackLeft.AddFrameAction(6, (frame) =>
@@ -322,7 +325,6 @@ namespace lurum_dare_48.Source.Entities
             kickJetpackLeft.StartedCallback = () =>
             {
                 //IsKicking = true;
-
                 if (CurrentWeapon == null)
                 {
                     return;
@@ -398,6 +400,7 @@ namespace lurum_dare_48.Source.Entities
                     currentJump += JUMP_FORCE;
                     VelocityY -= JUMP_FORCE;
                     FallSpeed = 0;
+                    AudioEngine.Play("HeroJump", true);
                     //jumpCount++;
                 }
             });
@@ -469,6 +472,7 @@ namespace lurum_dare_48.Source.Entities
             {
                 if (Fuel > 0)
                 {
+                    //AudioEngine.Play("Jetpack");
                     VelocityY -= JETPACK_SPEED;
                     Fuel -= JETPACK_SPEED;
                     flying = true;
@@ -486,6 +490,7 @@ namespace lurum_dare_48.Source.Entities
             UserInput.RegisterKeyReleaseAction(Keys.Space, () =>
             {
                 flying = false;
+                //AudioEngine.Stop("Jetpack");
             });
 
             UserInput.RegisterMouseActions(
@@ -618,6 +623,7 @@ namespace lurum_dare_48.Source.Entities
                     }
                     Velocity += repel;
                     Health--;
+                    AudioEngine.Play("HeroHurt", true);
                 }
             }
             else if (otherCollider is Spikes)
@@ -638,6 +644,7 @@ namespace lurum_dare_48.Source.Entities
                 }
                 Velocity += repel;
                 Health--;
+                AudioEngine.Play("HeroHurt", true);
             }
             else if (otherCollider is Saw)
             {
@@ -653,11 +660,13 @@ namespace lurum_dare_48.Source.Entities
                 }
                 Velocity += repel;
                 Health--;
+                AudioEngine.Play("HeroHurt", true);
             }
             else if (otherCollider is MountedGunBullet)
             {
                 otherCollider.Destroy();
                 Health--;
+                AudioEngine.Play("HeroHurt", true);
             }
 
 
@@ -712,6 +721,7 @@ namespace lurum_dare_48.Source.Entities
             if (Health == 0)
             {
                 Logger.Info("Game over");
+                AudioEngine.MuteAll();
                 Scene.SceneManager.LoadScene("LoseGameScreen");
             }
 

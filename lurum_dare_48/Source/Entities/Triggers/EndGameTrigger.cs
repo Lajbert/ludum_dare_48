@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using MonolithEngine.Engine.Source.Audio;
 using MonolithEngine.Engine.Source.Entities.Abstract;
 using MonolithEngine.Engine.Source.Physics.Trigger;
 using MonolithEngine.Engine.Source.Scene;
@@ -23,6 +24,7 @@ namespace lurum_dare_48.Source.Entities.Triggers
         public override void OnEnterTrigger(string triggerTag, IGameObject otherEntity)
         {
             base.OnEnterTrigger(triggerTag, otherEntity);
+            AudioEngine.MuteAll();
             if (otherEntity is Hero)
             {
                 Scene.Finish();

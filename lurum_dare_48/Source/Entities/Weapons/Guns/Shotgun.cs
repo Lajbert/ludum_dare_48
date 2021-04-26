@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using MonolithEngine.Engine.Source.Asset;
+using MonolithEngine.Engine.Source.Audio;
 using MonolithEngine.Engine.Source.Entities;
 using MonolithEngine.Engine.Source.Entities.Animations;
 using MonolithEngine.Engine.Source.Scene;
@@ -81,6 +82,7 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
             }
             SpawnShells(5000, 8, new Vector2(0.1f, -0.2f));
             AllAmmo--;
+            AudioEngine.Play("ShotgunShot");
         }
 
         private void SpawnShells(int lifetime, int rotationOffset, Vector2 force)

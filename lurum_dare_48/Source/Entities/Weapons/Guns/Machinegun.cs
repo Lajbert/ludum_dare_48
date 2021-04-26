@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using MonolithEngine.Engine.Source.Asset;
+using MonolithEngine.Engine.Source.Audio;
 using MonolithEngine.Engine.Source.Entities;
 using MonolithEngine.Engine.Source.Entities.Animations;
 using MonolithEngine.Engine.Source.Graphics;
@@ -70,11 +71,13 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
             Timer.SetTimer("Firing", FIRE_RATE);
             SpawnBullet(worldPosition);
             hero.WeaponKickback(worldPosition, 0.5f);
+            AudioEngine.Play("MachineGunShot");
         }
 
         public override void TriggerReleased(Vector2 worldPosition)
         {
             firing = false;
+            AudioEngine.Stop("MachineGunShot");
         }
 
         private void SpawnBullet(Vector2 worldPosition)

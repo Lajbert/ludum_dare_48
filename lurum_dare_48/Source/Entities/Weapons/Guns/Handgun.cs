@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using MonolithEngine.Engine.Source.Asset;
+using MonolithEngine.Engine.Source.Audio;
 using MonolithEngine.Engine.Source.Entities;
 using MonolithEngine.Engine.Source.Entities.Animations;
 using MonolithEngine.Engine.Source.Graphics;
@@ -78,6 +79,7 @@ namespace lurum_dare_48.Source.Entities.Weapons.Guns
         {
             SpawnShellsAndBullet(worldPosition, 5000, 8, new Vector2(0.1f, -0.2f));
             AllAmmo--;
+            AudioEngine.Play("HandgunShot");
         }
 
         private void SpawnShellsAndBullet(Vector2 worldPosition, int lifetime, int rotationOffset, Vector2 force)
